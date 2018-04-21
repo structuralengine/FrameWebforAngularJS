@@ -5,11 +5,12 @@
 ```
 > cd working_directory 
 > git clone "https://github.com/structuralengine/FrameWebforJS.git" FrameWebforJS
+> cd FrameWebforJS 
 ```
+
 ## bower, gulp の準備
 
 ```
-> cd FrameWebforJS 
 > npm install -g gulp-cli
 > npm install -g bower
 ```
@@ -29,7 +30,10 @@
 > gulp serve
 ```
 
+Nisual studio Core を使う場合は、"F5" でも同じです
+
 「 http://localhost:9000 」でアクセス可能です。
+
 
 ### 配布用ファイルの作成 (dist/ ディレクトリ）
 
@@ -51,21 +55,6 @@ command gulp により、内部で gulp build が実行され、dist ディレ�
 
 # javascript の作り方
 
-## バンドラ
-
-**バンドラ**とは、ブラウザには import や require の仕組みがないので、複数のファイルに分け、import してコーディングしたものを、強引に１つのファイルにまとめるツールのことです。
-呼び出している部分を、別ファイルの内容で書き換える
-
-よく利用するバンドラとしては
-
-- WebPack
-    - https://webpack.github.io
-- Rollup
-    - https://rollupjs.org
-
-今回は、 WebPack を使います.
-
-
 ## トランスパイラ
 
 **トランスパイラ**とは、ECMAScript6（以下 es6） でコーディングされたjavascriptと現代のブラウザで動くようにダウングレードするツールのことです。
@@ -78,27 +67,6 @@ command gulp により、内部で gulp build が実行され、dist ディレ�
     - https://buble.surge.sh
 
 今回は、 babel を使います.
-
-
-### babelをパソコン(グローバル環境)にインストールする
-
-```
-> npm install -g babel-cli
-> npm install --save-dev babel-preset-es2015
-```
-
-### babelでes6のコードをトランスパイル＆実行する
-
-```
-> babel basic.es6.js -o basic.jp --presets es2015
-```
-
-これで、es6 で書かれた *basic.es6.js* を変換し、*basic.jp* として出力する
-また、*basic.es6.js*の変更を監視して、変更都度に変換再処理を実行したければ、以下のように -w オプションを付与する
-
-```
-> babel -w basic.es6.js -o basic.jp --presets es2015
-```
 
 
 ## タスクランナー
@@ -114,25 +82,21 @@ command gulp により、内部で gulp build が実行され、dist ディレ�
 
 今回は、 Gulp を使います.
 
-### glupをパソコン(グローバル環境)にインストールする
-
-```
-> npm install -g gulp-cli 
-```
-
-### gulpfile.js(設定ファイル)を準備する
-
-以下は、glupを利用するための基本的な定義ファイルです。
-
-```javascript:gulpfile.js
-gulp.task('hello', function() {
-  console.log('Hello gulp!');
-});
- 
-gulp.task('default', ['hello']);
-```
 
 
+## バンドラ
+
+**バンドラ**とは、ブラウザには import や require の仕組みがないので、複数のファイルに分け、import してコーディングしたものを、強引に１つのファイルにまとめるツールのことです。
+呼び出している部分を、別ファイルの内容で書き換える
+
+よく利用するバンドラとしては
+
+- WebPack
+    - https://webpack.github.io
+- Rollup
+    - https://rollupjs.org
+
+今回は、 上記の **タスクランナー** が代替えしているので使いません
 
 
 # コーディング規約
