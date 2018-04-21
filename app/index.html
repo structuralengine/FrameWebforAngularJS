@@ -8,6 +8,23 @@
     
     <link rel="favicon" href="favicon.ico">
 
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/pikaday/css/pikaday.css" />
+    <link rel="stylesheet" href="/bower_components/handsontable-pro/dist/handsontable.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/basic-information.css">
+    <link rel="stylesheet" href="styles/members.css">
+    <link rel="stylesheet" href="styles/design-points.css">
+    <link rel="stylesheet" href="styles/fatigues.css">
+    <link rel="stylesheet" href="styles/safety-factors.css">
+    <!-- endbuild -->
   </head>
   <body ng-app="webframe" ng-cloak>
     <!--[if lt IE 10]>
@@ -16,7 +33,9 @@
 
     <div class="container">
       <div class="header">
+        <ul class="nav nav-pills pull-right" ng-controller="MenuCtrl as menu" ng-include="'views/_menu.html'"></ul>
         <h3 class="text-muted">FrameWebforJS</h3>
+        <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
       </div>
       <main ng-view>
         <!-- app.js で実装している-->
@@ -51,6 +70,9 @@
 
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
-    <!-- endbuild -->
+    <script src="scripts/controllers/menu.js"></script>
+    <script src="scripts/controllers/tabs.js"></script>
+       <!-- endbuild -->
+
   </body>
 </html>
