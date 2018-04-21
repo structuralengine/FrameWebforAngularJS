@@ -34,7 +34,8 @@
 ### 配布用ファイルの作成 (dist/ ディレクトリ）
 
 ```
-> gulp $ ls dist/
+> gulp 
+> ls dist/
 ```
 
 command gulp により、内部で gulp build が実行され、dist ディレクトリが生成されます。この dist ディレクトリが公開用のファイル群です。
@@ -42,7 +43,7 @@ command gulp により、内部で gulp build が実行され、dist ディレ�
 ### 配布用ファイルを使った web サイトの起動
 
 ```
-> gulp gulp serve:dist
+> gulp serve:dist
 ```
 公開用ファイル (dist) を使って web サイトの確認ができます。
 
