@@ -1,11 +1,25 @@
 {
-  "name": "FrameWebforJS",
+  "name": "webframe",
   "version": "0.0.0",
   "appPath": "app",
-  "moduleName": "FrameWebforJS",
+  "moduleName": "webframe",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "~3.3.5"
+    "bootstrap-sass": "~3.3.5",
+    "bootstrap": "^3.2.0",
+    "angular": "^1.3.0",
+    "angular-animate": "^1.3.0",
+    "angular-aria": "^1.3.0",
+    "angular-cookies": "^1.3.0",
+    "angular-messages": "^1.3.0",
+    "angular-resource": "^1.3.0",
+    "angular-route": "^1.3.0",
+    "angular-sanitize": "^1.3.0",
+    "angular-touch": "^1.3.0",
+    "angular-bootstrap": "^2.5.0",
+    "angular-moment": "^1.0.1",
+    "handsontable-pro": "https://my.handsontable.com/handsontable/handsontable-pro.git#^1.11.0",
+    "ngHandsontable": "^0.13.0"
   },
   "overrides": {
     "bootstrap-sass": {
@@ -14,8 +28,14 @@
         "assets/fonts/bootstrap/*",
         "assets/javascripts/bootstrap.js"
       ]
+    },
+    "handsontable": {
+      "main": []
     }
   },
   "devDependencies": {
+  },
+  "resolutions": {
+    "angular": "1.6.5"
   }
 }
