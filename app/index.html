@@ -19,11 +19,9 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/app.css">
+    
     <link rel="stylesheet" href="styles/basic-information.css">
     <link rel="stylesheet" href="styles/members.css">
-    <link rel="stylesheet" href="styles/design-points.css">
-    <link rel="stylesheet" href="styles/fatigues.css">
-    <link rel="stylesheet" href="styles/safety-factors.css">
     <!-- endbuild -->
   </head>
   <body ng-app="webframe" ng-cloak>
@@ -37,9 +35,7 @@
         <h3 class="text-muted">FrameWebforJS</h3>
         <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
       </div>
-      <main ng-view>
-        <!-- app.js で実装している-->
-      </main>
+      <main ng-view></main>
     </div>
 
 
@@ -70,9 +66,19 @@
 
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/routes.js"></script>
     <script src="scripts/controllers/menu.js"></script>
     <script src="scripts/controllers/tabs.js"></script>
-       <!-- endbuild -->
+    
+    <script src="scripts/config/basic-information.config.js"></script>
+    <script src="scripts/controllers/basic-information.js"></script>
+    <script src="scripts/services/basic-information.js"></script>
+
+    <script src="scripts/config/member.config.js"></script>
+    <script src="scripts/controllers/members.js"></script>
+    <script src="scripts/services/member.js"></script>
+
+    <!-- endbuild -->
 
   </body>
 </html>

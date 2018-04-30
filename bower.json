@@ -19,7 +19,8 @@
     "angular-bootstrap": "^2.5.0",
     "angular-moment": "^1.0.1",
     "handsontable-pro": "https://my.handsontable.com/handsontable/handsontable-pro.git#^1.11.0",
-    "ngHandsontable": "^0.13.0"
+    "ngHandsontable": "^0.13.0",
+    "JSFrame": "https://github.com/riversun/JSFrame.js.git"
   },
   "overrides": {
     "bootstrap-sass": {

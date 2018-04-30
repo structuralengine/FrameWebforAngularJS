@@ -2,9 +2,9 @@
 
 ## root フォルダ
 
-|  No  |      ファイル  |        説明     |
-|:----:|----------------:|:-----------------|
-|   1  |     index.html  |                  |
+|No  |ファイル    |説明     |
+|:--:|----------:|:--------|
+|1   |index.html |         |
 
 
 <nobr>
@@ -381,10 +381,10 @@
 
 bower_compornets
 
-|  No  |      ファイル      |          説明            | 使っているところ |        URL                                                     |
+|  No  |      ファイル       |          説明            | 使っているところ  |        URL                                                     |
 |:----:|:-------------------|:-------------------------|:-----------------|:---------------------------------------------------------------|
 |   1  |  bootstrap-sass    |                          |                  |                                                                |
-|   2  |  modernizr         | ブラウザ対応             |                  | https://github.com/Modernizr/Modernizr                         |
+|   2  |  modernizr         | ブラウザ対応              |                  | https://github.com/Modernizr/Modernizr                         |
 |   3  |  angular           |                          |                  |                                                                |
 |   4  |  firebase          | Google Firebase          |                  | https://github.com/firebase/firebase-bower                     |
 |   5  |  angularfire       | AngularJS + Firebase     |                  | https://github.com/firebase/angularFire                        |
@@ -399,13 +399,13 @@ bower_compornets
 |  14  |  angular-touch     |                          |                  |                                                                |
 |  15  |  angular-bootstrap |                          |                  |                                                                |
 |  16  |  angular-moment    |                          |                  |                                                                |
-|  17  |  file-saver        | ファイルを保存する       |                  | https://github.com/eligrey/FileSaver.js                        |
-|  18  |  dropzone          | ファイルアップロード     |                  | http://www.dropzonejs.com/                                     |
+|  17  |  file-saver        | ファイルを保存する         |                  | https://github.com/eligrey/FileSaver.js                        |
+|  18  |  dropzone          | ファイルアップロード       |                  | http://www.dropzonejs.com/                                     |
 |  19  |  lodash            | Array,Collection 操作    |                  | https://lodash.com/                                            |
-|  20  |  lowdb             | jsonファイルを読み書き   |                  | https://github.com/typicode/lowdb                              |
+|  20  |  lowdb             | jsonファイルを読み書き    |                  | https://github.com/typicode/lowdb                              |
 |  21  |  local-db          | 自作                     |                  | https://github.com/a311cb/local-db                             |
 |  22  |  handsontable-pro  |                          |                  | https://my.handsontable.com/handsontable/handsontable-pro.git  |
 |  23  |  ngHandsontable    |                          |                  | https://github.com/handsontable/ngHandsontable                 |
-|  24  |  ht-utils          | コピー,ペースト,アンドゥ |                  | https://github.com/a311cb/ht-utils                             |
+|  24  |  ht-utils          | コピー,ペースト,アンドゥ   |                  | https://github.com/a311cb/ht-utils                             |
 |  25  |  chai              | assertion library        |                  | https://github.com/chaijs/chai                                 |
-|  26  |  mocha             | 単体テストフレームワーク |                  | https://github.com/mochajs/mocha                               |
+|  26  |  mocha             | 単体テストフレームワーク   |                  | https://github.com/mochajs/mocha                               |

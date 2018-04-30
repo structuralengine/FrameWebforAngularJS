@@ -13,7 +13,7 @@ angular.module('webframe')
       let tabs = this;
 
       $rootScope.$on('$routeChangeSuccess', function(e, $route) {
-        tabs.path = $route.$$route.originalPath.substring(1) || 'members';
+        //tabs.path = $route.$$route.originalPath.substring(1) || 'basic-information';
       });
     }
   ]);
