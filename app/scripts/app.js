@@ -19,5 +19,7 @@ angular.module('webframe', [
     'ngTouch',
     'angularMoment',
     'ngHandsontable',
-    'ui.bootstrap',
-])
+    'ngPopup',
+    'ui.bootstrap'
+    ]
+)
