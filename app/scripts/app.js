@@ -21,5 +21,4 @@ angular.module('webframe', [
     'ngHandsontable',
     'ngPopup',
     'ui.bootstrap'
-    ]
-)
+    ])
