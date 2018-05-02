@@ -40,7 +40,7 @@
         <h3 class="text-muted">FrameWebforJS</h3>
         <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
       </div>
-      <main ng-view></main>
+      <section class="popup" ng-include="'views/_popup.html'" ng-controller="PopupCtrl"></section>
       <img src="images/article_pc_IMG_1385.JPG"/>
     </div>
 
@@ -74,9 +74,10 @@
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
-    <script src="scripts/controllers/menu.js"></script>
-    <script src="scripts/controllers/tabs.js"></script>
-    
+    <script src="scripts/controllers/_menu.js"></script>
+    <script src="scripts/controllers/_tabs.js"></script>
+    <script src="scripts/controllers/_popup.js"></script>
+  
     <script src="scripts/config/basic-information.config.js"></script>
     <script src="scripts/controllers/basic-information.js"></script>
     <script src="scripts/services/basic-information.js"></script>
