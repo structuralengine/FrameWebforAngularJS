@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc service
- * @name webframe.basicInformationConfig
+ * @name webframe.nodeConfig
  * @description
- * # basicInformationConfig
+ * # nodeConfig
  * Constant in the webframe.
  */
 angular.module('webframe')
-  .constant('basicInformationConfig', {});
+  .constant('nodeConfig', {});
