@@ -8,12 +8,9 @@
  * Controller of the webframe
  */
 angular.module('webframe')
-  .controller('MembersCtrl', ['$scope', '$filter', '$q', 'Member', 'memberDefaults', 'sectionShapeDefaults', 'conditionDefaults',
-    function ($scope, $filter, $q, Member, memberDefaults, sectionShapeDefaults, conditionDefaults) {
+  .controller('MembersCtrl', ['$scope', '$filter', '$q', 'Member', 'memberDefaults',
+    function ($scope, $filter, $q, Member, memberDefaults) {
       let ctrl = this;
-
-      ctrl.shapes = sectionShapeDefaults;
-      ctrl.conditions = conditionDefaults;
 
       $scope.$on('reload', function (e) {
         init();
