@@ -24,7 +24,7 @@ angular.module('webframe')
           members = Member.query();
         }
 
-        ctrl.members = $filter('orderBy')(members, 'm_no');
+        ctrl.members = members;
         ctrl.settings = Member.settings;
       }
 

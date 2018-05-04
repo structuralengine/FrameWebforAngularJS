@@ -11,18 +11,9 @@ angular.module('webframe')
   .factory('Member', ['$injector', '$filter', 'LowResource', 'memberDefaults', 'memberConfig', 'HtHelper',
     function ($injector, $filter, LowResource, memberDefaults, memberConfig, HtHelper) {
 
-      let primaryKey = 'm_no';
-      let g_no_column = 2;
-
       let Member = LowResource({
         'table': 'members',
-        'primaryKey': primaryKey,
-        'foreignKeys': {
-          'children': {
-            DesignPoint: primaryKey,
-          },
-        },
-        'defaultEntries': memberDefaults,
+        'defaultEntries': memberDefaults
       });
 
       Member.afterChange = function (changes, source) {
