@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="/bower_components/pikaday/css/pikaday.css" />
     <link rel="stylesheet" href="/bower_components/handsontable-pro/dist/handsontable.css" />
     <link rel="stylesheet" href="/bower_components/ng-popup/dist/ngPopup.min.css" />
+    <link rel="stylesheet" href="/bower_components/dropzone/dist/dropzone.css" />
+    <link rel="stylesheet" href="/bower_components/handsontable.full.css/index.css" />
+    <link rel="stylesheet" href="/bower_components/ht-utils/dist/ht-utils.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -31,7 +34,7 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="container" ht-copy-paste>
       <div class="header">
         <ul class="nav nav-pills pull-right" ng-controller="MenuCtrl as menu" ng-include="'views/_menu.html'"></ul>
         <h3 class="text-muted">FrameWebforJS</h3>
@@ -46,6 +49,7 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/modernizr/modernizr.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
@@ -65,6 +69,12 @@
     <script src="/bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
     <script src="/bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
     <script src="/bower_components/ng-popup/dist/ngPopup.min.js"></script>
+    <script src="/bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="/bower_components/lodash/lodash.js"></script>
+    <script src="/bower_components/lowdb/dist/lowdb.js"></script>
+    <script src="/bower_components/local-db/dist/local-db.js"></script>
+    <script src="/bower_components/handsontable.full.js/index.js"></script>
+    <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -72,10 +82,14 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
     
+    <script src="scripts/config/app.config.js"></script>
+    <script src="scripts/directives/dropzone.js"></script>
+    <script src="scripts/directives/ht-resizable.js"></script>
+
     <script src="scripts/controllers/_menu.js"></script>
     <script src="scripts/controllers/_tabs.js"></script>
     <script src="scripts/controllers/_popup.js"></script>
-  
+
     <script src="scripts/config/node.config.js"></script>
     <script src="scripts/controllers/nodes.js"></script>
     <script src="scripts/services/node.js"></script>

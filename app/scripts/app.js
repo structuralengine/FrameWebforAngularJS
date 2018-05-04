@@ -18,7 +18,14 @@ angular.module('webframe', [
     'ngSanitize',
     'ngTouch',
     'angularMoment',
+    'local-db',
+    'ht-utils',
     'ngHandsontable',
     'ngPopup',
     'ui.bootstrap'
-    ])
+  ])
+  .config(['dbConfig', 'appConfig',
+    function (dbConfig, appConfig) {
+      angular.extend(dbConfig, appConfig.db);
+    }
+  ]);

@@ -13,8 +13,9 @@ const reload = browserSync.reload;
 var dev = true;
 
 gulp.task('init', () => {
-  spawn.sync('npm', ['install'], {stdio: 'inherit'});
-  spawn.sync('npm', ['run', 'build'], {stdio: 'inherit'});
+  process.chdir('./bower_components/lowdb');
+  spawn.sync('npm', ['install'], { stdio: 'inherit' });
+  spawn.sync('npm', ['run', 'build'], { stdio: 'inherit' });
 })
 
 gulp.task('styles', () => {
