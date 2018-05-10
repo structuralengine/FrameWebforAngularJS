@@ -12,6 +12,14 @@ angular.module('webframe')
     function(HtHelper, htSpeedInput) {
 
       return {
+        '部材番号': {
+          'en': 'Member No',
+          'column': {
+            'data': 'm_no',
+            'type': 'numeric',
+            'format': '0'
+          }
+        },        
         '節点i': {
           'en': 'i Node no',
           'column': {

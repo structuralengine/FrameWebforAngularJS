@@ -12,7 +12,7 @@ angular.module('webframe')
         $scope.ngPopupConfig = {
             modelName: 'myNgPopup',
             width: 600,
-            height: 500,
+            height: 600,
             template: '<main ng-view></main>',
             resizable: true,
             draggable: true,

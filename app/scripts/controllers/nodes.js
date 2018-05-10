@@ -8,6 +8,26 @@
  * Controller of the webframe
  */
 angular.module('webframe')
-  .controller('NodesCtrl', function () {
-  });
+  .controller('NodesCtrl', ['$scope', '$filter', '$q', 'Node', 'nodeDefaults',
+    function ($scope, $filter, $q, Node, nodeDefaults) {
+      let ctrl = this;
 
+      $scope.$on('reload', function (e) {
+        init();
+      });
+
+      function init() {
+        let nodes = Node.query();
+
+        if (nodes.length == 0) {
+          Node.createDefaultEntries();
+          nodes = Node.query();
+        }
+
+        ctrl.nodes = nodes;
+        ctrl.settings = Node.settings;
+      }
+
+      init();
+    }
+  ]);

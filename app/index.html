@@ -10,10 +10,10 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/dropzone/dist/dropzone.css" />
     <link rel="stylesheet" href="/bower_components/pikaday/css/pikaday.css" />
     <link rel="stylesheet" href="/bower_components/handsontable-pro/dist/handsontable.css" />
     <link rel="stylesheet" href="/bower_components/ng-popup/dist/ngPopup.min.css" />
-    <link rel="stylesheet" href="/bower_components/dropzone/dist/dropzone.css" />
     <link rel="stylesheet" href="/bower_components/handsontable.full.css/index.css" />
     <link rel="stylesheet" href="/bower_components/ht-utils/dist/ht-utils.css" />
     <!-- endbower -->
@@ -48,9 +48,9 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
@@ -62,6 +62,10 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/moment/moment.js"></script>
     <script src="/bower_components/angular-moment/angular-moment.js"></script>
+    <script src="/bower_components/dropzone/dist/dropzone.js"></script>
+    <script src="/bower_components/lodash/lodash.js"></script>
+    <script src="/bower_components/lowdb/dist/lowdb.js"></script>
+    <script src="/bower_components/local-db/dist/local-db.js"></script>
     <script src="/bower_components/hot-formula-parser/dist/formula-parser.js"></script>
     <script src="/bower_components/numbro/numbro.js"></script>
     <script src="/bower_components/pikaday/pikaday.js"></script>
@@ -69,10 +73,6 @@
     <script src="/bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
     <script src="/bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
     <script src="/bower_components/ng-popup/dist/ngPopup.min.js"></script>
-    <script src="/bower_components/dropzone/dist/dropzone.js"></script>
-    <script src="/bower_components/lodash/lodash.js"></script>
-    <script src="/bower_components/lowdb/dist/lowdb.js"></script>
-    <script src="/bower_components/local-db/dist/local-db.js"></script>
     <script src="/bower_components/handsontable.full.js/index.js"></script>
     <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
     <!-- endbower -->
@@ -92,6 +92,7 @@
 
     <script src="scripts/config/node.config.js"></script>
     <script src="scripts/controllers/nodes.js"></script>
+    <script src="scripts/defaults/node.defaults.js"></script>
     <script src="scripts/services/node.js"></script>
 
     <script src="scripts/config/fix_node.config.js"></script>

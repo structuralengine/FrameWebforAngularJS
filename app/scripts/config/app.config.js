@@ -12,7 +12,7 @@ angular.module('webframe')
         db: {
             'source': 'webframe.2',
             'defaults': {
-                nodes: {},
+                nodes: [],
                 fix_nodes: [],
                 members: [],
                 elements: [],

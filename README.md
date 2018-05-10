@@ -22,6 +22,28 @@
 > bower install
 ```
 
+こんなコメントが出てストップした場合は 2 を選択
+
+> bower angular                        resolution Unsuitable resolution declared for angular: 1.6.5
+> 
+> Unable to find a suitable version for angular, please choose one by typing one of the numbers below:
+> 
+>     1) angular#~1.5.0 which resolved to 1.5.11 and is required by ngHandsontable#0.13.0
+>     2) angular#1.6.10 which resolved to 1.6.10 and i required by angular-animate#1.6.10, angular-aria#1.6.10, angular-cookies#1.6.10, angular-messages#1.6.10, angular-resource#1.6.10, angular-route#1.6.10, angular-sanitize#1.6.10, angular-touch#1.6.10
+>     3) angular#^1.3.0 which resolved to 1.6.10 and is required by angularfire#2.3.0, ht-utils#a50c8f7a3d, local-db#e5dc8cb499, webdan
+>     4) angular#>=1.4.0 which resolved to 1.6.10 and is required by angular-bootstrap#2.5.0
+>     5) angular#>=1.2.0 <1.7.0 which resolved to 1.6.10 and is required by angular-moment#1.2.0
+> 
+> Prefix the choice with ! to persist it to bower.json
+
+```
+? Answer 2
+```
+
+```
+> gulp init
+```
+
 ## テスト
 
 ### web サイトの起動
