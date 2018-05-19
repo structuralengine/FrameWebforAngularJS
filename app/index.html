@@ -30,9 +30,17 @@
     <link rel="stylesheet" href="unity/TemplateData/style.css">
     <script src="unity/TemplateData/UnityProgress.js"></script>
     <script src="unity/Build/UnityLoader.js"></script>
-    <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
-    </script>
+    <script type="text/javascript">
+      const gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
+      // Unity→Html
+      function receiveUnity(str){
+          alert(str);
+      }
+      // Html→Unity
+      function sendUnity(str){
+          gameInstance.SendMessage("Button", "UpdateTarget", str); 
+      }
+    </script>    
     <!-- end unity 3d section -->
 
   </head>
