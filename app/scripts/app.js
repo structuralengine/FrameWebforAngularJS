@@ -28,16 +28,4 @@ angular.module('webframe', [
     function (dbConfig, appConfig) {
       angular.extend(dbConfig, appConfig.db);
     }
-  ])
-  .controller('AppCtrl', ['$scope', '$modal', function ($scope, $modal) {
-    $scope.show = function (backdrop) {
-      $modal.open({
-        template: '<div class="md">{{message}}</div>',
-        controller: 'ModalCtrl',
-        backdrop: backdrop
-      })
-    }
-  }])
-  .controller('ModalCtrl', ['$scope', function ($scope) {
-    $scope.message = 'メッセージ';
-  }]);
+  ]);
