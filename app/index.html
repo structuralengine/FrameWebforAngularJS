@@ -25,8 +25,15 @@
     <link rel="stylesheet" href="styles/app.css">
     <!-- endbuild -->
 
-
-
+    <!-- unity 3d section -->
+    <link rel="shortcut icon" href="unity/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="unity/TemplateData/style.css">
+    <script src="unity/TemplateData/UnityProgress.js"></script>
+    <script src="unity/Build/UnityLoader.js"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
+    </script>
+    <!-- end unity 3d section -->
 
   </head>
   <body ng-app="webframe" ng-cloak>
@@ -40,8 +47,17 @@
         <h3 class="text-muted">FrameWebforJS</h3>
         <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
       </div>
+      <!-- unity 3d section -->
+      <div class="webgl-content" style="width: 100%; height: 100%; margin: 130px 10px 10px 10px">
+        <div id="gameContainer" style="width: 100%; height: 100%; margin: 130px 10px 10px 10px"></div>
+        <div class="footer">
+          <div class="webgl-logo"></div>
+          <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+          <div class="title">test</div>
+        </div>
+      </div>
+      <!-- end unity 3d section -->
       <section class="popup" ng-include="'views/_popup.html'" ng-controller="PopupCtrl"></section>
-      <img src="images/article_pc_IMG_1385.JPG"/>
     </div>
 
 
@@ -83,49 +99,44 @@
     <script src="scripts/routes.js"></script>
     
     <script src="scripts/config/app.config.js"></script>
-    <script src="scripts/directives/dropzone.js"></script>
-    <script src="scripts/directives/ht-resizable.js"></script>
+    <script src="scripts/config/node.config.js"></script>
+    <script src="scripts/config/fix_node.config.js"></script>
+    <script src="scripts/config/member.config.js"></script>
+    <script src="scripts/config/element.config.js"></script>
+    <script src="scripts/config/joint.config.js"></script>
+    <script src="scripts/config/notice_point.config.js"></script>
+    <script src="scripts/config/fix_member.config.js"></script>
+    <script src="scripts/config/load.config.js"></script>
+    <script src="scripts/config/combine.config.js"></script>
 
     <script src="scripts/controllers/_menu.js"></script>
     <script src="scripts/controllers/_tabs.js"></script>
     <script src="scripts/controllers/_popup.js"></script>
-
-    <script src="scripts/config/node.config.js"></script>
     <script src="scripts/controllers/nodes.js"></script>
-    <script src="scripts/defaults/node.defaults.js"></script>
-    <script src="scripts/services/node.js"></script>
-
-    <script src="scripts/config/fix_node.config.js"></script>
     <script src="scripts/controllers/fix_nodes.js"></script>
-    <script src="scripts/services/fix_node.js"></script>
-
-    <script src="scripts/config/member.config.js"></script>
     <script src="scripts/controllers/members.js"></script>
-    <script src="scripts/defaults/member.defaults.js"></script>
-    <script src="scripts/services/member.js"></script>
-
-    <script src="scripts/config/element.config.js"></script>
     <script src="scripts/controllers/elements.js"></script>
-    <script src="scripts/services/element.js"></script>
-
-    <script src="scripts/config/joint.config.js"></script>
     <script src="scripts/controllers/joints.js"></script>
-    <script src="scripts/services/joint.js"></script>
-
-    <script src="scripts/config/notice_point.config.js"></script>
     <script src="scripts/controllers/notice_points.js"></script>
-    <script src="scripts/services/notice_point.js"></script>
-
-    <script src="scripts/config/fix_member.config.js"></script>
     <script src="scripts/controllers/fix_members.js"></script>
-    <script src="scripts/services/fix_member.js"></script>
-
-    <script src="scripts/config/load.config.js"></script>
     <script src="scripts/controllers/loads.js"></script>
-    <script src="scripts/services/load.js"></script> 
-
-    <script src="scripts/config/combine.config.js"></script>
     <script src="scripts/controllers/combines.js"></script>
+
+    <script src="scripts/defaults/node.defaults.js"></script>
+    <script src="scripts/defaults/member.defaults.js"></script>
+    <!-- not it yet -->
+
+    <script src="scripts/directives/dropzone.js"></script>
+    <script src="scripts/directives/ht-resizable.js"></script>
+  
+    <script src="scripts/services/node.js"></script>
+    <script src="scripts/services/fix_node.js"></script>
+    <script src="scripts/services/member.js"></script>
+    <script src="scripts/services/element.js"></script>
+    <script src="scripts/services/joint.js"></script>
+    <script src="scripts/services/notice_point.js"></script>
+    <script src="scripts/services/fix_member.js"></script>
+    <script src="scripts/services/load.js"></script> 
     <script src="scripts/services/combine.js"></script> 
     <!-- endbuild -->
   </body>

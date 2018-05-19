@@ -11,45 +11,26 @@ angular.module('webframe')
   .factory('nodeConfig', ['HtHelper', 'htSpeedInput',
     function(HtHelper, htSpeedInput) {
 
-      return {
-        '格点番号': {
-          'en': 'Node No',
+      return {     
+        'X': {
           'column': {
-            'data': 'n_no',
-            'type': 'numeric',
-            'format': '0'
-          }
-        },        
-        '節点i': {
-          'en': 'i Node no',
-          'column': {
-            'data': 'ni',
-            'type': 'numeric',
-            'format': '0'
-          }
-        },
-        '節点j': {
-          'en': 'j Node no',
-          'column': {
-            'data': 'nj',
-            'type': 'numeric',
-            'format': '0'
-          }
-        },
-        '部材長': {
-          'en': 'Member length',
-          'column': {
-            'data': 'm_len',
+            'data': 'x',
             'type': 'numeric',
             'format': '0.001'
           }
         },
-        '材料 No': {
-          'en': 'Element no',
+        'Y': {
           'column': {
-            'data': 'e',
+            'data': 'y',
             'type': 'numeric',
-            'format': '0'
+            'format': '0.001'
+          }
+        },
+        'Z': {
+          'column': {
+            'data': 'z',
+            'type': 'numeric',
+            'format': '0.001'
           }
         }
       };
