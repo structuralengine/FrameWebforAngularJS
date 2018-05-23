@@ -7,6 +7,7 @@
     <title>app</title>
     
     <link rel="favicon" href="favicon.ico">
+    <link rel="shortcut icon" href="unity/TemplateData/favicon.ico">
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
@@ -23,25 +24,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/app.css">
-    <!-- endbuild -->
-
-    <!-- unity 3d section -->
-    <link rel="shortcut icon" href="unity/TemplateData/favicon.ico">
     <link rel="stylesheet" href="unity/TemplateData/style.css">
-    <script src="unity/TemplateData/UnityProgress.js"></script>
-    <script src="unity/Build/UnityLoader.js"></script>
-    <script type="text/javascript">
-      const gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
-      // Unity→Html
-      function receiveUnity(str){
-          alert(str);
-      }
-      // Html→Unity
-      function sendUnity(str){
-          gameInstance.SendMessage("Button", "UpdateTarget", str); 
-      }
-    </script>    
-    <!-- end unity 3d section -->
+    <!-- endbuild -->
 
   </head>
   <body ng-app="webframe" ng-cloak>
@@ -56,8 +40,8 @@
         <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
       </div>
       <!-- unity 3d section -->
-      <div class="webgl-content" style="width: 100%; height: 100%; margin: 130px 10px 10px 10px">
-        <div id="gameContainer" style="width: 100%; height: 100%; margin: 130px 10px 10px 10px"></div>
+      <div class="webgl-content">
+        <div id="gameContainer"></div>
         <div class="footer">
           <div class="webgl-logo"></div>
           <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
@@ -101,7 +85,21 @@
     <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
+    <script src="unity/TemplateData/UnityProgress.js"></script>
+    <script src="unity/Build/UnityLoader.js"></script>
+    <script type="text/javascript">
+      const gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
+      // Unity→Html
+      function receiveUnity(str) {
+        const $injector = angular.injector(['ng']);
+        console.log($injector.has('$log')); 
+        alert(str);
+      }
+      // Html→Unity
+      function sendUnity(str) {
+        gameInstance.SendMessage('Button', 'UpdateTarget', str);
+      }
+    </script>
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
@@ -120,6 +118,7 @@
     <script src="scripts/controllers/_menu.js"></script>
     <script src="scripts/controllers/_tabs.js"></script>
     <script src="scripts/controllers/_popup.js"></script>
+    <script src="scripts/controllers/_unity.js"></script>
     <script src="scripts/controllers/nodes.js"></script>
     <script src="scripts/controllers/fix_nodes.js"></script>
     <script src="scripts/controllers/members.js"></script>
