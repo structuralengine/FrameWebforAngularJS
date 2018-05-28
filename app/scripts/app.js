@@ -9,21 +9,21 @@
  * Main module of the application.
  */
 angular.module('webframe', [
-    'ngAnimate',
-    'ngAria',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'angularMoment',
-    'ngHandsontable',
-    'ngPopup',
-    'local-db',
-    'ht-utils',
-    'ui.bootstrap'
-  ])
+  'ngAnimate',
+  'ngAria',
+  'ngCookies',
+  'ngMessages',
+  'ngResource',
+  'ngRoute',
+  'ngSanitize',
+  'ngTouch',
+  'angularMoment',
+  'ngHandsontable',
+  'ngPopup',
+  'local-db',
+  'ht-utils',
+  'ui.bootstrap'
+])
   .config(['dbConfig', 'appConfig',
     function (dbConfig, appConfig) {
       angular.extend(dbConfig, appConfig.db);

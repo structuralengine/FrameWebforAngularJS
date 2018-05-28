@@ -38,7 +38,7 @@
         <ul class="nav nav-pills pull-right" ng-controller="MenuCtrl as menu" ng-include="'views/_menu.html'"></ul>
         <h3 class="text-muted">FrameWebforJS</h3>
         <ul class="nav nav-pills" ng-include="'views/_tabs.html'" ng-controller="TabsCtrl as tabs"></ul>
-      </div>
+      </div>      
       <!-- unity 3d section -->
       <div class="webgl-content">
         <div id="gameContainer"></div>
@@ -85,25 +85,24 @@
     <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <script src="unity/TemplateData/UnityProgress.js"></script>
-    <script src="unity/Build/UnityLoader.js"></script>
-    <script type="text/javascript">
-      const gameInstance = UnityLoader.instantiate("gameContainer", "unity/Build/unity.json", { onProgress: UnityProgress });
-      // Unity→Html
-      function receiveUnity(str) {
-        const $injector = angular.injector(['ng']);
-        console.log($injector.has('$log')); 
-        alert(str);
-      }
-      // Html→Unity
-      function sendUnity(str) {
-        gameInstance.SendMessage('Button', 'UpdateTarget', str);
-      }
-    </script>
+
     <!-- build:js scripts/app.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
-    
+
+    <script src="unity/TemplateData/UnityProgress.js"></script>
+    <script src="unity/Build/UnityLoader.js"></script>
+
+    <script src="scripts/services/node.js"></script>
+    <script src="scripts/services/fix_node.js"></script>
+    <script src="scripts/services/member.js"></script>
+    <script src="scripts/services/element.js"></script>
+    <script src="scripts/services/joint.js"></script>
+    <script src="scripts/services/notice_point.js"></script>
+    <script src="scripts/services/fix_member.js"></script>
+    <script src="scripts/services/load.js"></script>
+    <script src="scripts/services/combine.js"></script>
+
     <script src="scripts/config/app.config.js"></script>
     <script src="scripts/config/node.config.js"></script>
     <script src="scripts/config/fix_node.config.js"></script>
@@ -135,16 +134,6 @@
 
     <script src="scripts/directives/dropzone.js"></script>
     <script src="scripts/directives/ht-resizable.js"></script>
-  
-    <script src="scripts/services/node.js"></script>
-    <script src="scripts/services/fix_node.js"></script>
-    <script src="scripts/services/member.js"></script>
-    <script src="scripts/services/element.js"></script>
-    <script src="scripts/services/joint.js"></script>
-    <script src="scripts/services/notice_point.js"></script>
-    <script src="scripts/services/fix_member.js"></script>
-    <script src="scripts/services/load.js"></script> 
-    <script src="scripts/services/combine.js"></script> 
     <!-- endbuild -->
   </body>
 </html>

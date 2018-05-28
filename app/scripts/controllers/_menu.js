@@ -22,7 +22,7 @@ angular.module('webframe')
 
       function reload() {
         let models = [
-          'BasicInformation'
+          'Node'
         ];
         models.forEach(function(model) {
           let Model = $injector.get(model);

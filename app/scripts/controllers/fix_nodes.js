@@ -8,6 +8,11 @@
  * Controller of the webframe
  */
 angular.module('webframe')
-    .controller('FixNodesCtrl', function () {
-    });
+    .controller('FixNodesCtrl', ['$scope', '$window',
+        function ($scope, $window) {
+            $scope.testunity = function () {
+                $window.sendUnity('Unityに通知');
+            };
+        }
+    ]);
 
