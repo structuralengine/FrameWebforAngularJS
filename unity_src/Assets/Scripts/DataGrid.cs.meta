@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 189cf011b94bf354c9fc06c697f90320
+timeCreated: 1460596984
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Content: {instanceID: 0}
+  - CullumHeader: {fileID: 22440134, guid: 8f8df12d59662bd41b7145050d854880, type: 2}
+  - RowHeader: {fileID: 22483706, guid: dd2a2cb6f5a6ab24bb001dc665b7d41f, type: 2}
+  - GridCell: {fileID: 22459294, guid: 6aacd05593b4e384e9fb6cbf9df9f447, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
