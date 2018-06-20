@@ -3,26 +3,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SystemUtility;
-using SasakouFrame.InputLabel;
-
+using UnityEngine.UI;
 
 /// <summary>
 /// 
 /// </summary>
 public class MainFrameManager : MonoBehaviour
 {
-    // ANgularJSとの連携テスト /////////////////////////////////////////////////////////////////////////
-    /// ボタンをクリックした時の処理
-    public void SendAngular(string message)
+
+    #region テスト用 出荷時は削除すること
+
+    [SerializeField]
+    private Text test_textUI = null;
+
+    public void testBotton_Click()
     {
-        Application.ExternalCall("receiveUnity", message);
+        SendAngular("test messege sended !");
     }
-    // JSからUnity内でイベント発火
-    public void UpdateTarget(string message)
-    {
-        Debug.Log(message + "を受け取った");
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #endregion
 
 
     //	表示用ワークバッファ
@@ -35,27 +34,99 @@ public class MainFrameManager : MonoBehaviour
 	[SerializeField]
 	GameObject[]			_dispPrefabs = new GameObject[(int)InputPanelLabel.Max];
 
-	MainFrameManager		_mainFrameManager;
 	SkeletonResponseData	_skeletonResponseData = null;
-	InputPanelManager		_inputPanelManager = null;
+    private InputPanelLabel inputMode = InputPanelLabel.None;
 
+    PartsDispWork[]					_partsDispWorks = new PartsDispWork[(int)InputPanelLabel.Max];
 
-	PartsDispWork[]					_partsDispWorks = new PartsDispWork[(int)InputPanelLabel.Max];
 	private	NodeDispManager			_nodeDispManager;
-	public	NodeDispManager			nodeDispManager{ get{ return _nodeDispManager; } }
-	private	ElementDispManager		_elementDispManager;
-	public	ElementDispManager		elementDispManager{ get{ return _elementDispManager; } }
-	private	PanelDispManager		_panelDispManager;
-	public	PanelDispManager		panelDispManager{ get{ return _panelDispManager; } }
+	public	NodeDispManager			NodeDispManager{ get{ return _nodeDispManager; } }
+
+    private	ElementDispManager		_elementDispManager;
+	public	ElementDispManager		ElementDispManager{ get{ return _elementDispManager; } }
+
+    private	PanelDispManager		_panelDispManager;
+	public	PanelDispManager		PanelDispManager{ get{ return _panelDispManager; } }
 
 
-	/// <summary>
-	/// 表示用オブジェクトのインスタンス化
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <param name="dispObject"></param>
-	/// <param name="dispManager"></param>
-	void	InstantiateDispPrefab( out PartsDispWork partsDispWork, GameObject baseObject )
+    #region AngularJSとの連携
+
+    /// <summary>
+    /// Unity→Html (UnityからJS内でイベント発火)
+    /// </summary>
+    /// <param name="message"></param>
+    public void SendAngular(string message)
+    {
+        string SendMessage = string.Format("input mode:{0}, ", inputMode) + message;
+        Application.ExternalCall("ReceiveUnity", SendMessage);
+    }
+
+    /// <summary>
+    /// Html→Unity (JSからUnity内でイベント発火)
+    /// </summary>
+    /// <param name="message"></param>
+    public void ReceiveAngular(string message)
+    {
+        test_textUI.text = message;
+
+        try
+        {
+            string[] words = message.Substring(0, 25).Trim().Split(':');
+            string mode = words[0];
+            switch (mode)
+            {
+                case "input mode change":
+                    string name = words[1];
+                    switch (name)
+                    {
+                        case "node":
+                            this.inputMode = InputPanelLabel.Node;
+                            break;
+                        case "member":
+                            this.inputMode = InputPanelLabel.Element;
+                            break;
+                        case "panel":
+                            this.inputMode = InputPanelLabel.Panel;
+                            break;
+                        default:
+                            this.inputMode = InputPanelLabel.None;
+                            break;
+                    }
+                    SetActiveDispManager(this.inputMode);
+                    break;
+
+                case "select item change":
+                    if (this.inputMode == InputPanelLabel.None)
+                    {
+                        SendAngular("what kind of input mode is it now?");
+                    }
+                    else
+                    {
+                        string id = words[1];
+                        PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
+                        partsDispWork.partsDispManager.ChengeForcuseBlock(int.Parse(id));
+                    }
+                    break;
+
+                default: // data change: receive json data
+                    _skeletonResponseData.Load(message);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            test_textUI.text = ex.Message;
+        }
+    }
+    #endregion
+
+    /// <summary>
+    /// 表示用オブジェクトのインスタンス化
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dispObject"></param>
+    /// <param name="dispManager"></param>
+    void InstantiateDispPrefab( out PartsDispWork partsDispWork, GameObject baseObject )
 	{
 		partsDispWork = new PartsDispWork();
 		if( baseObject == null ) {
@@ -67,8 +138,6 @@ public class MainFrameManager : MonoBehaviour
 
 		partsDispWork.partsDispManager = partsDispWork.partsGameObject.GetComponent<PartsDispManager>();
 	}
-
-
 
 	/// <summary>
 	/// プレハブをインスタンス化
@@ -95,17 +164,16 @@ public class MainFrameManager : MonoBehaviour
 	{
 		int		i;
 
-
 		//	パーツの作成
 		for( i=0; i<_partsDispWorks.Length; i++ ){
 			if( _partsDispWorks[i].partsDispManager == null ) {
 				continue;
 			}
 			_partsDispWorks[i].partsDispManager.CreateParts();
-			if( (InputPanelLabel)i != InputPanelLabel.Element ) { 
-				_partsDispWorks[i].partsGameObject.SetActive( false );      //	最初は全部無効にしておく
-			}
-		}
+			if( (InputPanelLabel)i != InputPanelLabel.Element ) {
+                _partsDispWorks[i].partsGameObject.SetActive(false);      //	最初は全部無効にしておく
+            }
+        }
 	}
 
 
@@ -115,28 +183,14 @@ public class MainFrameManager : MonoBehaviour
 	/// </summary>
 	IEnumerator  Start ()
 	{
-		_skeletonResponseData = SkeletonResponseData.Instance;
-		_mainFrameManager = FindObjectOfType<MainFrameManager>();
-		_inputPanelManager = GetComponent<InputPanelManager>();
+        #if !UNITY_EDITOR && UNITY_WEBGL
+        WebGLInput.captureAllKeyboardInput = false;
+        #endif
 
-		//	開発中はこれを有効にする
-#if false
-		string	strCurrentDirectory = System.IO.Directory.GetCurrentDirectory();
-		string	strFileName = strCurrentDirectory + "\\test.json";
+        _skeletonResponseData = SkeletonResponseData.Instance;
 
-
-		//	テストデータを読み込む、読めなかったら新しく作る
-		if( _skeletonResponseData.Load(strFileName) == false ) {
-			SkeletonResponseData.HeaderData	headeerData = new SkeletonResponseData.HeaderData();
-			_skeletonResponseData.Create( headeerData );
-		}
-
-		//	テストではとりあえず保存
-		_skeletonResponseData.Save(strFileName);
-#endif
-
-		//	描画マネージャを起動する
-		InstantiatePrefab();
+        //	描画マネージャを起動する
+        InstantiatePrefab();
 		
 		yield	return	0;
 
@@ -144,63 +198,21 @@ public class MainFrameManager : MonoBehaviour
 
 		
 		SetAllBlockStatus();
-	}
-	
+
+    }
 
 
 
-	/// <summary>
-	/// パネルの取得
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	/// <param name="dstPanel"></param>
-	/// <param name="label"></param>
-	void	UpdateInputPanelCommon<T>( ref T dstPanel, InputPanelLabel label ) where T : DataGridBase
+    /// <summary>
+    /// マウスの制御
+    /// </summary>
+    void InputMouse()
 	{
-		InputPanelManager.InputPanelInfo inputPanelInfo =  _inputPanelManager.GetInputPanelInfo( label );
-		if( inputPanelInfo != null ) {
-			dstPanel = inputPanelInfo.dataGrid as T;
-		}
-	}
-
-
-	/// <summary>
-	/// 
-	/// </summary>
-	void	UpdateInputPanel()
-	{
-		DataGridBase			dataGridBase = null;
-		int		i;
-
-		for( i=0; i<_partsDispWorks.Length; i++ ){
-			if( _partsDispWorks[i].partsGameObject == null ) {
-				continue;
-			}
-			if( _partsDispWorks[i].partsDispManager == null ) {
-				continue;
-			}
-			
-			UpdateInputPanelCommon( ref dataGridBase, (InputPanelLabel)i );
-			if( dataGridBase == null ) {
-				continue;
-			}
-
-			_partsDispWorks[i].partsDispManager.dataGridBase = dataGridBase;
-		}
-	}
-
-
-
-	/// <summary>
-	/// マウスの制御
-	/// </summary>
-	void	InputMouse()
-	{
-		if( _inputPanelManager.inputMode == InputPanelLabel.None ) {
+		if( this.inputMode == InputPanelLabel.None ) {
 			return;
 		}
 
-		PartsDispWork	partsDispWork = _partsDispWorks[(int)_inputPanelManager.inputMode];
+		PartsDispWork	partsDispWork = _partsDispWorks[(int)this.inputMode];
 		
 		if( partsDispWork.partsGameObject == null ) {
 			return;
@@ -212,7 +224,6 @@ public class MainFrameManager : MonoBehaviour
 			return;
 		}
 			
-
 		partsDispWork.partsDispManager.InputMouse();
 	}
 
@@ -223,10 +234,8 @@ public class MainFrameManager : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{
-		UpdateInputPanel();	
 		InputMouse();
 	}
-
 
 
 	/// <summary>

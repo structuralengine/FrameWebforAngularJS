@@ -11,7 +11,7 @@ angular.module('webframe')
     .controller('FixNodesCtrl', ['$scope', '$window',
         function ($scope, $window) {
             $scope.testunity = function () {
-                $window.sendUnity('Unityに通知');
+                $window.SendUnity('Unityに通知');
             };
         }
     ]);

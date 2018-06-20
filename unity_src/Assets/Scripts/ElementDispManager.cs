@@ -30,7 +30,7 @@ public class ElementDispManager : PartsDispManager
 			return;
 		}
 
-		List<SkeletonResponseData.ElementData>	elementData = _skeletonResponseData.listElementData;
+		List<SkeletonResponseData.ElementData>	elementData = _skeletonResponseData.ListElementData;
 
 		CreatePartsCommon( elementData.Count, "Element" );
 	}
@@ -43,7 +43,7 @@ public class ElementDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		SkeletonResponseData.ElementData	elementData = _skeletonResponseData.listElementData[id];
+		SkeletonResponseData.ElementData	elementData = _skeletonResponseData.ListElementData[id];
 		int		nodeI = SUFunctions.GetNodeId( elementData.nodeI );
 		int		nodeJ = SUFunctions.GetNodeId( elementData.nodeJ );
 
@@ -61,8 +61,8 @@ public class ElementDispManager : PartsDispManager
 		
 			
 		//	表示に必要なパラメータを用意する
-		Vector3		pos_i = _skeletonResponseData.listNodePoint[nodeI];
-		Vector3		pos_j = _skeletonResponseData.listNodePoint[nodeJ];
+		Vector3		pos_i = _skeletonResponseData.ListNodePoint[nodeI];
+		Vector3		pos_j = _skeletonResponseData.ListNodePoint[nodeJ];
 		float		length = Vector3.Distance( pos_i, pos_j );
 
 		Vector3		scale;
@@ -139,7 +139,7 @@ public class ElementDispManager : PartsDispManager
 	/// <param name="search_node"></param>
 	public	void CheckNodeAndUpdateStatus( int search_node )
 	{
-		List<SkeletonResponseData.ElementData>	listElementData = _skeletonResponseData.listElementData;
+		List<SkeletonResponseData.ElementData>	listElementData = _skeletonResponseData.ListElementData;
 		int		i;
 		int		node_i;
 		int		node_j;

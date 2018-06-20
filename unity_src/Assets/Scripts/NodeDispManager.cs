@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-
 public class NodeDispManager : PartsDispManager
 {
 	const	float	NODE_SCALE = 0.02f;
@@ -22,7 +21,7 @@ public class NodeDispManager : PartsDispManager
 			return;
 		}
 
-		List<SystemUtility.StringVector3>	listNodePoint = _skeletonResponseData.listNodePoint;
+		List<SystemUtility.StringVector3>	listNodePoint = _skeletonResponseData.ListNodePoint;
 
 		CreatePartsCommon( listNodePoint.Count, "Node" );
 	}
@@ -34,7 +33,7 @@ public class NodeDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		SystemUtility.StringVector3	nodePoint = _skeletonResponseData.listNodePoint[id];
+		SystemUtility.StringVector3	nodePoint = _skeletonResponseData.ListNodePoint[id];
 
 		PartsDispManager.PartsDispStatus partsDispStatus;
 
@@ -61,7 +60,7 @@ public class NodeDispManager : PartsDispManager
 	/// </summary>
 	public	bool	CalcNodeBlockScale( int search_node=-1 )
 	{
-		List<SystemUtility.StringVector3>	listNodePoint = _skeletonResponseData.listNodePoint;
+		List<SystemUtility.StringVector3>	listNodePoint = _skeletonResponseData.ListNodePoint;
 		Vector3	startPos, endPos, disVec;
 		int		i, j;
 		float	max_length = 0.0f;

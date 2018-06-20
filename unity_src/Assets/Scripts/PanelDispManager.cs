@@ -17,7 +17,7 @@ public class PanelDispManager : PartsDispManager
 			return;
 		}
 
-		List<SkeletonResponseData.PanelData>	listPanelData = _skeletonResponseData.listPanelData;
+		List<SkeletonResponseData.PanelData>	listPanelData = _skeletonResponseData.ListPanelData;
 
 		CreatePartsCommon( listPanelData.Count, "Panel" );
 	}
@@ -29,7 +29,7 @@ public class PanelDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		SkeletonResponseData.PanelData	panelData = _skeletonResponseData.listPanelData[id];
+		SkeletonResponseData.PanelData	panelData = _skeletonResponseData.ListPanelData[id];
 		BlockWorkData	blockWorkData = _blockWorkData[id];
 		PartsDispStatus	partsDispStatus;
 
@@ -78,7 +78,7 @@ public class PanelDispManager : PartsDispManager
 		Vector3[]	position = new Vector3[nodeNo.Count];
 
 		for ( i=0; i<nodeNo.Count; i++ ){
-			position[i] = _skeletonResponseData.listNodePoint[nodeNo[i]];
+			position[i] = _skeletonResponseData.ListNodePoint[nodeNo[i]];
 		}
 		panelBlock.SetPanelPointPosition( position );
     }
@@ -91,7 +91,7 @@ public class PanelDispManager : PartsDispManager
 	/// <param name="search_node"></param>
 	public	void CheckNodeAndUpdateStatus( int search_node )
 	{
-		List<SkeletonResponseData.PanelData>	listPanelData = _skeletonResponseData.listPanelData;
+		List<SkeletonResponseData.PanelData>	listPanelData = _skeletonResponseData.ListPanelData;
 		int		i, j;
 		int		nodeNo;
 		

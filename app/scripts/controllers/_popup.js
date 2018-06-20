@@ -17,8 +17,8 @@ angular.module('webframe')
             resizable: true,
             draggable: true,
             position: {
-                top: 150,
-                left: 1
+                top: 135,
+                left: 15
             },
             title: '',
             hasTitleBar: true,

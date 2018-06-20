@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-
-
 public class PartsDispManager : MonoBehaviour
 {
 	public struct PartsDispStatus
@@ -19,15 +17,13 @@ public class PartsDispManager : MonoBehaviour
 	protected	static readonly Color	s_noSelectColor = new Color( 1.0f, 1.0f, 1.0f );
 
 	protected SkeletonResponseData	_skeletonResponseData = null;
-	protected DataGridBase			_dataGridBase = null;
-
-	public DataGridBase dataGridBase { set {  _dataGridBase =value; } }
+    protected MainFrameManager _mainFrameManager = null;
 
 
-	/// <summary>
-	/// 
-	/// </summary>
-	protected	class BlockWorkData {
+    /// <summary>
+    /// 
+    /// </summary>
+    protected class BlockWorkData {
 		public	GameObject		gameObject;
 		public	Transform		gameObjectTransform;
 		public	Transform		rootBlockTransform;
@@ -71,9 +67,8 @@ public class PartsDispManager : MonoBehaviour
 
 		_blockWorkData.Clear();
 		for( i = 0; i < parts_count; i++ ) {
-			blockWorkData = new BlockWorkData();
-			blockWorkData.gameObject  = Instantiate(_blockPrefab);
-			_blockWorkData.Add( blockWorkData );
+            blockWorkData = new BlockWorkData{ gameObject = Instantiate(_blockPrefab) };
+            _blockWorkData.Add( blockWorkData );
 		}
 
 		for( i = 0; i < parts_count; i++ ) {
@@ -211,45 +206,36 @@ public class PartsDispManager : MonoBehaviour
 					BlockData	blockData;
 					blockData = obj.GetComponentInParent<BlockData>();
 					if( blockData != null ){
-						if( _dataGridBase != null &&
-							_dataGridBase.gameObject.activeSelf ) {
-							_dataGridBase.dataGrid.SetForcus( blockData.id, 0 );
-						}
-					}
+                        // ここで AngularJS に通知する
+                        _mainFrameManager.SendAngular(string.Format("select item change:{0}", blockData.id));
+                    }
 				}
-			}
-		}
-
-		//	ブロックの色を変更
-		if( _dataGridBase != null ) {
-			int		i;
-			DataGrid	dataGrid = _dataGridBase.dataGrid;
-			Color		color;
-			bool		onoff;
-
-			for( i = 0; i < _blockWorkData.Count; i++ ) {
-				onoff = dataGrid.IsRowForcused(i);
-				if( onoff ) {
-					color = s_selectColor;
-				}
-				else {
-					color = s_noSelectColor;
-				}
-
-				SetPartsColor( i, onoff, color );
 			}
 		}
 	}
 
+    /// <summary>
+    /// ブロックの色を変更
+    /// </summary>
+    /// <param name="id"></param>
+    public void ChengeForcuseBlock(int id) {
 
+        for (int i = 0; i < _blockWorkData.Count; i++){
+            if ( i == id )
+                SetPartsColor(i, true, s_selectColor);
+            else
+                SetPartsColor(i, false, s_noSelectColor);
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		_skeletonResponseData = SkeletonResponseData.Instance;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        _mainFrameManager = FindObjectOfType<MainFrameManager>();
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }
