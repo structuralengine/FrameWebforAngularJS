@@ -15,6 +15,7 @@ angular.module('webframe')
                 nodes: [],
                 fix_nodes: [],
                 members: [],
+                panels: [],
                 elements: [],
                 joints: [],
                 notice_points: [],

@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name webframe.config/nodeDefaults
+ * @name webframe.config/panelDefaults
  * @description
- * # config/nodeDefaults
+ * # config/panelDefaults
  * Constant in the webframe.
  */
 angular.module('webframe')
-  .constant('nodeDefaults', [
+  .constant('panelDefaults', [
     {},
     {},
     {},

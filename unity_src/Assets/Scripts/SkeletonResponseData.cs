@@ -96,7 +96,7 @@ public class SkeletonResponseData : Singleton<SkeletonResponseData>
 	[Serializable]
 	public class PanelData
 	{
-		public	string[]	kouseiNodeNo = new string[4]{ "", "", "", "", };		//	構成節点番号
+		public	string[]	kouseiNodeNo = new string[3]{ "", "", "" };		//	構成節点番号
 		public	string	mark = "";					//	マーク
 		public	string	youngRate = "";				//	ヤング率
 		public	string	senDanDnaseiKeisu = "";		//	せん断弾性係数

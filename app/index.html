@@ -83,6 +83,8 @@
     <script src="/bower_components/ng-popup/dist/ngPopup.min.js"></script>
     <script src="/bower_components/handsontable.full.js/index.js"></script>
     <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
+    <script src="/bower_components/firebase/firebase.js"></script>
+    <script src="/bower_components/angularfire/dist/angularfire.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -90,12 +92,24 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
 
+    <!-- auth -->
+    <script src="scripts/angularfire/auth.js"></script>
+    <script src="scripts/angularfire/config.js"></script>
+    <script src="scripts/angularfire/firebase.ref.js"></script>
+    <script src="scripts/angularfire/webframe.ref.js"></script>
+    <script src="scripts/directives/nghideauth.js"></script>
+    <script src="scripts/directives/ngshowauth.js"></script>
+    <!-- end auth -->
+
+    <!-- unity -->
     <script src="unity/TemplateData/UnityProgress.js"></script>
     <script src="unity/Build/UnityLoader.js"></script>
+    <!-- end unity -->
 
     <script src="scripts/services/node.js"></script>
     <script src="scripts/services/fix_node.js"></script>
     <script src="scripts/services/member.js"></script>
+    <script src="scripts/services/panel.js"></script>
     <script src="scripts/services/element.js"></script>
     <script src="scripts/services/joint.js"></script>
     <script src="scripts/services/notice_point.js"></script>
@@ -104,9 +118,11 @@
     <script src="scripts/services/combine.js"></script>
 
     <script src="scripts/config/app.config.js"></script>
+    <script src="scripts/config/msg.config.js"></script>
     <script src="scripts/config/node.config.js"></script>
     <script src="scripts/config/fix_node.config.js"></script>
     <script src="scripts/config/member.config.js"></script>
+    <script src="scripts/config/panel.config.js"></script>
     <script src="scripts/config/element.config.js"></script>
     <script src="scripts/config/joint.config.js"></script>
     <script src="scripts/config/notice_point.config.js"></script>
@@ -118,9 +134,11 @@
     <script src="scripts/controllers/_tabs.js"></script>
     <script src="scripts/controllers/_popup.js"></script>
     <script src="scripts/controllers/_unity.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/nodes.js"></script>
     <script src="scripts/controllers/fix_nodes.js"></script>
     <script src="scripts/controllers/members.js"></script>
+    <script src="scripts/controllers/panels.js"></script>
     <script src="scripts/controllers/elements.js"></script>
     <script src="scripts/controllers/joints.js"></script>
     <script src="scripts/controllers/notice_points.js"></script>
@@ -130,6 +148,7 @@
 
     <script src="scripts/defaults/node.defaults.js"></script>
     <script src="scripts/defaults/member.defaults.js"></script>
+    <script src="scripts/defaults/panel.defaults.js"></script>
     <!-- not it yet -->
 
     <script src="scripts/directives/dropzone.js"></script>

@@ -1,6 +1,20 @@
 <li class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ファイル <span class="caret"></span></a>
   <ul class="dropdown-menu">
-    <li><a ng-click="menu.createNewBucket()">新規作成</a></li>
+    <li>
+      <a ng-click="menu.createNewBucket()">新規作成</a>
+    </li>
+    <li>
+      <a open-file data-extensions=".json" data-clickable=".header a[open-file]" data-receiver="menu.loadFile">
+        ファイルを開く
+      </a>
+    </li>
+    <li>
+      <a ng-click="menu.saveAsFile()">ファイルを保存</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a ng-hide-auth="" href="#!/login">Log In</a>
+  <a ng-show-auth="" href="#!/account">Account</a>
 </li>

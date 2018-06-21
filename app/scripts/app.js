@@ -17,6 +17,10 @@ angular.module('webframe', [
   'ngRoute',
   'ngSanitize',
   'ngTouch',
+
+  'firebase.ref.app',
+  'firebase.auth.app',
+
   'angularMoment',
   'ngHandsontable',
   'ngPopup',
