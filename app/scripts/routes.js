@@ -95,10 +95,25 @@ angular.module('webframe')
    * for changes in auth status which might require us to navigate away from a path
    * that we can no longer view.
    */
-  .run(['$rootScope', '$location', 'Auth', 'SECURED_ROUTES', 'loginRedirectPath',
-    function ($rootScope, $location, Auth, SECURED_ROUTES, loginRedirectPath) {
+  .run(['$rootScope', '$location', 'Auth', 'SECURED_ROUTES', 'loginRedirectPath', '$window',
+    function ($rootScope, $location, Auth, SECURED_ROUTES, loginRedirectPath, $window) {
       // watch for login status changes and redirect if appropriate
       Auth.$onAuthStateChanged(check);
+
+
+      $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        switch (next.templateUrl) {
+          case 'views/nodes.html':
+            $window.SendUnity('input mode change:node');
+            break;
+          case 'views/members.html':
+            $window.SendUnity('input mode change:member');
+            break;
+          case 'views/panels.html':
+            $window.SendUnity('input mode change:panel');
+            break;
+        }
+      });
 
       // some of our routes may reject resolve promises with the special {authRequired: true} error
       // this redirects to the login page whenever that is encountered

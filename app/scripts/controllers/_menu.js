@@ -52,5 +52,9 @@ angular.module('webframe')
         }
 
       };
+
+      menu.calculation = function () {
+      };
+
     }
   ]);

@@ -33,8 +33,9 @@ angular.module('webframe')
           'column': {
             'data': 'm_len',
             'type': 'numeric',
-            'format': '0.001'
-          }
+            'format': '0.001',
+             readOnly: true
+         }
         },
         '材料 No': {
           'en': 'Element no',

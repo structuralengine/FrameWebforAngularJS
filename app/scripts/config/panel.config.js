@@ -43,7 +43,8 @@ angular.module('webframe')
           'column': {
             'data': 'area',
             'type': 'numeric',
-            'format': '0.001'
+            'format': '0.001',
+            readOnly: true
           },
           items: {
             '': {}

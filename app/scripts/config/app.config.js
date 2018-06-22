@@ -22,12 +22,6 @@ angular.module('webframe')
                 fix_members: [],
                 loads: [],
                 combines: []
-            },
-        },
-        CalculationPrint: {
-            calculatePage: 'Web_Api.py',
-            server: {
-                url: 'http://structuralengine.com/FrameWeb/api'
-            },
-        },
+            }
+        }
     });
