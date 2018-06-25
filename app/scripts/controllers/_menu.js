@@ -31,7 +31,8 @@ angular.module('webframe')
         let models = [
           'Node',
           'Member',
-          'Panel'
+          'Panel',
+          'Element'
         ];
         models.forEach(function(model) {
           let Model = $injector.get(model);
