@@ -127,6 +127,9 @@ gulp.task('serve:dist', ['default'], () => {
       baseDir: ['dist']
     }
   });
+
+  gulp.src('app/unity/Build/**').pipe( gulp.dest('dist/unity/Build') );
+  gulp.src('app/unity/TemplateData/**').pipe( gulp.dest('dist/unity/TemplateData') );
 });
 
 gulp.task('serve:test', ['scripts'], () => {

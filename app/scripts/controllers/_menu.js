@@ -14,7 +14,7 @@ angular.module('webframe')
       let resource;
 
       menu.createNewBucket = function() {
-        appConfig.db.clear();
+        $lowdb.clear();
         reload();
       };
 
@@ -39,19 +39,16 @@ angular.module('webframe')
           Model.reload();
         });
         $rootScope.$broadcast('reload');
+        location.reload();
       }
 
       menu.saveAsFile = function() {
         try {
-          let msg = msgConfig.files;
-          throw msg.save.failed;
+          $lowdb.download();
         }
         catch (e) {
-          if ($window.confirm(e)) {
-            $lowdb.download();
-          }
+          $window.confirm(e);
         }
-
       };
 
       menu.calculation = function () {
