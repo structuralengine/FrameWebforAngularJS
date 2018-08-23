@@ -8,8 +8,8 @@
  * Factory in the webframe.
  */
 angular.module('webframe')
-  .factory('Panel', ['$injector', '$filter', 'LowResource', 'panelDefaults', 'panelConfig', 'HtHelper',
-    function ($injector, $filter, LowResource, panelDefaults, panelConfig, HtHelper) {
+  .factory('Panel', ['$lowdb', '$injector', '$filter', 'LowResource', 'panelDefaults', 'panelConfig', 'HtHelper',
+    function ($lowdb, $injector, $filter, LowResource, panelDefaults, panelConfig, HtHelper) {
 
       let Panel = LowResource({
         'table': 'panels',
@@ -22,7 +22,22 @@ angular.module('webframe')
           let [row, prop, oldVal, newVal] = change;
           let Panel = hot.getSourceDataAtRow(row);
         });
+        SendUnity(Node.CreateJson($lowdb));
+        SendUnity('input mode change:panel');
       };
+      Node.CreateJson = function (lowdb) {
+        const collection = lowdb;
+        let sendJson = '{';
+
+        sendJson += ',"panel":';
+        sendJson += JSON.stringify(collection.get('panels').value());
+
+        sendJson += '}';
+        
+        console.log(sendJson);
+
+        return sendJson;
+      }
 
       _.mixin(Panel, HtHelper);
       Panel.htInit(panelConfig);

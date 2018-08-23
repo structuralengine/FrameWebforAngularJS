@@ -11,8 +11,6 @@ angular.module('webframe')
     .controller('PopupCtrl', ['$scope', function ($scope) {
         $scope.ngPopupConfig = {
             modelName: 'myNgPopup',
-            width: 600,
-            height: 600,
             template: '<main ng-view></main>',
             resizable: true,
             draggable: true,
