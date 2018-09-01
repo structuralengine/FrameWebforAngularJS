@@ -1,4 +1,5 @@
 # 本プロジェクトのセットアップ
+https://www.youtube.com/watch?v=oIlXeybokyc&feature=youtu.be
 
 ## git clone
 
