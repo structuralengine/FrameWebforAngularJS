@@ -13,13 +13,14 @@ angular.module('webframe')
             let ctrl = this;
 
             var element = document.getElementById('popupConfigElement');
-            var $scope = angular.element(element).scope();      
+            $scope = angular.element(element).scope();      
 
             $scope.$on('reload', function (e) {
                 init();
             });
 
             function init() {
+                elementsMode = true;
                 let elements = Element.query();
 
                 if (elements.length == 0) {
@@ -50,7 +51,6 @@ angular.module('webframe')
                     onDragEnd: function () { },
                     onResize: function () { }
                 }
-                
             }
 
             init();

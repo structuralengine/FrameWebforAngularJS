@@ -91,3 +91,57 @@ body {
     border-bottom: 0;
   }
 }
+
+a.disabled_link {
+  color:#cccccc;
+  pointer-events: none;
+}
+
+a.enable_link {
+  pointer-events: auto;
+}
+
+.print-page {
+  // display: table-cell;
+  padding: 0 5px;
+}
+.area {
+  width: 100%;
+  // border: 1px solid rgb(201, 15, 15);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+
+.print-off {
+  display: none;
+}
+
+/*プリント用CSS*/
+@media print {
+  .area {
+    width: 100%;
+  }
+  .print-btn,.print-all {
+    display: none;
+  }
+}
+
+@page {
+  margin: 0;
+}
+
+/*Unity印刷プレビュー用のキャプチャ画像サイズの調整*/
+.capture_image {
+  width:70%;
+}
+
+
+
+.table_class{
+  float:left;
+}
+
+#narabi:after{
+  clear: both;
+}

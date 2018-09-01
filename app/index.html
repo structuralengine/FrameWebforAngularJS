@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/bower_components/dropzone/dist/dropzone.css" />
     <link rel="stylesheet" href="/bower_components/pikaday/css/pikaday.css" />
     <link rel="stylesheet" href="/bower_components/handsontable-pro/dist/handsontable.css" />
-    <link rel="stylesheet" href="/bower_components/ng-popup/dist/ngPopup.min.css" />
+    <link rel="stylesheet" href="/bower_components/ng-popup/dist/ngPopup.css" />
     <link rel="stylesheet" href="/bower_components/handsontable.full.css/index.css" />
     <link rel="stylesheet" href="/bower_components/ht-utils/dist/ht-utils.css" />
     <!-- endbower -->
@@ -49,8 +49,17 @@
       </div>
       <!-- end unity 3d section -->
       <section class="popup" ng-include="'views/_popup.html'" ng-controller="PopupCtrl" id="popupConfigElement"></section>
+      
+      <!-- print preview -->
+      <div class="print-page" style="display: none;">
+        <div class="area">
+          <p><img id="capture" class="capture_image" src="images/dummy.png"></p>
+          <div id="excel_capture_area"></div>
+        </div>
+      </div>
+      <!-- end print preview -->
+  
     </div>
-
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -69,6 +78,7 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/moment/moment.js"></script>
     <script src="/bower_components/angular-moment/angular-moment.js"></script>
+    <script src="/bower_components/file-saver.js/FileSaver.js"></script>
     <script src="/bower_components/dropzone/dist/dropzone.js"></script>
     <script src="/bower_components/lodash/lodash.js"></script>
     <script src="/bower_components/lowdb/dist/lowdb.js"></script>
@@ -79,12 +89,11 @@
     <script src="/bower_components/handsontable-pro/dist/handsontable.js"></script>
     <script src="/bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
     <script src="/bower_components/ngHandsontable/dist/ngHandsontable.js"></script>
-    <script src="/bower_components/ng-popup/dist/ngPopup.min.js"></script>
+    <script src="/bower_components/ng-popup/dist/ngPopup.js"></script>
     <script src="/bower_components/handsontable.full.js/index.js"></script>
     <script src="/bower_components/ht-utils/dist/ht-utils.js"></script>
     <script src="/bower_components/firebase/firebase.js"></script>
     <script src="/bower_components/angularfire/dist/angularfire.js"></script>
-    <script src="/bower_components/file-saver.js/FileSaver.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -135,6 +144,8 @@
     <script src="scripts/controllers/_popup.js"></script>
     
     <script src="scripts/controllers/_unity.js"></script>
+    <script src="scripts/controllers/_print.js"></script>
+    <script src="scripts/controllers/_data_construct.js"></script>
 
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/account.js"></script>

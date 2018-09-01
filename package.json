@@ -43,5 +43,9 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "print-this": "^1.14.0"
   }
 }

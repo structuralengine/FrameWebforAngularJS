@@ -22,13 +22,12 @@ angular.module('webframe')
           let [row, prop, oldVal, newVal] = change;
           let node = hot.getSourceDataAtRow(row);
         });
-        SendUnity(Node.CreateJson($lowdb));
+        SendUnity(CreateJson($lowdb));
         SendUnity('input mode change:node');
       };
-      Node.CreateJson = function (lowdb) {
+      function CreateJson (lowdb) {
         const collection = lowdb;
         let sendJson = '{';
-
         sendJson += '"node":';
         sendJson += JSON.stringify(collection.get('nodes').value());
 

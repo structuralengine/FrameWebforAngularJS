@@ -9,3 +9,8 @@ function ReceiveUnity(str) {
 function SendUnity(str) {
     gameInstance.SendMessage('MainFrameManager', 'ReceiveAngular', str);
 }
+
+// Html->Unityへキャプチャを行うための信号を送る
+function SendCapture() {
+    gameInstance.SendMessage('Capture', 'Execute');
+}
