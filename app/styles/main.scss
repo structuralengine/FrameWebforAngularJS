@@ -145,3 +145,11 @@ a.enable_link {
 #narabi:after{
   clear: both;
 }
+
+.scroll_all_hidden {
+  -ms-overflow-style: none; /* IE対策 */
+  overflow: -moz-scrollbars-none; /* Firefox対策 */
+ }
+ .scroll_all_hidden::-webkit-scrollbar { /* Google Chrome対策 */
+  display: none;
+ }

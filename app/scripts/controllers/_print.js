@@ -22,6 +22,7 @@ function Print() {
     setTimeout(function () {
 
         // 印刷する箇所以外の要素を非表示にする
+        $('html').addClass('scroll_all_hidden');
         $('.header').addClass('print-off');
         $('.webgl-content').addClass('print-off');
         $('.popup').addClass('print-off');
@@ -34,6 +35,7 @@ function Print() {
             $('.print-off').removeClass('print-off');
             // 印刷エリアを非表示にする
             $('.print-page').hide();
+            $('html').removeClass('scroll_all_hidden');
 
         },500);
 
@@ -46,13 +48,12 @@ function Print() {
 function AbjustLayoutExcelForElements() {
 
     // エクセル表を印刷エリアにコピーする
-    var excelCopy = $('.handsontable-container').clone().appendTo('#excel_capture_area').addClass('cloned elements_handsontable');
+    var excelCopy = $('.handsontable-container').clone().appendTo('#excel_capture_area').addClass('cloned elements_handsontable scroll_all_hidden');
 
     // エクセルを表示するエリアを最大限にする
     excelCopy.find('.wtHolder').css('width', '100%');
     excelCopy.find('.wtHolder').css('height', '390px');
     excelCopy.find('.wtHider').css('width', '100%');
-    excelCopy.css('overflow', 'hidden');
 
     SetWorkID(excelCopy, '.ht_master');
     SetWorkID(excelCopy, '.ht_clone_top');
@@ -188,7 +189,7 @@ function SetWorkID(excelCopy, className) {
 function AbjustLayoutExcel(handsonParent) {
 
     // エクセル表を印刷エリアにコピーする
-    var excelCopy = $('.handsontable-container').clone().appendTo('#excel_capture_area').addClass('cloned');
+    var excelCopy = $('.handsontable-container').clone().appendTo('#excel_capture_area').addClass('cloned scroll_all_hidden');
 
     // エクセルを表示するエリアを最大限にする
     excelCopy.find('.wtHolder').css('width', '100%');
