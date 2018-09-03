@@ -56,16 +56,8 @@ angular.module('webframe')
       // 計算ボタン処理
       menu.calculation = function () {
 
-        // テスト用アカウントでアクセス
-        var userName = 'test1105';
-        var password = 'test1105';
-
-        var storage = localStorage.getItem('webframe.2').replace('{', '');  // 最初の { を消す
-
-        var json = 'inp_grid=' + '{' + '"username":' + JSON.stringify(userName) + ',"password":' + JSON.stringify(password)+','+storage;
-
         // $httpでのリクエスト送信
-        HttpSendRequest($http, json);
+        HttpSendRequest($http);
       };
 
       // 印刷ボタン処理

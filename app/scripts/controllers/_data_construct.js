@@ -1,22 +1,33 @@
 // --------------------------------------------------------------
 // #5　計算ボタンクリック時に送信するJSONデータの整形を行います。
-// 引数: json : 整形前のJSONデータ
 // 戻り値: 整形後のJSONデータ 
 // --------------------------------------------------------------
-function DataConstruct(json) {
+function DataConstruct() {
 
-    // 整形したJSONデータを戻り値にセットしてください。
+    // この変数でJSON整形を行ってください。
+    var json = '';
     
+    // 整形したJSONデータを戻り値にセットしてください。
     return json;
 }
 
 // --------------------------------------------------------------
 // $httpでのリクエスト送信処理
 // --------------------------------------------------------------
-function HttpSendRequest($http, json) {
+function HttpSendRequest($http) {
     
-    json = DataConstruct(json);
+    // テスト用アカウントでアクセス
+    var userName = 'test1105';
+    var password = 'test1105';
 
+    var storage = localStorage.getItem('webframe.2').replace('{', '');  // 最初の { を消す
+
+    // JSONの整形
+    var json = DataConstruct();
+    
+    // DataConstruct関数内でJSONの整形が完結する場合は、以下の処理はコメントアウトしてください。
+    json = 'inp_grid=' + '{' + '"username":' + JSON.stringify(userName) + ',"password":' + JSON.stringify(password)+','+storage;
+    
     $http({
         method:'POST',
         url: 'http://structuralengine.com/FrameWeb/api/Web_Api.py',

@@ -52,6 +52,7 @@ function AbjustLayoutExcelForElements() {
     excelCopy.find('.wtHolder').css('width', '100%');
     excelCopy.find('.wtHolder').css('height', '390px');
     excelCopy.find('.wtHider').css('width', '100%');
+    excelCopy.css('overflow', 'hidden');
 
     SetWorkID(excelCopy, '.ht_master');
     SetWorkID(excelCopy, '.ht_clone_top');
@@ -192,6 +193,7 @@ function AbjustLayoutExcel(handsonParent) {
     // エクセルを表示するエリアを最大限にする
     excelCopy.find('.wtHolder').css('width', '100%');
     excelCopy.find('.wtHider').css('width', '100%');
+    excelCopy.css('overflow', 'hidden');
 
     var htMaster = excelCopy.find('.ht_master');
     var wtSpreader = htMaster.find('.wtSpreader');

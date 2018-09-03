@@ -51,6 +51,12 @@ angular.module('webframe')
             onDragEnd: function () { },
             onResize: function () { }
         }
+
+        // エクセル表が若干はみ出しているため、それの調整
+        setTimeout(function(){
+          var content = $('.ht_master');
+          content.css('height', '560px');
+        }, 100);
       }
 
       init();
