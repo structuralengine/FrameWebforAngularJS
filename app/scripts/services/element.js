@@ -22,22 +22,9 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let element = hot.getSourceDataAtRow(row);
                 });
-                SendUnity(CreateJson($lowdb));
-                SendUnity('input mode change:element');        
+                SendJsonToUnity();
+                SendUnity('input mode change @ element');        
             };
-            function CreateJson (lowdb) {
-                const collection = lowdb;
-                let sendJson = '{';
-        
-                sendJson += '"element":';
-                sendJson += JSON.stringify(collection.get('elements').value());
-        
-                sendJson += '}';
-                
-                console.log(sendJson);
-        
-                return sendJson;
-              }
         
             _.mixin(Element, HtHelper);
             Element.htInit(elementConfig);

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SystemUtility;
 using UnityEngine.UI;
+using UnityEditor;
 
 /// <summary>
 /// 
@@ -88,6 +89,12 @@ public class MainFrameManager : MonoBehaviour
         //	描画マネージャを起動する
         InstantiatePrefab();
 
+        // javascript に起動時のデータを問い合わせる
+        SendAngular("GetInputJSON");
+
+        // javascript に起動時の画面のを問い合わせる
+        SendAngular("GetInputMode");
+
     }
 
 
@@ -150,10 +157,11 @@ public class MainFrameManager : MonoBehaviour
     {
         try
         {
-            string[] words = message.Substring(0, Math.Min(message.Length, 25)).Trim().Split(':');
-            switch (words[0]){
+            string[] words = message.Substring(0, Math.Min(message.Length, 25)).Trim().Split('@');
+            switch (words[0].Trim()){
                 case "input mode change":
-                    switch (words[1]){
+                    switch (words[1].Trim())
+                    {
                         case "node":
                             this.inputMode = InputPanelLabel.Node;
                             break;
@@ -172,16 +180,16 @@ public class MainFrameManager : MonoBehaviour
 
                 case "select item change":
                     if (this.inputMode == InputPanelLabel.None){
-                        SendAngular("what kind of input mode is it now?");
+                        SendAngular("GetInputMode");
                     } else {
-                        string id = words[1];
+                        string id = words[1].Trim();
                         PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
                         partsDispWork.partsDispManager.ChengeForcuseBlock(int.Parse(id));
                     }
                     break;
 
-                default: // data change: receive json data
-                    this._webframe.Create(message);
+                case "input json":
+                    this._webframe.Create(words[1].Trim());
                     this.CreateParts();
                     this.SetAllBlockStatus();
                     break;

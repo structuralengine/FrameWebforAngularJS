@@ -86,6 +86,31 @@ angular.module('webframe')
         controller: 'CombinesCtrl',
         controllerAs: 'ctrl',
       })
+      .when('/disg', {
+        templateUrl: 'views/disg.html',
+        controller: 'DisgCtrl',
+        controllerAs: 'ctrl',
+      })
+      .when('/fsec', {
+        templateUrl: 'views/fsec.html',
+        controller: 'FsecCtrl',
+        controllerAs: 'ctrl',
+      })
+      .when('/comb.fsec', {
+        templateUrl: 'views/comb.fsec.html',
+        controller: 'CombFsecCtrl',
+        controllerAs: 'ctrl',
+      })
+      .when('/pic.fsec', {
+        templateUrl: 'views/pic.fsec.html',
+        controller: 'PicFsecCtrl',
+        controllerAs: 'ctrl',
+      }) 
+      .when('/reac', {
+        templateUrl: 'views/reac.html',
+        controller: 'ReacCtrl',
+        controllerAs: 'ctrl',
+      })       
       .otherwise({redirectTo: '/'});
   }])
 
@@ -100,19 +125,8 @@ angular.module('webframe')
       // watch for login status changes and redirect if appropriate
       Auth.$onAuthStateChanged(check);
 
-
       $rootScope.$on('$routeChangeStart', function (event, next, current) {
-        switch (next.templateUrl) {
-          case 'views/nodes.html':
-            $window.SendUnity('input mode change:node');
-            break;
-          case 'views/members.html':
-            $window.SendUnity('input mode change:member');
-            break;
-          case 'views/panels.html':
-            $window.SendUnity('input mode change:panel');
-            break;
-        }
+        $window.SendInputMode(next.templateUrl);
       });
 
       // some of our routes may reject resolve promises with the special {authRequired: true} error
