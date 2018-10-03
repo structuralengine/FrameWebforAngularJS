@@ -90,10 +90,10 @@ public class MainFrameManager : MonoBehaviour
         InstantiatePrefab();
 
         // javascript に起動時のデータを問い合わせる
-        SendAngular("GetInputJSON");
+        ExternalCall.SendAngular("GetInputJSON");
 
         // javascript に起動時の画面のを問い合わせる
-        SendAngular("GetInputMode");
+        ExternalCall.SendAngular("GetInputMode");
 
     }
 
@@ -135,71 +135,6 @@ public class MainFrameManager : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region AngularJSとの連携
-
-    /// <summary>
-    /// Unity→Html (UnityからJS内でイベント発火)
-    /// </summary>
-    /// <param name="message"></param>
-    public void SendAngular(string message)
-    {
-        string SendMessage = string.Format("input mode:{0}, ", inputMode) + message;
-        Application.ExternalCall("ReceiveUnity", SendMessage);
-    }
-
-    /// <summary>
-    /// Html→Unity (JSからUnity内でイベント発火)
-    /// </summary>
-    /// <param name="message"></param>
-    public void ReceiveAngular(string message)
-    {
-        try
-        {
-            string[] words = message.Substring(0, Math.Min(message.Length, 25)).Trim().Split('@');
-            switch (words[0].Trim()){
-                case "input mode change":
-                    switch (words[1].Trim())
-                    {
-                        case "node":
-                            this.inputMode = InputPanelLabel.Node;
-                            break;
-                        case "member":
-                            this.inputMode = InputPanelLabel.Member;
-                            break;
-                        case "panel":
-                            this.inputMode = InputPanelLabel.Panel;
-                            break;
-                        default:
-                            this.inputMode = InputPanelLabel.None;
-                            break;
-                    }
-                    SetActiveDispManager(this.inputMode);
-                    break;
-
-                case "select item change":
-                    if (this.inputMode == InputPanelLabel.None){
-                        SendAngular("GetInputMode");
-                    } else {
-                        string id = words[1].Trim();
-                        PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
-                        partsDispWork.partsDispManager.ChengeForcuseBlock(int.Parse(id));
-                    }
-                    break;
-
-                case "input json":
-                    this._webframe.Create(words[1].Trim());
-                    this.CreateParts();
-                    this.SetAllBlockStatus();
-                    break;
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }
-    }
     #endregion
 
     #region マウスの制御
@@ -288,4 +223,86 @@ public class MainFrameManager : MonoBehaviour
 
     #endregion
 
+
+    #region Javascript と連携 
+    /// <summary>
+    /// Unity→Html (UnityからJS内でイベント発火)
+    /// </summary>
+    /// <param name="message"></param>
+    public void SendAngular(string message)
+    {
+        Application.ExternalCall("ReceiveUnity", message);
+    }
+
+    /// <summary>
+    /// JavaScript から Input モードの変更通知が来た
+    /// </summary>
+    /// <param name="message"></param>
+    public void InputModeChange(string message)
+    {
+        bool flg = false;
+
+        switch (message.Trim())
+        {
+            case "node":
+                if (this.inputMode != InputPanelLabel.Node){
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Node;
+                }
+                break;
+
+            case "member":
+                if (this.inputMode != InputPanelLabel.Member){
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Member;
+                }
+                break;
+
+            case "panel":
+                if (this.inputMode != InputPanelLabel.Panel){
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Panel;
+                }
+                break;
+
+            default:
+                this.inputMode = InputPanelLabel.None;
+                break;
+        }
+        if(flg == true)
+            SetActiveDispManager(this.inputMode);
+    }
+
+    /// <summary>
+    /// JavaScript から Active Item の変更通知が来た
+    /// </summary>
+    /// <param name="inputmode">現在のインプットモード</param>
+    /// <param name="id"></param>
+    public void SelectItemChange(string inputmode, string id)
+    {
+        InputModeChange(inputmode);
+
+        if (this.inputMode == InputPanelLabel.None)
+        {
+            SendAngular("GetInputMode");
+        }
+        else
+        {
+            PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
+            partsDispWork.partsDispManager.ChengeForcuseBlock(int.Parse(id));
+        }
+    }
+
+    /// <summary>
+    /// JavaScript から インプットデータ の変更通知が来た
+    /// </summary>
+    /// <param name="inputmode"></param>
+    /// <param name="json"></param>
+    public void InputDataChenge(string inputmode, string json)
+    {
+        this._webframe.Create(json);
+        this.CreateParts();
+        this.SetAllBlockStatus();
+    }
+    #endregion
 }
