@@ -21,7 +21,12 @@ angular.module('webframe')
                 notice_points: [],
                 fix_members: [],
                 loads: [],
-                combines: []
+                combines: [],
+                disgs: [],
+                reacs: [],
+                fsecs: [],
+                combFsecs: [],
+                picFsecs: []
             }
         }
     });

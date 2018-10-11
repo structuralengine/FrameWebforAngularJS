@@ -12,6 +12,7 @@ function DataConstruct() {
 
     json += '"node":';
     json += nodeJson(data);
+    json += ',';
 
     json += '"member":';
     json += memberJson(data);
