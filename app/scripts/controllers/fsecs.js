@@ -44,7 +44,7 @@ angular.module('webframe')
 
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {
-            width: 350,
+            width: 500,
             height: 600,
             resizable: true,
             draggable: true,
@@ -52,7 +52,7 @@ angular.module('webframe')
                 top: 135,
                 left: 15
             },
-            title: '部材',
+            title: '基本荷重断面力',
             hasTitleBar: true,
             pinned: false,
             isShow: true,

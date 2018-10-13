@@ -36,7 +36,7 @@ angular.module('webframe')
                 ctrl.settings = Fix_member.settings;
 
                 $scope.ngPopupConfig = {
-                    width: 850,
+                    width: 750,
                     height: 450,
                     resizable: true,
                     draggable: true,

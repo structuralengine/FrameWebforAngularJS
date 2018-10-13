@@ -7,11 +7,29 @@
  * # fixNodeConfig
  * Factory in the webframe
  */
+
 angular.module('webframe')
     .factory('fixNodeConfig', ['HtHelper', 'htSpeedInput',
         function (HtHelper, htSpeedInput) { 
 
             return {
+                '節点':{
+                    en:'node',
+                    data:'node',
+                    item:{
+                        '':{
+                            item:{
+                                '':{
+                                    'column':{
+                                        data:'n',
+                                        type:'numeric',
+                                        format:'0.0000'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 'タイプ1': {
                     en: 'type 1',
                     data: 'type1',
@@ -20,21 +38,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'tx1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ty1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'tz1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -45,21 +63,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'rx1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ry1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'rz1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -76,21 +94,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'tx2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ty2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'tz2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -101,21 +119,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'rx2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ry2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'rz2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -132,21 +150,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'tx3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ty3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'tz3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -157,21 +175,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'tx',
+                                        data: 'rx3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'ty',
+                                        data: 'ry3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'tz',
+                                        data: 'rz3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }

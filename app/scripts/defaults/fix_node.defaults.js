@@ -7,11 +7,7 @@
  * # config/fixNodeDefaults
  * Constant in the webframe.
  */
-angular.module('webframe')
-  .constant('fixNodeDefaults', [
-    {},
-    {},
-    {},
-    {},
-    {}
-  ]);
+
+const ROW = 10;                   //表の行数
+
+angular.module('webframe').constant('fixNodeDefaults', Array(ROW).fill({}));

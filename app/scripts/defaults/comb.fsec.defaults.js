@@ -7,11 +7,7 @@
  * # config/combFsecDefaults
  * Constant in the webframe.
  */
-angular.module('webframe')
-  .constant('combFsecDefaults', [
-    {},
-    {},
-    {},
-    {},
-    {}
-  ]);
+
+const ROW = 10;
+
+angular.module('webframe').constant('combFsecDefaults', Array(ROW).fill({}));
