@@ -90,10 +90,10 @@ public class MainFrameManager : MonoBehaviour
         InstantiatePrefab();
 
         // javascript に起動時のデータを問い合わせる
-        ExternalCall.SendAngular("GetInputJSON");
+        ExternalConnect.SendAngular("GetInputJSON");
 
         // javascript に起動時の画面のを問い合わせる
-        ExternalCall.SendAngular("GetInputMode");
+        ExternalConnect.SendAngular("GetInputMode");
 
     }
 

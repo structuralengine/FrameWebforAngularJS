@@ -9,22 +9,31 @@ const gameInstance = UnityLoader.instantiate('gameContainer', 'unity/Build/unity
 function ReceiveUnity(str) {
     switch (str) {
         case 'GetInputJSON':// 入力データを要求された
+            console.log('Called!! - GetInputJSON');
             SendDataToUnity('');
             break;
         case 'GetInputMode':// 入力モードを要求された
+            console.log('Called!! - GetInputMode');
             SendModeToUnity(location.hash);
+            break;
+        default:
+            console.log('Called!! - UnknownMessage');
+            console.log(str);
             break;
     }
 }
 
 function SendDataToUnity(mode_name) {
     const sendJson = DataConstruct(mode_name);
+    console.log('ReceiveData');
+    console.log(sendJson);
     gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
 }
 
 
 // Html->Unityへキャプチャを行うための信号を送る
 function SendCaptureToUnity() {
+    console.log('SendCapture');
     gameInstance.SendMessage('ExternalConnect','SendCapture');
 }
 
@@ -38,8 +47,10 @@ function SendModeToUnity(templateUrl) {
     mode_name.trim();
         
     if (mode_name == '') {
-        mode_name = 'node'; // デフォルトの設定
+        mode_name = 'nodes'; // デフォルトの設定
     }
 
+    console.log('ChengeMode');
+    console.log(mode_name);
     gameInstance.SendMessage('ExternalConnect', 'ChengeMode', mode_name);
 }
