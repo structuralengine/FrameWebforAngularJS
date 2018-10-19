@@ -74,7 +74,7 @@ function DataConstruct(_mode) {
         json += ',';
     }
     //最後の , を削除する
-    json.slice(0, -1);
+    json = json.slice(0, -1);
     // 整形したJSONデータを戻り値にセットしてください。
     console.log(json);
     return json;
