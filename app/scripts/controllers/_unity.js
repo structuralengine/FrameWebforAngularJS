@@ -24,7 +24,16 @@ function ReceiveUnity(str) {
 }
 
 function SendDataToUnity(mode_name) {
-    const sendJson = DataConstruct(mode_name);
+
+    // JSONの整形
+    const data = DataConstruct(mode_name);
+    let sendJson = '';
+
+    if (mode_name == '') {
+        sendJson += '{' + data + '}';
+    } else {
+        sendJson = data;
+    }
     console.log('ReceiveData');
     console.log(sendJson);
     gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
