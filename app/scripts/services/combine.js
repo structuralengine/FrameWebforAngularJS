@@ -22,8 +22,7 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let combine = hot.getSourceDataAtRow(row);
                 });
-                SendJsonToUnity();
-                SendUnity('input mode change @ combine');
+                SendDataToUnity('combines');
             };
 
             _.mixin(Combine, HtHelper);

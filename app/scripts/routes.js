@@ -126,7 +126,7 @@ angular.module('webframe')
       Auth.$onAuthStateChanged(check);
 
       $rootScope.$on('$routeChangeStart', function (event, next, current) {
-        $window.SendInputMode(next.templateUrl);
+        $window.SendModeToUnity(next.templateUrl);
       });
 
       // some of our routes may reject resolve promises with the special {authRequired: true} error

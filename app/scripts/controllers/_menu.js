@@ -29,10 +29,20 @@ angular.module('webframe')
 
       function reload() {
         let models = [
-          'Node',
+          'CombFsec',
+          'Combine',
+          'Disg',
+          'Fix_member',
+          'Fix_node',
+          'Fsec',
+          'Joint',
+          'Load',
           'Member',
+          'Node',
+          'Notice_point',
           'Panel',
-          'Element'
+          'PicFsec',
+          'Reac'
         ];
         models.forEach(function(model) {
           let Model = $injector.get(model);
@@ -51,21 +61,16 @@ angular.module('webframe')
         }
       };
 
-      
       // ----------------------------------------
       // 計算ボタン処理
       menu.calculation = function () {
-
-        let sendJson = DataConstruct();
-        console.log(sendJson);
-        
         // $httpでのリクエスト送信
-        HttpSendRequest($http);
+        $window.HttpSendRequest($http);
       };
 
       // 印刷ボタン処理
       menu.print = function() {
-        Print();
+        $window.Print();
       }
 
     }

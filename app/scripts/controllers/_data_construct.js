@@ -9,10 +9,13 @@ const elementv = ['E', 'G', 'Xp', 'A1', 'J1', 'Iy1', 'Iz1', 'A2', 'J2', 'Iy2', '
 const panelv = ['no1', 'no2', 'no3', 'area', 'e'];
 const jointv = jointlist();
 const notice_pointv = nplist();
+const fix_memberv = nplist();
 const loadv = ['m1', 'm2', 'direction', 'mark', 'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
 const combinev = ['1', '2', '3', '4', '5', '6'];
 
-function DataConstruct() {
+function DataConstruct(_mode) {
+
+    const mode = (_mode + '').trim();
 
     // この変数でJSON整形を行ってください。
     const storage = localStorage.getItem('webframe.2');
@@ -20,42 +23,60 @@ function DataConstruct() {
 
     let json = '';
 
-    json += '"node":';
-    json += cnst(data, 'nodes', nodev);
-    json += ',';
-
-    json += '"fix_node":';
-    json += cnst(data, 'fix_nodes', fix_nodev);
-    json += ',';
-
-    json += '"member":';
-    json += memberJson(data);
-    json += ',';
-
-    json += '"panel":';
-    json += cnst(data, 'panels', panelv);
-    json += ',';
-
-    json += '"element":';
-    json += cnst(data, 'elements', elementv);
-    json += ',';
-
-    json += '"joint":';
-    json += cnst(data, 'joints', jointv);
-    json += ',';
-
-    json += '"notice_point":';
-    json += cnst(data, 'notice_points', notice_pointv);
-    json += ',';
-
-    json += '"load":';
-    json += cnst(data, 'loads', loadv);
-    json += ',';
-
-    json += '"combine":';
-    json += cnst(data, 'combines', combinev);
-
+    if (mode == 'nodes' || mode == '') {
+        json += '"node":';
+        json += cnst(data, 'nodes', nodev);
+        json += ',';
+    }
+    if (mode == 'fix_nodes' || mode == '') {
+        json += '"fix_node":';
+        json += cnst(data, 'fix_nodes', fix_nodev);
+        json += ',';
+    }
+    if (mode == 'members' || mode == '') {
+        json += '"member":';
+        json += memberJson(data);
+        json += ',';
+    }
+    if (mode == 'panels' || mode == '') {
+        json += '"panel":';
+        json += cnst(data, 'panels', panelv);
+        json += ',';
+    }
+    if (mode == 'elements' || mode == '') {
+        json += '"element":';
+        json += cnst(data, 'elements', elementv);
+        json += ',';
+    }
+    if (mode == 'joints' || mode == '') {
+        json += '"joint":';
+        json += cnst(data, 'joints', jointv);
+        json += ',';
+    }
+    if (mode == 'notice_points' || mode == '') {
+        json += '"notice_point":';
+        json += cnst(data, 'notice_points', notice_pointv);
+        json += ',';
+    }
+    if (mode == 'fix_members' || mode == '') {
+        json += '"fix_member":';
+        json += cnst(data, 'fix_member', fix_memberv);
+        json += ',';
+    }
+    if (mode == 'loads' || mode == '') {
+        json += '"load":';
+        json += cnst(data, 'loads', loadv);
+        json += ',';
+    }
+    if (mode == 'combines' || mode == '') {
+        json += '"combine":';
+        json += cnst(data, 'combines', combinev);
+        json += ',';
+    }
+    //最後の , を削除する
+    json.slice(0, -1);
     // 整形したJSONデータを戻り値にセットしてください。
+    console.log(json);
     return json;
 }
 
@@ -93,7 +114,6 @@ function cnst(json, name, array){
     return str;
 
 }
-
 
 // node データの整形
 function nodeJson(json) {
@@ -214,7 +234,7 @@ function HttpSendRequest($http) {
     var password = 'test1105';
 
     // JSONの整形
-    var data = DataConstruct();
+    var data = DataConstruct('');
     
     var json = 'inp_grid='
         + '{'

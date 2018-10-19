@@ -22,8 +22,7 @@ angular.module('webframe')
           let [row, prop, oldVal, newVal] = change;
           let Panel = hot.getSourceDataAtRow(row);
         });
-        SendJsonToUnity();
-        SendUnity('input mode change @ panel');
+        SendDataToUnity('panels');
       };
 
       _.mixin(Panel, HtHelper);

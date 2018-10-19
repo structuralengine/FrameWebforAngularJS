@@ -17,7 +17,7 @@ function Print() {
         AbjustLayoutExcel(handsonParent);
     }
 
-    SendCapture();
+    SendCaptureToUnity();
 
     setTimeout(function () {
 

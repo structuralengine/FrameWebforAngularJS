@@ -22,8 +22,7 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let picFsec = hot.getSourceDataAtRow(row);
                 });
-                SendJsonToUnity();
-                SendUnity('input mode change @ picFsec');
+                SendDataToUnity('pic.fsec');
             };
 
             _.mixin(PicFsec, HtHelper);
