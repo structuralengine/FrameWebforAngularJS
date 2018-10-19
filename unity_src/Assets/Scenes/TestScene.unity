@@ -267,53 +267,36 @@ Prefab:
     - target: {fileID: 114999057798924508, guid: ba713c3c7d8b20d4297d203e964bf539,
         type: 2}
       propertyPath: m_Text
-      value: "input json @\r\n  \"nodes\": [\r\n    {\r\n      \"z\": 1,\r\n      \"y\":
-        1,\r\n      \"x\": 1\r\n    },\r\n    {\r\n      \"x\": 3,\r\n      \"y\":
-        3,\r\n      \"z\": 2\r\n    }\n}"
+      value: "{\r\n\t\"node\": {\r\n\t\t\"1\": {\r\n\t\t\t\"x\": 5,\r\n\t\t\t\"y\":
+        -8.66,\r\n\t\t\t\"z\": 0\r\n\t\t},\r\n\t\t\"2\": {\r\n\t\t\t\"x\": 0,\r\n\t\t\t\"y\":
+        0,\r\n\t\t\t\"z\": 0\r\n\t\t},\r\n\t\t\"3\": {\r\n\t\t\t\"x\": 10,\r\n\t\t\t\"y\":
+        0,\r\n\t\t\t\"z\": 0\r\n\t\t}\r\n\t},\r\n\t\"member\": {\r\n\t\t\"1\": {\r\n\t\t\t\"ni\":
+        \"1\",\r\n\t\t\t\"nj\": \"2\",\r\n\t\t\t\"e\": \"1\",\r\n\t\t\t\"cg\": 0\r\n\t\t},\r\n\t\t\"2\":
+        {\r\n\t\t\t\"ni\": \"2\",\r\n\t\t\t\"nj\": \"3\",\r\n\t\t\t\"e\": \"1\",\r\n\t\t\t\"cg\":
+        0\r\n\t\t},\r\n\t\t\"3\": {\r\n\t\t\t\"ni\": \"1\",\r\n\t\t\t\"nj\": \"3\",\r\n\t\t\t\"e\":
+        \"1\",\r\n\t\t\t\"cg\": 0\r\n\t\t}\r\n\t},\r\n\t\"element\": {\r\n\t\t\"1\":
+        {\r\n\t\t\t\"1\": {\r\n\t\t\t\t\"E\": 32800000,\r\n\t\t\t\t\"G\": 1000,\r\n\t\t\t\t\"Xp\":
+        0.00001,\r\n\t\t\t\t\"A\": 1.26,\r\n\t\t\t\t\"J\": 1000,\r\n\t\t\t\t\"Iy\":
+        1000,\r\n\t\t\t\t\"Iz\": 0.100019\r\n\t\t\t}\r\n\t\t}\r\n\t},\r\n\t\"fix_member\":
+        {\r\n\t\t\"1\": [\r\n\t\t\t{\r\n\t\t\t\t\"m\": 1,\r\n\t\t\t\t\"tx\": 27900,\r\n\t\t\t\t\"ty\":
+        83700,\r\n\t\t\t\t\"tz\": 1000,\r\n\t\t\t\t\"tr\": 1000\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"m\":
+        2,\r\n\t\t\t\t\"tx\": 27900,\r\n\t\t\t\t\"ty\": 83700,\r\n\t\t\t\t\"tz\":
+        1000,\r\n\t\t\t\t\"tr\": 1000\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"m\": 3,\r\n\t\t\t\t\"tx\":
+        27900,\r\n\t\t\t\t\"ty\": 83700,\r\n\t\t\t\t\"tz\": 1000,\r\n\t\t\t\t\"tr\":
+        1000\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"load\": {\r\n\t\t\"1\": {\r\n\t\t\t\"fix_node\":
+        1,\r\n\t\t\t\"fix_member\": 1,\r\n\t\t\t\"element\": 1,\r\n\t\t\t\"joint\":
+        1,\r\n\t\t\t\"load_member\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\": \"3\",\r\n\t\t\t\t\t\"direction\":
+        \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\": 0,\r\n\t\t\t\t\t\"L2\":
+        0,\r\n\t\t\t\t\t\"P1\": 92.2,\r\n\t\t\t\t\t\"P2\": 92.2\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\":
+        \"1\",\r\n\t\t\t\t\t\"direction\": \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\":
+        0,\r\n\t\t\t\t\t\"L2\": 0,\r\n\t\t\t\t\t\"P1\": -92.2,\r\n\t\t\t\t\t\"P2\":
+        -92.2\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\": \"2\",\r\n\t\t\t\t\t\"direction\":
+        \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\": 0,\r\n\t\t\t\t\t\"L2\":
+        0,\r\n\t\t\t\t\t\"P1\": -92.2,\r\n\t\t\t\t\t\"P2\": -92.2\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba713c3c7d8b20d4297d203e964bf539, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &98083875
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 98083877}
-  - component: {fileID: 98083876}
-  m_Layer: 0
-  m_Name: ExternalCall
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &98083876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 98083875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c04f656e437c947985c4c1fe2464df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &98083877
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 98083875}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &155198600
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,46 +483,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 628456838}
   m_CullTransparentMesh: 0
---- !u!1 &647552212
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 647552214}
-  - component: {fileID: 647552213}
-  m_Layer: 0
-  m_Name: Capture
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &647552213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 647552212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e729f98ef2af44fb8b7242d574cf85d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &647552214
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 647552212}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &718216937
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +558,46 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 718216937}
   m_CullTransparentMesh: 0
+--- !u!1 &766882210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 766882212}
+  - component: {fileID: 766882211}
+  m_Layer: 0
+  m_Name: ExternalConnect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &766882211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 766882210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd38b93ddee9fec41b046e35579a3563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &766882212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 766882210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1029876313
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,9 +669,29 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "input json @\r\n  \"nodes\": [\r\n    {\r\n      \"z\": 1,\r\n      \"y\":
-    1,\r\n      \"x\": 1\r\n    },\r\n    {\r\n      \"x\": 3,\r\n      \"y\": 3,\r\n
-    \     \"z\": 2\r\n    }\n}"
+  m_Text: "{\r\n\t\"node\": {\r\n\t\t\"1\": {\r\n\t\t\t\"x\": 5,\r\n\t\t\t\"y\": -8.66,\r\n\t\t\t\"z\":
+    0\r\n\t\t},\r\n\t\t\"2\": {\r\n\t\t\t\"x\": 0,\r\n\t\t\t\"y\": 0,\r\n\t\t\t\"z\":
+    0\r\n\t\t},\r\n\t\t\"3\": {\r\n\t\t\t\"x\": 10,\r\n\t\t\t\"y\": 0,\r\n\t\t\t\"z\":
+    0\r\n\t\t}\r\n\t},\r\n\t\"member\": {\r\n\t\t\"1\": {\r\n\t\t\t\"ni\": \"1\",\r\n\t\t\t\"nj\":
+    \"2\",\r\n\t\t\t\"e\": \"1\",\r\n\t\t\t\"cg\": 0\r\n\t\t},\r\n\t\t\"2\": {\r\n\t\t\t\"ni\":
+    \"2\",\r\n\t\t\t\"nj\": \"3\",\r\n\t\t\t\"e\": \"1\",\r\n\t\t\t\"cg\": 0\r\n\t\t},\r\n\t\t\"3\":
+    {\r\n\t\t\t\"ni\": \"1\",\r\n\t\t\t\"nj\": \"3\",\r\n\t\t\t\"e\": \"1\",\r\n\t\t\t\"cg\":
+    0\r\n\t\t}\r\n\t},\r\n\t\"element\": {\r\n\t\t\"1\": {\r\n\t\t\t\"1\": {\r\n\t\t\t\t\"E\":
+    32800000,\r\n\t\t\t\t\"G\": 1000,\r\n\t\t\t\t\"Xp\": 0.00001,\r\n\t\t\t\t\"A\":
+    1.26,\r\n\t\t\t\t\"J\": 1000,\r\n\t\t\t\t\"Iy\": 1000,\r\n\t\t\t\t\"Iz\": 0.100019\r\n\t\t\t}\r\n\t\t}\r\n\t},\r\n\t\"fix_member\":
+    {\r\n\t\t\"1\": [\r\n\t\t\t{\r\n\t\t\t\t\"m\": 1,\r\n\t\t\t\t\"tx\": 27900,\r\n\t\t\t\t\"ty\":
+    83700,\r\n\t\t\t\t\"tz\": 1000,\r\n\t\t\t\t\"tr\": 1000\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"m\":
+    2,\r\n\t\t\t\t\"tx\": 27900,\r\n\t\t\t\t\"ty\": 83700,\r\n\t\t\t\t\"tz\": 1000,\r\n\t\t\t\t\"tr\":
+    1000\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"m\": 3,\r\n\t\t\t\t\"tx\": 27900,\r\n\t\t\t\t\"ty\":
+    83700,\r\n\t\t\t\t\"tz\": 1000,\r\n\t\t\t\t\"tr\": 1000\r\n\t\t\t}\r\n\t\t]\r\n\t},\r\n\t\"load\":
+    {\r\n\t\t\"1\": {\r\n\t\t\t\"fix_node\": 1,\r\n\t\t\t\"fix_member\": 1,\r\n\t\t\t\"element\":
+    1,\r\n\t\t\t\"joint\": 1,\r\n\t\t\t\"load_member\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\":
+    \"3\",\r\n\t\t\t\t\t\"direction\": \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\":
+    0,\r\n\t\t\t\t\t\"L2\": 0,\r\n\t\t\t\t\t\"P1\": 92.2,\r\n\t\t\t\t\t\"P2\": 92.2\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\":
+    \"1\",\r\n\t\t\t\t\t\"direction\": \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\":
+    0,\r\n\t\t\t\t\t\"L2\": 0,\r\n\t\t\t\t\t\"P1\": -92.2,\r\n\t\t\t\t\t\"P2\": -92.2\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t\"m\":
+    \"2\",\r\n\t\t\t\t\t\"direction\": \"y\",\r\n\t\t\t\t\t\"mark\": 2,\r\n\t\t\t\t\t\"L1\":
+    0,\r\n\t\t\t\t\t\"L2\": 0,\r\n\t\t\t\t\t\"P1\": -92.2,\r\n\t\t\t\t\t\"P2\": -92.2\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n}"
 --- !u!222 &1029876316
 CanvasRenderer:
   m_ObjectHideFlags: 0

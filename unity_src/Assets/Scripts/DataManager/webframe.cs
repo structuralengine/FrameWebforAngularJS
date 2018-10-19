@@ -30,10 +30,24 @@ public class webframe : Singleton<webframe>
     [Serializable]
     public class SaveData
     {
-        public StringVector3[] node;
-        public MemberData[] member;
-        public PanelData[] panel;
-        public ElementData[] element;
+        public Dictionary<string, NodeData> node;
+        public Dictionary<string, MemberData> member;
+        public Dictionary<string, ElementData> element;
+        public Dictionary<string, PanelData> panel;
+        public Dictionary<string, FixNodeData[]> fix_node;
+        public Dictionary<string, FixMemberData> fix_member;
+
+
+
+    }
+
+    // 格点データ
+    [Serializable]
+    public class NodeData
+    {
+        public double x = 0.0;
+        public double y = 0.0;
+        public double z = 0.0;
     }
 
     //	要素データ
@@ -57,31 +71,70 @@ public class webframe : Singleton<webframe>
 
     //	属性データ
     [Serializable]
-	public class ElementData
-	{
-        public string E = "";   //	ヤング率
-        public string G = "";   //	せん断弾性係数
-        public string Xp = "";  //	線膨張係数
+    public class ElementData
+    {
+        public Dictionary<string, Material> ElementType;
+    }
+    [Serializable]
+    public class Material
+    {
+        public double E = 0.0;   //	ヤング率
+        public double G = 0.0;   //	せん断弾性係数
+        public double Xp = 0.0;  //	線膨張係数
 
-        public string A1 = "";	//	断面積
-        public string J1 = "";  //	ねじり定数
-        public string Iz1 = ""; //	断面２次モーメントZ軸まわり
-        public string Iy1 = ""; //	断面２次モーメントY軸まわり
+        public double A = 0.0;	//	断面積
+        public double J = 0.0;  //	ねじり定数
+        public double Iz = 0.0; //	断面２次モーメントZ軸まわり
+        public double Iy = 0.0; //	断面２次モーメントY軸まわり
+    }
 
-        public string A2 = "";	//	断面積
-        public string J2 = "";  //	ねじり定数
-        public string Iz2 = ""; //	断面２次モーメントZ軸まわり
-        public string Iy2 = ""; //	断面２次モーメントY軸まわり
+    //	バネデータ
+    [Serializable]
+    public class FixNodeData
+    {
+        [JsonProperty("n")]
+        public long N { get; set; }
 
-        public string A3 = "";	//	断面積
-        public string J3 = "";  //	ねじり定数
-        public string Iz3 = ""; //	断面２次モーメントZ軸まわり
-        public string Iy3 = ""; //	断面２次モーメントY軸まわり
+        [JsonProperty("tx")]
+        public long Tx { get; set; }
+
+        [JsonProperty("ty")]
+        public long Ty { get; set; }
+
+        [JsonProperty("tz")]
+        public long Tz { get; set; }
+
+        [JsonProperty("rx")]
+        public long Rx { get; set; }
+
+        [JsonProperty("ry")]
+        public long Ry { get; set; }
+
+        [JsonProperty("rz")]
+        public long Rz { get; set; }
+    }
+
+    //	バネデータ
+    [Serializable]
+    public class FixMemberData
+    {
+        public Dictionary<string, SupportMember> FixMemberType;
+    }
+    [Serializable]
+    public class SupportMember
+    {
+        public string m = "";
+        public double tx = 0.0;
+        public double ty = 0.0;
+        public double tz = 0.0;
+        public double tr = 0.0;
     }
 
 
+
+
     //	節点ポイントリスト
-    private	List<SystemUtility.StringVector3>	_listNodePoint = new List<SystemUtility.StringVector3>();
+    private List<SystemUtility.StringVector3>	_listNodePoint = new List<SystemUtility.StringVector3>();
 	public List<SystemUtility.StringVector3> ListNodePoint{
 		get{	return	_listNodePoint;	}
 	}

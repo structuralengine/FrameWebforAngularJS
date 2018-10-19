@@ -225,14 +225,6 @@ public class MainFrameManager : MonoBehaviour
 
 
     #region Javascript と連携 
-    /// <summary>
-    /// Unity→Html (UnityからJS内でイベント発火)
-    /// </summary>
-    /// <param name="message"></param>
-    public void SendAngular(string message)
-    {
-        Application.ExternalCall("ReceiveUnity", message);
-    }
 
     /// <summary>
     /// JavaScript から Input モードの変更通知が来た
@@ -244,25 +236,61 @@ public class MainFrameManager : MonoBehaviour
 
         switch (message.Trim())
         {
-            case "node":
+            case "nodes":
                 if (this.inputMode != InputPanelLabel.Node){
                     flg = true;
                     this.inputMode = InputPanelLabel.Node;
                 }
                 break;
 
-            case "member":
+            case "members":
                 if (this.inputMode != InputPanelLabel.Member){
                     flg = true;
                     this.inputMode = InputPanelLabel.Member;
                 }
                 break;
 
-            case "panel":
+            case "panels":
                 if (this.inputMode != InputPanelLabel.Panel){
                     flg = true;
                     this.inputMode = InputPanelLabel.Panel;
                 }
+                break;
+
+            case "fix_nodes":
+                break;
+
+            case "elements":
+                break;
+
+            case "joints":
+                break;
+
+            case "notice_points":
+                break;
+
+            case "fix_members":
+                break;
+
+            case "loads":
+                break;
+
+            case "combines":
+                break;
+
+            case "disg":
+                break;
+
+            case "fsec":
+                break;
+
+            case "comb.fsec":
+                break;
+
+            case "pic.fsec":
+                break;
+
+            case "reac":
                 break;
 
             default:
@@ -270,7 +298,7 @@ public class MainFrameManager : MonoBehaviour
                 break;
         }
         if(flg == true)
-            SetActiveDispManager(this.inputMode);
+            this.SetActiveDispManager(this.inputMode);
     }
 
     /// <summary>
@@ -284,7 +312,7 @@ public class MainFrameManager : MonoBehaviour
 
         if (this.inputMode == InputPanelLabel.None)
         {
-            SendAngular("GetInputMode");
+            ExternalConnect.SendAngular("GetInputMode");
         }
         else
         {
@@ -298,11 +326,17 @@ public class MainFrameManager : MonoBehaviour
     /// </summary>
     /// <param name="inputmode"></param>
     /// <param name="json"></param>
-    public void InputDataChenge(string inputmode, string json)
+    public void InputDataChenge(string json)
     {
         this._webframe.Create(json);
         this.CreateParts();
         this.SetAllBlockStatus();
     }
+    public void InputDataChenge(string inputmode, string json)
+    {
+        // 個別の
+    }
+
+
     #endregion
 }
