@@ -37,6 +37,7 @@ angular.module('webframe')
           'Fsec',
           'Joint',
           'Load',
+          'Load_name',
           'Member',
           'Node',
           'Notice_point',

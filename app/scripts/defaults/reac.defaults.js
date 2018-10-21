@@ -7,11 +7,7 @@
  * # config/reacDefaults
  * Constant in the webframe.
  */
-angular.module('webframe')
-  .constant('reacDefaults', [
-    {},
-    {},
-    {},
-    {},
-    {}
-  ]);
+
+const ROW = 10;                   //表の行数
+
+angular.module('webframe').constant('reacDefaults', Array(ROW).fill({}));

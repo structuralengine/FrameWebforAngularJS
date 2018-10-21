@@ -10,79 +10,37 @@
 angular.module('webframe')
     .factory('loadConfig', ['HtHelper', 'htSpeedInput',
         function (HtHelper, htSpeedInput) { 
+            const name = ['m1', 'm2', 'direction', 'mark', 'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
+
+            function column(str){
+                var dic = {'items':{'':{'column':{'data':str, 'type':'numeric', 'format':'0.0000'} }} };
+                return dic;
+            }
 
             return {
                 '部材荷重': {
-                    en: 'type 1',
-                    data: 'type1',
                     items: {
-                        '部材1': {
-                            'column': {
-                                data: 'm1',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        '部材2': {
-                            'column': {
-                                data: 'm2',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        '方向': {
-                            'column': {
-                                data: 'direction',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        'マーク': {
-                            'column': {
-                                data: 'mark',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        'L1': {
-                            'column': {
-                                data: 'L1',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        'L2': {
-                            'column': {
-                                data: 'L2',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        'P1': {
-                            'column': {
-                                data: 'P1',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
-                        'P2': {
-                            'column': {
-                                data: 'P2',
-                                type: 'numeric',
-                                'format': '0.0000'
-                            }
-                        },
+                        '部材1': column('m1'),
+                        '部材2': column('m2'),
+                        '方向': column('direction'),
+                        'マーク': column('mark'),
+                        'L1': column('L1'),
+                        'L2': column('L2'),
+                        'P1': column('P1'),
+                        'P2': column('P2')
                     },
                 },
                 '節点荷重': {
-                    en: 'type 1',
-                    data: 'type1',
                     items: {
                         '節点': {
-                            'column': {
-                                data: 'n',
-                                type: 'numeric',
-                                'format': '0.0000'
+                            'items':{
+                                '':{
+                                    'column': {
+                                        data: 'n',
+                                        type: 'numeric',
+                                        'format': '0.0000'
+                                    }
+                                }
                             }
                         },
                         '荷重': {

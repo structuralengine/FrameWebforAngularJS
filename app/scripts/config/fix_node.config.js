@@ -16,9 +16,9 @@ angular.module('webframe')
                 '節点':{
                     en:'node',
                     data:'node',
-                    item:{
+                    items:{
                         '':{
-                            item:{
+                            items:{
                                 '':{
                                     'column':{
                                         data:'n',

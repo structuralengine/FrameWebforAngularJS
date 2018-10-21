@@ -7,6 +7,7 @@
  * # Panel
  * Factory in the webframe.
  */
+
 angular.module('webframe')
   .factory('Panel', ['$lowdb', '$injector', '$filter', 'LowResource', 'panelDefaults', 'panelConfig', 'HtHelper',
     function ($lowdb, $injector, $filter, LowResource, panelDefaults, panelConfig, HtHelper) {

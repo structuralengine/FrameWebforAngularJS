@@ -91,7 +91,7 @@ function cnst(json, name, array){
     const data = json[name];
     let dic = {};
 
-    for(var i in data){
+    for(var i = 0; i < data.length; i++){
 
         var x = [];
         for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
@@ -184,6 +184,42 @@ function memberJson(json) {
     const str = JSON.stringify(member)
     return str;
 }
+
+//fix_nodeデータの整形
+// function fix_nodeJson(json, name, array){
+
+//     if(!(name in json)){
+//         return '{}';
+//     }
+
+//     const data = json[name];
+//     let dic = {};
+
+//     for(var i = 0; i < data.length; i++){
+
+//         var x = [];
+//         x[0] = (array[0] in data[i]) ? String(data[i][array[0]]) : NaN;
+//         for(var j = 1; j < array.length; j++) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
+
+//         var flag = 1;
+//         for(var j in array) flag *= isNaN(x[j]);
+//         if(flag) continue;
+
+//         var y = [];
+//         y[0] = 
+//         for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
+
+//         var obj = {};
+//         for(var j in array) obj[array[j]] = y[j];
+
+//         dic[i + 1] = obj;
+
+//     }
+
+//     const str = JSON.stringify(dic);
+//     return str;
+
+// }
 
 function fnlist(){
     var c1 = ['t', 'r'];

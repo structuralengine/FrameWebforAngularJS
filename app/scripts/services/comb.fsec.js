@@ -22,7 +22,7 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let combFsec = hot.getSourceDataAtRow(row);
                 });
-                SendJsonSendDataToUnityToUnity('comb.fsec');
+                SendDataToUnity('comb.fsec');
             };
 
             _.mixin(CombFsec, HtHelper);

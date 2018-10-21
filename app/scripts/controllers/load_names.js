@@ -2,18 +2,15 @@
 
 /**
  * @ngdoc function
- * @name webframe.controller:LoadsCtrl
+ * @name webframe.controller:LoadNamesCtrl
  * @description
- * # LoadsCtrl
+ * # LoadNamesCtrl
  * Controller of the webframe
  */
-// angular.module('webframe')
-//     .controller('LoadsCtrl', function () {
-//     });
 
 angular.module('webframe')
-.controller('LoadsCtrl', ['$scope', '$filter', '$q', 'Load', 'loadDefaults',
-    function ($scope, $filter, $q, Load, loadDefaults) {
+.controller('LoadNamesCtrl', ['$scope', '$filter', '$q', 'Load_name', 'loadNameDefaults',
+    function ($scope, $filter, $q, Load_name, loadNameDefaults) {
         let ctrl = this;
 
         var element = document.getElementById('popupConfigElement');
@@ -25,18 +22,18 @@ angular.module('webframe')
 
         function init() {
             elementsMode = false;
-            let loads = Load.query();
+            let load_names = Load_name.query();
 
-            if (loads.length == 0) {
-                Load.createDefaultEntries();
-                loads = Load.query();
+            if (load_names.length == 0) {
+                Load_name.createDefaultEntries();
+                load_names = Load_name.query();
             }
 
-            ctrl.loads = loads;
-            ctrl.settings = Load.settings;
+            ctrl.load_names = load_names;
+            ctrl.settings = Load_name.settings;
 
             $scope.ngPopupConfig = {
-                width: 850,
+                width: 500,
                 height: 450,
                 resizable: true,
                 draggable: true,
@@ -44,7 +41,7 @@ angular.module('webframe')
                     top: 135,
                     left: 15
                 },
-                title: '荷重強度',
+                title: '荷重名称',
                 hasTitleBar: true,
                 pinned: false,
                 isShow: true,

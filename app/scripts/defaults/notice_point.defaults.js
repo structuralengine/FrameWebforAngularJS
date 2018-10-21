@@ -7,11 +7,7 @@
  * # config/noticePointDefaults
  * Constant in the webframe.
  */
-angular.module('webframe')
-  .constant('noticePointDefaults', [
-    {},
-    {},
-    {},
-    {},
-    {}
-  ]);
+
+const ROW = 10;                   //表の行数
+
+angular.module('webframe').constant('noticePointDefaults', Array(ROW).fill({}));

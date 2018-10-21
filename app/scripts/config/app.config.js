@@ -21,6 +21,7 @@ angular.module('webframe')
                 notice_points: [],
                 fix_members: [],
                 loads: [],
+                load_names: [],
                 combines: [],
                 disgs: [],
                 reacs: [],
