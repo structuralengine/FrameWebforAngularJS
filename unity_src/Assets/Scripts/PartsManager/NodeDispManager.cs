@@ -10,20 +10,20 @@ public class NodeDispManager : PartsDispManager
 
 	float	_maxNodeLangth = 0.0f;
 	float	_nodeScale = 1.0f;
-	
 
-	/// <summary>
-	/// パーツを作成する
-	/// </summary>
-	public	override void	CreateParts()
+    private Dictionary<int, Vector3> listNodePoint = new Dictionary<int, Vector3>();
+
+
+    /// <summary>
+    /// パーツを作成する
+    /// </summary>
+    public override void	CreateParts()
 	{
 		if( _webframe == null ) {
 			return;
 		}
 
-		List<SystemUtility.StringVector3>	listNodePoint = _webframe.ListNodePoint;
-
-		CreatePartsCommon( listNodePoint.Count, "Node" );
+		CreatePartsCommon(_webframe.listNodePoint.Count, "Node" );
 	}
 
 
@@ -33,12 +33,12 @@ public class NodeDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		SystemUtility.StringVector3	nodePoint = _webframe.ListNodePoint[id];
+		Vector3	nodePoint = this.listNodePoint[id];
 
 		PartsDispManager.PartsDispStatus partsDispStatus;
 
 		partsDispStatus.id	  = id;
-		partsDispStatus.enable = !nodePoint.isNullOrEmpty;
+		partsDispStatus.enable = true;
 
 		if( SetBlockStatusCommon(partsDispStatus) == false ) {
 			return;
@@ -60,7 +60,7 @@ public class NodeDispManager : PartsDispManager
 	/// </summary>
 	public	bool	CalcNodeBlockScale( int search_node=-1 )
 	{
-		List<SystemUtility.StringVector3>	listNodePoint = _webframe.ListNodePoint;
+        Dictionary<int, Vector3> listNodePoint = _webframe.listNodePoint;
 		Vector3	startPos, endPos, disVec;
 		int		i, j;
 		float	max_length = 0.0f;
@@ -70,13 +70,13 @@ public class NodeDispManager : PartsDispManager
 		//	全検索
 		if( search_node == -1 ) { 
 			for( i = 0; i < listNodePoint.Count; i++ ) {
-				if( listNodePoint[i].isNullOrEmpty ) {
+				if( listNodePoint.ContainsKey(i) == false ) {
 					continue;
 				}
 				startPos = listNodePoint[i];
 
 				for( j = i + 1; j < listNodePoint.Count; j++ ) {
-					if( listNodePoint[j].isNullOrEmpty ) {
+                    if (listNodePoint.ContainsKey(j) == false){
 						continue;
 					}
 					endPos = listNodePoint[j];
@@ -89,17 +89,17 @@ public class NodeDispManager : PartsDispManager
 			}
 		}
 		else {
-			//	空にされたら全検索し直す
-			if( listNodePoint[search_node].isNullOrEmpty == true ) { 
-				return	CalcNodeBlockScale();
+            //	空にされたら全検索し直す
+            if (listNodePoint.ContainsKey(search_node) == false){
+                return	CalcNodeBlockScale();
 			}
 			//	指定されたものだけ検索をする
 			else{
 				startPos = listNodePoint[search_node];
 
 				for( i = 0; i < listNodePoint.Count; i++ ) {
-					if( listNodePoint[i].isNullOrEmpty ) {
-						continue;
+                    if (listNodePoint.ContainsKey(i) == false){
+                        continue;
 					}
 					endPos = listNodePoint[i];
 					disVec = endPos - startPos;

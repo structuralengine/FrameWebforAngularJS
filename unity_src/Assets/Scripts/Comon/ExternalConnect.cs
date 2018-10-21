@@ -88,7 +88,11 @@ public class ExternalConnect : MonoBehaviour {
     /// <param name="strMode">描画モード名</param>
     public void SelectItemChange(string strMode, string id)
     {
-        mainFrameObject.SelectItemChange(strMode, id);
+        int i = 0;
+        if (int.TryParse(id, out i))
+        {
+            mainFrameObject.SelectItemChange(i);
+        }
     }
     #endregion
 

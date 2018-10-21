@@ -30,14 +30,9 @@ public class MainFrameManager : MonoBehaviour
 
     PartsDispWork[]					_partsDispWorks = new PartsDispWork[(int)InputPanelLabel.Max];
 
-	private	NodeDispManager			_nodeDispManager;
-	public	NodeDispManager			NodeDispManager{ get{ return _nodeDispManager; } }
-
-    private	MemberDispManager		_memberDispManager;
-	public	MemberDispManager		MemberDispManager{ get{ return _memberDispManager; } }
-
-    private	PanelDispManager		_panelDispManager;
-	public	PanelDispManager		PanelDispManager{ get{ return _panelDispManager; } }
+    public NodeDispManager NodeDispManager     { get; private set; }
+    public MemberDispManager MemberDispManager { get; private set; }
+    public PanelDispManager PanelDispManager   { get; private set; }
 
 
     /// <summary>
@@ -70,14 +65,12 @@ public class MainFrameManager : MonoBehaviour
 			InstantiateDispPrefab( out _partsDispWorks[i], _dispPrefabs[i] );	
 		}
 
-		_nodeDispManager	= _partsDispWorks[(int)InputPanelLabel.Node].partsDispManager as NodeDispManager;
-		_memberDispManager = _partsDispWorks[(int)InputPanelLabel.Member].partsDispManager as MemberDispManager;
-		_panelDispManager	= _partsDispWorks[(int)InputPanelLabel.Panel].partsDispManager as PanelDispManager;
+		NodeDispManager	= _partsDispWorks[(int)InputPanelLabel.Node].partsDispManager as NodeDispManager;
+		MemberDispManager = _partsDispWorks[(int)InputPanelLabel.Member].partsDispManager as MemberDispManager;
+		PanelDispManager	= _partsDispWorks[(int)InputPanelLabel.Panel].partsDispManager as PanelDispManager;
 	}
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> 初期化 </summary>
     void Start()
     {
         #if !UNITY_EDITOR && UNITY_WEBGL
@@ -96,7 +89,6 @@ public class MainFrameManager : MonoBehaviour
         ExternalConnect.SendAngular("GetInputMode");
 
     }
-
 
     /// <summary>
     /// アクティブな表示モードを切り替える
@@ -121,11 +113,11 @@ public class MainFrameManager : MonoBehaviour
             {
                 if (label == InputPanelLabel.Member)
                 {
-                    _memberDispManager.ChangeDispMode(MemberDispManager.DispType.Block);
+                    MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Block);
                 }
                 else
                 {
-                    _memberDispManager.ChangeDispMode(MemberDispManager.DispType.Line);
+                    MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Line);
                 }
             }
             else
@@ -203,26 +195,25 @@ public class MainFrameManager : MonoBehaviour
 	{
 		//	全て設定する
 		if( search_node == -1 ) {
-			_nodeDispManager.CalcNodeBlockScale();
-			_nodeDispManager.SetBlockStatusAll();
-			_memberDispManager.SetBlockStatusAll();
-			_panelDispManager.SetBlockStatusAll();
+			NodeDispManager.CalcNodeBlockScale();
+			NodeDispManager.SetBlockStatusAll();
+			MemberDispManager.SetBlockStatusAll();
+			PanelDispManager.SetBlockStatusAll();
 		}
 		//	指定されたものと関わっているものだけ更新する
 		else {
-			_nodeDispManager.SetBlockStatus( search_node );
-			if( _nodeDispManager.CalcNodeBlockScale(search_node) ) {	//	サイズが更新されていたら節点のサイズも更新する
-				_memberDispManager.SetBlockStatusAll();
-				_panelDispManager.SetBlockStatusAll();
+			NodeDispManager.SetBlockStatus( search_node );
+			if( NodeDispManager.CalcNodeBlockScale(search_node) ) {	//	サイズが更新されていたら節点のサイズも更新する
+				MemberDispManager.SetBlockStatusAll();
+				PanelDispManager.SetBlockStatusAll();
 			}
 
-			_memberDispManager.CheckNodeAndUpdateStatus( search_node );
-			_panelDispManager.CheckNodeAndUpdateStatus( search_node );
+			MemberDispManager.CheckNodeAndUpdateStatus( search_node );
+			PanelDispManager.CheckNodeAndUpdateStatus( search_node );
 		}
 	}
 
     #endregion
-
 
     #region Javascript と連携 
 
@@ -297,8 +288,9 @@ public class MainFrameManager : MonoBehaviour
                 this.inputMode = InputPanelLabel.None;
                 break;
         }
-        if(flg == true)
+        if (flg == true){
             this.SetActiveDispManager(this.inputMode);
+        }
     }
 
     /// <summary>
@@ -306,19 +298,15 @@ public class MainFrameManager : MonoBehaviour
     /// </summary>
     /// <param name="inputmode">現在のインプットモード</param>
     /// <param name="id"></param>
-    public void SelectItemChange(string inputmode, string id)
+    public void SelectItemChange(int id)
     {
-        InputModeChange(inputmode);
-
-        if (this.inputMode == InputPanelLabel.None)
-        {
+        if (this.inputMode == InputPanelLabel.None) {
             ExternalConnect.SendAngular("GetInputMode");
+            return;
         }
-        else
-        {
-            PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
-            partsDispWork.partsDispManager.ChengeForcuseBlock(int.Parse(id));
-        }
+
+        PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
+        partsDispWork.partsDispManager.ChengeForcuseBlock(id);
     }
 
     /// <summary>

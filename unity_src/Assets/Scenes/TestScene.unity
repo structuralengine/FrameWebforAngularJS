@@ -124,6 +124,11 @@ Prefab:
       propertyPath: _dispPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.size
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 436264, guid: da367dcef0f5ce941ac0ebc554eeabfd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -162,6 +167,51 @@ Prefab:
       objectReference: {fileID: 1029876315}
     - target: {fileID: 11420488, guid: da367dcef0f5ce941ac0ebc554eeabfd, type: 2}
       propertyPath: _dispPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[10]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[11]
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []

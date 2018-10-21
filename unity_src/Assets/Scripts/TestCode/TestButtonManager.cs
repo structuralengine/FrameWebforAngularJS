@@ -8,12 +8,15 @@ public class TestButtonManager : MonoBehaviour {
     [SerializeField]
     private Text test_textUI;
 
+
     public void testBotton_Click()
     {
         test_textUI = GameObject.Find("TestTextBlock").GetComponent<Text>();
 
-        ExternalConnect connecter = new ExternalConnect();
-        connecter.ReceiveData(test_textUI.text);
+        GameObject connecter = GameObject.Find("ExternalConnect");
+        ExternalConnect script = connecter.GetComponent<ExternalConnect>(); 
+
+        script.ReceiveData(test_textUI.text);
     }
 
 }

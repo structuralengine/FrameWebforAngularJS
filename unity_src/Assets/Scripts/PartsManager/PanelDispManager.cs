@@ -17,7 +17,7 @@ public class PanelDispManager : PartsDispManager
 			return;
 		}
 
-		List<webframe.PanelData>	listPanelData = _webframe.ListPanelData;
+        Dictionary<int, webframe.PanelDataEx> listPanelData = _webframe.ListPanelData;
 
 		CreatePartsCommon( listPanelData.Count, "Panel" );
 	}
@@ -28,7 +28,7 @@ public class PanelDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		webframe.PanelData	panelData = _webframe.ListPanelData[id];
+		webframe.PanelDataEx panelData = _webframe.ListPanelData[id];
 		BlockWorkData	blockWorkData = _blockWorkData[id];
 		PartsDispStatus	partsDispStatus;
 
@@ -40,10 +40,10 @@ public class PanelDispManager : PartsDispManager
 		partsDispStatus.id = id;
 		partsDispStatus.enable = false;
 
-        string[] nodeNos = { panelData.no1, panelData.no2, panelData.no3 };
+        int[] nodeNos = { panelData.no1, panelData.no2, panelData.no3 };
 
 		for( i=0; i< nodeNos.Length; i++ ){
-			no = ComonFunctions.GetIntValue(nodeNos[i] );
+			no = nodeNos[i];
 			if( no > 0 ) {
                 partsDispStatus.enable = true;
                 nodeNo.Add(no);
@@ -79,7 +79,8 @@ public class PanelDispManager : PartsDispManager
 		Vector3[]	position = new Vector3[nodeNo.Count];
 
 		for ( i=0; i<nodeNo.Count; i++ ){
-			position[i] = _webframe.ListNodePoint[nodeNo[i]];
+            Vector3 node = _webframe.listNodePoint[nodeNo[i]];
+            position[i] = node;
 		}
 		panelBlock.SetPanelPointPosition( position );
     }
@@ -92,15 +93,15 @@ public class PanelDispManager : PartsDispManager
 	/// <param name="search_node"></param>
 	public	void CheckNodeAndUpdateStatus( int search_node )
 	{
-		List<webframe.PanelData>	listPanelData = _webframe.ListPanelData;
+        Dictionary<int, webframe.PanelDataEx> listPanelData = _webframe.ListPanelData;
 		int		i, j;
 		int		nodeNo;
 
         for ( i = 0; i < listPanelData.Count; i++ ) {
             bool UpdateFlg = false;
-            string[] nodeNos = { listPanelData[i].no1, listPanelData[i].no2, listPanelData[i].no3 };
+            int[] nodeNos = { listPanelData[i].no1, listPanelData[i].no2, listPanelData[i].no3 };
             for (j = 0; j < nodeNos.Length; j++){
-				nodeNo = ComonFunctions.GetIntValue( nodeNos[j] );
+				nodeNo = nodeNos[j];
 				if( nodeNo == search_node ) {
                     UpdateFlg = true;
                     break;

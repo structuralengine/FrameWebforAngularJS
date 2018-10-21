@@ -206,8 +206,7 @@ public class PartsDispManager : MonoBehaviour
 					BlockData	blockData;
 					blockData = obj.GetComponentInParent<BlockData>();
 					if( blockData != null ){
-                        // ここで AngularJS に通知する
-                        _mainFrameManager.SendAngular(string.Format("select item change:{0}", blockData.id));
+                        _mainFrameManager.SelectItemChange(blockData.id); // ここで AngularJS に通知する
                     }
 				}
 			}

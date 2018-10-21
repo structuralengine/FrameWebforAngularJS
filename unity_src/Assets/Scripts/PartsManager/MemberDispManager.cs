@@ -30,8 +30,8 @@ public class MemberDispManager : PartsDispManager
 			return;
 		}
 
-        List<webframe.MemberData> memberData = _webframe.ListMemberData;
-        List<webframe.ElementData> elementData = _webframe.ListElementData;
+        Dictionary<int, webframe.MemberDataEx> memberData = _webframe.ListMemberData;
+        Dictionary<int, Dictionary<int, webframe.ElementData>> elementData = _webframe.ListElementData;
 
         CreatePartsCommon( memberData.Count, "Member" );
 	}
@@ -42,13 +42,14 @@ public class MemberDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-        webframe.MemberData memberData = _webframe.ListMemberData[id];
+        webframe.MemberDataEx memberData = _webframe.ListMemberData[id];
 
         // 節点が有効かどうか調べる
-        int nodeI = ComonFunctions.GetIntValue(memberData.ni);
-        int nodeJ = ComonFunctions.GetIntValue(memberData.nj);
+        int nodeI = memberData.ni;
+        int nodeJ = memberData.nj;
 
-        if (_webframe.CheckNodePosition(nodeI, nodeJ) == false)
+        float length = 0.0f;
+        if (_webframe.GetNodeLength(nodeI, nodeJ, out length) == false)
             return;
 
         PartsDispStatus partsDispStatus;
@@ -60,9 +61,8 @@ public class MemberDispManager : PartsDispManager
 		}
 
         //	表示に必要なパラメータを用意する
-        Vector3 pos_i = _webframe.ListNodePoint[nodeI];
-        Vector3 pos_j = _webframe.ListNodePoint[nodeJ];
-        float length = Vector3.Distance(pos_i, pos_j);
+        Vector3 pos_i = _webframe.listNodePoint[nodeI];
+        Vector3 pos_j = _webframe.listNodePoint[nodeJ];
 
         //	幅と高さを設定する
         Vector3 scale;
@@ -72,13 +72,14 @@ public class MemberDispManager : PartsDispManager
 
         if ( _dispType == DispType.Block ) {
             // 材料情報が有効かどうか調べる
-            int e = ComonFunctions.GetIntValue(memberData.e);
+            int e = memberData.e;
             if (0 <= e && e < _webframe.ListElementData.Count){
-                webframe.ElementData elementData = _webframe.ListElementData[e];
+                Dictionary<int, webframe.ElementData> tmp = _webframe.ListElementData[1]; // とりあえず タイプ1 を選択
+                webframe.ElementData elementData = tmp[e];
 
-                float	danmenseki = ComonFunctions.GetFloatValue(elementData.A1);
-			    float	moment_z = ComonFunctions.GetFloatValue(elementData.Iz1);
-			    float	moment_y = ComonFunctions.GetFloatValue(elementData.Iy1);
+                float	danmenseki = elementData.A;
+			    float	moment_z = elementData.Iz;
+			    float	moment_y = elementData.Iy;
 
 			    //	スケール値を計算
 			    if( danmenseki > 0.0f ) { 
@@ -137,15 +138,15 @@ public class MemberDispManager : PartsDispManager
     /// <param name="search_node"></param>
     public void CheckNodeAndUpdateStatus( int search_node )
 	{
-        List<webframe.MemberData> ListMemberData = _webframe.ListMemberData;
+        Dictionary<int, webframe.MemberDataEx> ListMemberData = _webframe.ListMemberData;
 
 		for(int i = 0; i < ListMemberData.Count; i++ ) {
-            int nodeI = ComonFunctions.GetIntValue(ListMemberData[i].ni);
-            int nodeJ = ComonFunctions.GetIntValue(ListMemberData[i].nj);
+            int nodeI = ListMemberData[i].ni;
+            int nodeJ = ListMemberData[i].nj;
 
-            if ( _webframe.CheckNodePosition(nodeI, nodeJ) == false ) {
-				continue;
-			}
+            float length = 0.0f;
+            if (_webframe.GetNodeLength(nodeI, nodeJ, out length) == false)
+                continue;
 			if( search_node != nodeI && search_node != nodeJ) {
 				continue;		//	関わっていないので無視
 			}
