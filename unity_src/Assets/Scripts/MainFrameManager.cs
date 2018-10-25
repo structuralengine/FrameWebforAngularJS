@@ -217,10 +217,7 @@ public class MainFrameManager : MonoBehaviour
 
     #region Javascript と連携 
 
-    /// <summary>
-    /// JavaScript から Input モードの変更通知が来た
-    /// </summary>
-    /// <param name="message"></param>
+    /// <summary> JavaScript から Input モードの変更通知が来た </summary>
     public void InputModeChange(string message)
     {
         bool flg = false;
@@ -249,39 +246,77 @@ public class MainFrameManager : MonoBehaviour
                 break;
 
             case "fix_nodes":
+                if (this.inputMode != InputPanelLabel.FixNode)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.FixNode;
+                }
                 break;
 
             case "elements":
+                if (this.inputMode != InputPanelLabel.Element)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Element;
+                }
                 break;
 
             case "joints":
+                if (this.inputMode != InputPanelLabel.Joint)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Joint;
+                }
                 break;
 
             case "notice_points":
+                if (this.inputMode != InputPanelLabel.NoticePoints)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.NoticePoints;
+                }
                 break;
 
             case "fix_members":
+                if (this.inputMode != InputPanelLabel.FixMember)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.FixMember;
+                }
                 break;
 
             case "loads":
-                break;
-
-            case "combines":
-                break;
-
-            case "disg":
+                if (this.inputMode != InputPanelLabel.Load)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Load;
+                }
                 break;
 
             case "fsec":
-                break;
-
             case "comb.fsec":
+            case "pic.fsec":
+                if (this.inputMode != InputPanelLabel.Fsec)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Fsec;
+                }
                 break;
 
-            case "pic.fsec":
+            case "disg":
+                if (this.inputMode != InputPanelLabel.Disg)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Disg;
+                }
                 break;
 
             case "reac":
+                if (this.inputMode != InputPanelLabel.Reac)
+                {
+                    flg = true;
+                    this.inputMode = InputPanelLabel.Reac;
+                }
                 break;
 
             default:
@@ -293,11 +328,7 @@ public class MainFrameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// JavaScript から Active Item の変更通知が来た
-    /// </summary>
-    /// <param name="inputmode">現在のインプットモード</param>
-    /// <param name="id"></param>
+    /// <summary> JavaScript から Active Item の変更通知が来た </summary>
     public void SelectItemChange(int id)
     {
         if (this.inputMode == InputPanelLabel.None) {
@@ -309,20 +340,19 @@ public class MainFrameManager : MonoBehaviour
         partsDispWork.partsDispManager.ChengeForcuseBlock(id);
     }
 
-    /// <summary>
-    /// JavaScript から インプットデータ の変更通知が来た
-    /// </summary>
-    /// <param name="inputmode"></param>
-    /// <param name="json"></param>
+    /// <summary> JavaScript から インプットデータ の変更通知が来た </summary>
     public void InputDataChenge(string json)
     {
         this._webframe.Create(json);
         this.CreateParts();
         this.SetAllBlockStatus();
     }
+
+    /// <summary> JavaScript から インプットデータ の変更通知が来た </summary>
     public void InputDataChenge(string inputmode, string json)
     {
-        // 個別の
+        InputModeChange(inputmode);
+
     }
 
 

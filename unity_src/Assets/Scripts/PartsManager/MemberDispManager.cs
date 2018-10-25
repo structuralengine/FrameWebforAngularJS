@@ -30,7 +30,7 @@ public class MemberDispManager : PartsDispManager
 			return;
 		}
 
-        Dictionary<int, webframe.MemberDataEx> memberData = _webframe.ListMemberData;
+        Dictionary<int, webframe.MemberData> memberData = _webframe.ListMemberData;
         Dictionary<int, Dictionary<int, webframe.ElementData>> elementData = _webframe.ListElementData;
 
         CreatePartsCommon( memberData.Count, "Member" );
@@ -42,7 +42,7 @@ public class MemberDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-        webframe.MemberDataEx memberData = _webframe.ListMemberData[id];
+        webframe.MemberData memberData = _webframe.ListMemberData[id];
 
         // 節点が有効かどうか調べる
         int nodeI = memberData.ni;
@@ -138,7 +138,7 @@ public class MemberDispManager : PartsDispManager
     /// <param name="search_node"></param>
     public void CheckNodeAndUpdateStatus( int search_node )
 	{
-        Dictionary<int, webframe.MemberDataEx> ListMemberData = _webframe.ListMemberData;
+        Dictionary<int, webframe.MemberData> ListMemberData = _webframe.ListMemberData;
 
 		for(int i = 0; i < ListMemberData.Count; i++ ) {
             int nodeI = ListMemberData[i].ni;

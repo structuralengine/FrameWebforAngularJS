@@ -29,31 +29,133 @@ public enum InputPanelLabel
 /// <summary> 骨組応答解析データ </summary>
 public class webframe : Singleton<webframe>
 {
-    #region 入力データ
+    #region 格点データ
 
-    // 格点データ
     public Dictionary<int, Vector3> listNodePoint { get; set; }
 
-    //	要素データ
-    public class MemberDataEx
+    /// <summary> 格点データを読み込む </summary>
+    public void SetNodePoint(Dictionary<string, object> objJson)
+    {
+        this.listNodePoint = new Dictionary<int, Vector3>();
+        if (objJson.ContainsKey("node"))
+        {
+            Dictionary<string, object> node1 = objJson["node"] as Dictionary<string, object>;
+            foreach (string key in node1.Keys)
+            {
+                try
+                {
+                    Dictionary<string, object> node2 = node1[key] as Dictionary<string, object>;
+                    float x = Convert.ToSingle(node2["x"]);
+                    float y = Convert.ToSingle(node2["y"]);
+                    float z = Convert.ToSingle(node2["z"]);
+                    Vector3 xyz = new Vector3(x, y, z);
+                    int id = int.Parse(key);
+                    this.listNodePoint.Add(id, xyz);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region 要素データ
+
+    public class MemberData
     {
         public int ni = 0;  //	節点番号ｉ
         public int nj = 0;  //	節点番号ｊ
         public int e = 0;   //	Element番号
-        public MemberDataEx(int _ni, int _nj, int _e)
+        public float cg = 0F;   //	コードアングル
+        public MemberData(int _ni, int _nj, int _e, float _cg = 0F)
         {
             this.ni = _ni;
             this.nj = _nj;
             this.e = _e;
+            this.cg = _cg;
         }
 
     }
-    public Dictionary<int, MemberDataEx> ListMemberData { get; set; }
 
-    //	着目点データ
-    public Dictionary<int, double[]> ListNoticePoint { get; set; }
+    public Dictionary<int, MemberData> ListMemberData { get; set; }
 
-    //	属性データ
+    /// <summary> 要素データを読み込む </summary>
+    public void SetMemberData(Dictionary<string, object> objJson)
+    {
+        this.ListMemberData = new Dictionary<int, MemberData>();
+        if (objJson.ContainsKey("member"))
+        {
+            Dictionary<string, object> member1 = objJson["member"] as Dictionary<string, object>;
+            foreach (string key in member1.Keys)
+            {
+                try
+                {
+                    Dictionary<string, object> member2 = member1[key] as Dictionary<string, object>;
+                    int id = int.Parse(key);
+                    int i = Convert.ToInt32(member2["ni"]);
+                    int j = Convert.ToInt32(member2["nj"]);
+                    int e = Convert.ToInt32(member2["e"]);
+                    if (this.listNodePoint.ContainsKey(i)
+                        && this.listNodePoint.ContainsKey(j)
+                        && this.ListElementData.ContainsKey(e))
+                    {
+                        MemberData ex = new MemberData(i, j, e);
+                        this.ListMemberData.Add(id, ex);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region 着目点データ
+
+    public Dictionary<int, List<float>> ListNoticePoint { get; set; }
+
+    /// <summary> 着目点データを読み込む </summary>
+    public void SetNoticePoint(Dictionary<string, object> objJson)
+    {
+        this.ListNoticePoint = new Dictionary<int, List<float>>();
+        if (objJson.ContainsKey("notice_points"))
+        {
+            List<object> notice1 = objJson["notice_points"] as List<object>;
+            foreach (Dictionary<string, object> tmp in notice1)
+            {
+                try
+                {
+                    int id = Convert.ToInt32(tmp["m"]);
+                    if (this.ListMemberData.ContainsKey(id))
+                    {
+                        List<object> pos1 = tmp["Points"] as List<object>;
+                        List<float> pos2 = new List<float>();
+                        foreach (var p in pos1)
+                        {
+                            if (p != null)
+                                pos2.Add(Convert.ToSingle(p));
+                        }
+                        this.ListNoticePoint.Add(id, pos2);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+    
+    #endregion
+
+    #region 属性データ
+
     public partial class ElementData
     {
         public float E = 0.0F;   //	ヤング率
@@ -64,231 +166,47 @@ public class webframe : Singleton<webframe>
         public float J = 0.0F;  //	ねじり定数
         public float Iz = 0.0F; //	断面２次モーメントZ軸まわり
         public float Iy = 0.0F; //	断面２次モーメントY軸まわり
+
+        public ElementData(float _E, float _G, float _Xp, float _A, float _J, float _Iz, float _Iy)
+        {
+            this.E = _E;
+            this.G = _G;
+            this.Xp = _Xp;
+            this.A = _A;
+            this.J = _J;
+            this.Iz = _Iz;
+            this.Iy = _Iy;
+        }
     }
+
     public Dictionary<int, Dictionary<int, ElementData>> ListElementData { get; set; }
 
-    //	パネルデータ
-    public class PanelDataEx
+    /// <summary> 属性データを読み込む </summary>
+    public void SetElementData(Dictionary<string, object> objJson)
     {
-        public int no1 = 0; // 構成節点No1
-        public int no2 = 0; // 構成節点No2
-        public int no3 = 0;	// 構成節点No3
-        public int e = 0;   // Element番号
-        public PanelDataEx(int _no1, int _no2, int _no3, int _e)
+        this.ListElementData = new Dictionary<int, Dictionary<int, ElementData>>();
+        if (objJson.ContainsKey("element"))
         {
-            this.no1 = _no1;
-            this.no2 = _no2;
-            this.no3 = _no3;
-            this.e = _e;
-        }
-    }
-    public Dictionary<int, PanelDataEx> ListPanelData { get; set; }
-
-    //	支点データ
-    public partial class FixNodeEx
-    {
-        public double tx = 0.0;
-        public double ty = 0.0;
-        public double tz = 0.0;
-        public double rx = 0.0;
-        public double ry = 0.0;
-        public double rz = 0.0;
-        public FixNodeEx(double _tx, double _ty, double _tz, double _rx, double _ry, double _rz)
-        {
-            this.tx = _tx;
-            this.ty = _ty;
-            this.tz = _tz;
-            this.rx = _rx;
-            this.ry = _ry;
-            this.rz = _rz;
-        }
-    }
-    public Dictionary<int, Dictionary<int, FixNodeEx>> ListFixNode { get; set; }
-
-    //	バネデータ
-    public partial class FixMemberEx
-    {
-        public double tx = 0.0;
-        public double ty = 0.0;
-        public double tz = 0.0;
-        public double tr = 0.0;
-        public FixMemberEx(double _tx, double _ty, double _tz, double _tr)
-        {
-            this.tx = _tx;
-            this.ty = _ty;
-            this.tz = _tz;
-            this.tr = _tr;
-        }
-    }
-    public Dictionary<int, Dictionary<int, FixMemberEx>> ListFixMember { get; set; }
-
-    //	結合データ
-    public partial class JointDataEx
-    {
-        public int xi = 1;
-        public int yi = 1;
-        public int zi = 1;
-        public int xj = 1;
-        public int yj = 1;
-        public int zj = 1;
-        public JointDataEx(int _xi, int _yi, int _zi, int _xj, int _yj, int _zj)
-        {
-            this.xi = _xi;
-            this.yi = _yi;
-            this.zi = _zi;
-            this.xj = _xj;
-            this.yj = _yj;
-            this.zj = _zj;
-        }
-    }
-    public Dictionary<int, Dictionary<int, JointDataEx>> ListJointData { get; set; }
-
-    //	荷重データ
-    public partial class LoadDataEx
-    {
-        public int fix_node = 1;
-        public int fix_member = 1;
-        public int element = 1;
-        public int joint = 1;
-        public List<LoadNodeEx> load_node;
-        public List<LoadMemberEx> load_member;
-    }
-    public partial class LoadNodeEx
-    {
-        public int n = 0;
-        public double tx = 0.0;
-        public double ty = 0.0;
-        public double tz = 0.0;
-        public double rx = 0.0;
-        public double ry = 0.0;
-        public double rz = 0.0;
-        public LoadNodeEx(int _n, double _tx, double _ty, double _tz, double _rx, double _ry, double _rz)
-        {
-            this.n = _n;
-            this.tx = _tx;
-            this.ty = _ty;
-            this.tz = _tz;
-            this.rx = _rx;
-            this.ry = _ry;
-            this.rz = _rz;
-        }
-    }
-    public partial class LoadMemberEx
-    {
-        public int m = 0;
-        public string direction = "";
-        public int mark = 0;
-        public double L1 = 0.0;
-        public double L2 = 0.0;
-        public double P1 = 0.0;
-        public double P2 = 0.0;
-        public LoadMemberEx(int _m, string _direction, int _mark, double _L1, double _L2, double _P1, double _P2)
-        {
-            this.m = _m;
-            this.direction = _direction;
-            this.mark = _mark;
-            this.L1 = _L1;
-            this.L2 = _L2;
-            this.P1 = _P1;
-            this.P2 = _P2;
-        }
-    }
-    public Dictionary<int, LoadDataEx> ListLoadData { get; set; }
-
-    //	変位量データ
-    public partial class DisgData
-    {
-        public double dx = 0.0;
-        public double dy = 0.0;
-        public double dz = 0.0;
-        public double rx = 0.0;
-        public double ry = 0.0;
-        public double rz = 0.0;
-    }
-    public Dictionary<int, DisgData> ListDisgData { get; set; }
-
-    //	反力データ
-    public partial class ReacData
-    {
-        public double tx = 0.0;
-        public double ty = 0.0;
-        public double tz = 0.0;
-        public double mx = 0.0;
-        public double my = 0.0;
-        public double mz = 0.0;
-    }
-    public Dictionary<int, ReacData> ListReacData { get; set; }
-
-    //	断面力データ
-    public partial class FsecData
-    {
-        public double fxi = 0.0;
-        public double fyi = 0.0;
-        public double fzi = 0.0;
-        public double mxi = 0.0;
-        public double myi = 0.0;
-        public double mzi = 0.0;
-        public double fxj = 0.0;
-        public double fyj = 0.0;
-        public double fzj = 0.0;
-        public double mxj = 0.0;
-        public double myj = 0.0;
-        public double mzj = 0.0;
-        public double L = 0.0;
-    }
-    public Dictionary<int, FsecData> ListFsecData { get; set; }
-
-
-    /// <summary> データを作成する </summary>
-    public bool Create(string strJson)
-    {
-        try
-        {
-            /* Jsonデータを読み込む */
-            object j1 = Json.Deserialize(strJson);
-            Dictionary<string, object> _webframe = j1 as Dictionary<string, object>;
-
-
-            /* 読み込んだデータをUnity内で使う用に編集・再定義 */
-            // 格点データ
-            this.listNodePoint = new Dictionary<int, Vector3>();
-
-            this.listNodePoint.Add(1, new Vector3(0.0f, 1.0f, 1.5f));
-
-            /* 2018/10/21 ここから sasa
-            if (_webframe["node"] != null) {
-
-                Dictionary<string, object> node1 = _webframe["node"] as Dictionary<string, object>;
-                for (int i = 0; i < node1.Count; i++)
-                {
-                    try
-                    {
-
-                        string key = node1.Keys[i];
-                        Dictionary<string, float> node2 = node1[i] as Dictionary<string, float>;
-                        Vector3 xyz = new Vector3(node2["x"], node2["y"], node2["z"]);
-                        int id = int.Parse(key);
-                        this.listNodePoint.Add(id, xyz);
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
-            //	属性データ
-            this.ListElementData = new Dictionary<int, Dictionary<int, ElementData>>();
-            foreach (string key1 in _webframe.element.Keys)
+            Dictionary<string, object> element1 = objJson["element"] as Dictionary<string, object>;
+            foreach (string key1 in element1.Keys)
             {
                 Dictionary<int, ElementData> tmp = new Dictionary<int, ElementData>();
-
                 try
                 {
+                    Dictionary<string, object> element2 = element1[key1] as Dictionary<string, object>;
                     int id = int.Parse(key1);
-                    foreach (string key2 in _webframe.element[key1].Keys)
+                    foreach (string key2 in element2.Keys)
                     {
                         int type_no = int.Parse(key2);
-                        ElementData e = _webframe.element[key1][key2];
+                        Dictionary<string, object> element3 = element2[key2] as Dictionary<string, object>;
+                        float E = Convert.ToSingle(element3["E"]);
+                        float G = Convert.ToSingle(element3["G"]);
+                        float Xp = Convert.ToSingle(element3["Xp"]);
+                        float A = Convert.ToSingle(element3["A"]);
+                        float J = Convert.ToSingle(element3["J"]);
+                        float Iz = Convert.ToSingle(element3["Iz"]);
+                        float Iy = Convert.ToSingle(element3["Iy"]);
+                        ElementData e = new ElementData(E, G, Xp, A, J, Iz, Iy);
                         tmp.Add(type_no, e);
                     }
                     this.ListElementData.Add(id, tmp);
@@ -298,65 +216,54 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            // 要素データ
-            this.ListMemberData = new Dictionary<int, MemberDataEx>();
-            foreach (string key in _webframe.member.Keys)
+        }
+    }
+
+    #endregion
+
+    #region パネルデータ
+
+    public class PanelData
+    {
+        public int no1 = 0; // 構成節点No1
+        public int no2 = 0; // 構成節点No2
+        public int no3 = 0;	// 構成節点No3
+        public int e = 0;   // Element番号
+
+        public PanelData(int _no1, int _no2, int _no3, int _e)
+        {
+            this.no1 = _no1;
+            this.no2 = _no2;
+            this.no3 = _no3;
+            this.e = _e;
+        }
+    }
+
+    public Dictionary<int, PanelData> ListPanelData { get; set; }
+
+    /// <summary> パネルデータを読み込む </summary>
+    public void SetPanelData(Dictionary<string, object> objJson)
+    {
+        this.ListPanelData = new Dictionary<int, PanelData>();
+        if (objJson.ContainsKey("panel"))
+        {
+            Dictionary<string, object> panel1 = objJson["panel"] as Dictionary<string, object>;
+            foreach (string key in panel1.Keys)
             {
                 try
                 {
-                    MemberData m = _webframe.member[key];
+                    Dictionary<string, object> panel2 = panel1[key] as Dictionary<string, object>;
                     int id = int.Parse(key);
-                    int i = int.Parse(m.ni);
-                    int j = int.Parse(m.nj);
-                    int e = int.Parse(m.e);
-                    if (this.listNodePoint.ContainsKey(i)
-                        && this.listNodePoint.ContainsKey(j)
-                        && this.ListElementData.ContainsKey(e))
-                    {
-                        MemberDataEx ex = new MemberDataEx(i, j, e);
-                        this.ListMemberData.Add(id, ex);
-                    }
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-            // 着目点データ
-            this.ListNoticePoint = new Dictionary<int, double[]>();
-            foreach (NoticePoint tmp in _webframe.notice_points)
-            {
-                try
-                {
-                    int id = int.Parse(tmp.m);
-                    if (this.ListMemberData.ContainsKey(id))
-                    {
-                        this.ListNoticePoint.Add(id, tmp.Points);
-                    }
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-            //	パネルデータ
-            this.ListPanelData = new Dictionary<int, PanelDataEx>();
-            foreach (string key in _webframe.panel.Keys)
-            {
-                try
-                {
-                    PanelData p = _webframe.panel[key];
-                    int id = int.Parse(key);
-                    int n1 = int.Parse(p.no1);
-                    int n2 = int.Parse(p.no2);
-                    int n3 = int.Parse(p.no3);
-                    int e = int.Parse(p.e);
+                    int n1 = Convert.ToInt32(panel2["no1"]);
+                    int n2 = Convert.ToInt32(panel2["no2"]);
+                    int n3 = Convert.ToInt32(panel2["no3"]);
+                    int e = Convert.ToInt32(panel2["e"]);
                     if (this.listNodePoint.ContainsKey(n1)
                         && this.listNodePoint.ContainsKey(n2)
                         && this.listNodePoint.ContainsKey(n3)
                         && this.ListElementData.ContainsKey(e))
                     {
-                        PanelDataEx ex = new PanelDataEx(n1, n2, n3, e);
+                        PanelData ex = new PanelData(n1, n2, n3, e);
                         this.ListPanelData.Add(id, ex);
                     }
                 }
@@ -365,21 +272,66 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            //	支点データ
-            this.ListFixNode = new Dictionary<int, Dictionary<int, FixNodeEx>>();
-            foreach (string key1 in _webframe.fix_node.Keys)
+        }
+    }
+
+    #endregion
+
+    #region 支点データ
+
+    public partial class FixNodeData
+    {
+        public double tx = 0.0;
+        public double ty = 0.0;
+        public double tz = 0.0;
+        public double rx = 0.0;
+        public double ry = 0.0;
+        public double rz = 0.0;
+        public FixNodeData(double _tx, double _ty, double _tz, double _rx, double _ry, double _rz)
+        {
+            this.tx = _tx;
+            this.ty = _ty;
+            this.tz = _tz;
+            this.rx = _rx;
+            this.ry = _ry;
+            this.rz = _rz;
+        }
+    }
+
+    public Dictionary<int, Dictionary<int, FixNodeData>> ListFixNode { get; set; }
+
+    /// <summary> 支点データを読み込む </summary>
+    public void SetFixNode(Dictionary<string, object> objJson)
+    {
+        this.ListFixNode = new Dictionary<int, Dictionary<int, FixNodeData>>();
+        if (objJson.ContainsKey("fix_node"))
+        {
+            Dictionary<string, object> fix_node1 = objJson["fix_node"] as Dictionary<string, object>;
+            foreach (string key1 in fix_node1.Keys)
             {
-                Dictionary<int, FixNodeEx> tmp = new Dictionary<int, FixNodeEx>();
+                Dictionary<int, FixNodeData> tmp = new Dictionary<int, FixNodeData>();
                 try
                 {
                     int typ = int.Parse(key1);
-                    foreach (FixNodeData fn in _webframe.fix_node[key1])
+                    List<object> fix_node2 = fix_node1[key1] as List<object>;
+
+                    foreach (var fn in fix_node2)
                     {
-                        int id = int.Parse(fn.n);
+                        Dictionary<string, object> fix_node3 = fn as Dictionary<string, object>;
+
+                        int id = Convert.ToInt32(fix_node3["n"]);
+
                         if (this.listNodePoint.ContainsKey(id) == false)
                             continue;
 
-                        FixNodeEx ex = new FixNodeEx(fn.tx, fn.ty, fn.tx, fn.rx, fn.ry, fn.rz);
+                        double tx = Convert.ToDouble(fix_node3["tx"]);
+                        double ty = Convert.ToDouble(fix_node3["ty"]);
+                        double tz = Convert.ToDouble(fix_node3["tz"]);
+                        double rx = Convert.ToDouble(fix_node3["rx"]);
+                        double ry = Convert.ToDouble(fix_node3["ry"]);
+                        double rz = Convert.ToDouble(fix_node3["rz"]);
+
+                        FixNodeData ex = new FixNodeData(tx, ty, tz, rx, ry, rz);
                         if (tmp.ContainsKey(id) == true)
                         {
                             ex.tx += tmp[id].tx;
@@ -402,21 +354,60 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            //	バネデータ
-            this.ListFixMember = new Dictionary<int, Dictionary<int, FixMemberEx>>();
-            foreach (string key1 in _webframe.fix_member.Keys)
+        }
+    }
+
+    #endregion
+
+    #region バネデータ
+
+    public partial class FixMemberData
+    {
+        public double tx = 0.0;
+        public double ty = 0.0;
+        public double tz = 0.0;
+        public double tr = 0.0;
+        public FixMemberData(double _tx, double _ty, double _tz, double _tr)
+        {
+            this.tx = _tx;
+            this.ty = _ty;
+            this.tz = _tz;
+            this.tr = _tr;
+        }
+    }
+
+    public Dictionary<int, Dictionary<int, FixMemberData>> ListFixMember { get; set; }
+
+    /// <summary> 支点データを読み込む </summary>
+    public void SetFixMember(Dictionary<string, object> objJson)
+    {
+        this.ListFixMember = new Dictionary<int, Dictionary<int, FixMemberData>>();
+        if (objJson.ContainsKey("fix_member"))
+        {
+            Dictionary<string, object> fix_member1 = objJson["fix_member"] as Dictionary<string, object>;
+            foreach (string key1 in fix_member1.Keys)
             {
-                Dictionary<int, FixMemberEx> tmp = new Dictionary<int, FixMemberEx>();
+                Dictionary<int, FixMemberData> tmp = new Dictionary<int, FixMemberData>();
                 try
                 {
                     int typ = int.Parse(key1);
-                    foreach (FixMemberData fm in _webframe.fix_member[key1])
+                    List<object> fix_member2 = fix_member1[key1] as List<object>;
+
+                    foreach (var fm in fix_member2)
                     {
-                        int id = int.Parse(fm.m);
+                        Dictionary<string, object> fix_member3 = fm as Dictionary<string, object>;
+
+                        int id = Convert.ToInt32(fix_member3["m"]);
+
                         if (this.ListMemberData.ContainsKey(id) == false)
                             continue;
 
-                        FixMemberEx ex = new FixMemberEx(fm.tx, fm.ty, fm.tx, fm.tr);
+                        double tx = Convert.ToDouble(fix_member3["tx"]);
+                        double ty = Convert.ToDouble(fix_member3["ty"]);
+                        double tz = Convert.ToDouble(fix_member3["tz"]);
+                        double tr = Convert.ToDouble(fix_member3["tr"]);
+
+                        FixMemberData ex = new FixMemberData(tx, ty, tz, tr);
                         if (tmp.ContainsKey(id) == true)
                         {
                             ex.tx += tmp[id].tx;
@@ -437,21 +428,67 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            //	結合データ
-            this.ListJointData = new Dictionary<int, Dictionary<int, JointDataEx>>();
-            foreach (string key1 in _webframe.joint.Keys)
+        }
+    }
+
+    #endregion
+
+    #region 結合データ
+
+    public partial class JointData
+    {
+        public int xi = 1;
+        public int yi = 1;
+        public int zi = 1;
+        public int xj = 1;
+        public int yj = 1;
+        public int zj = 1;
+        public JointData(int _xi, int _yi, int _zi, int _xj, int _yj, int _zj)
+        {
+            this.xi = _xi;
+            this.yi = _yi;
+            this.zi = _zi;
+            this.xj = _xj;
+            this.yj = _yj;
+            this.zj = _zj;
+        }
+    }
+
+    public Dictionary<int, Dictionary<int, JointData>> ListJointData { get; set; }
+
+    /// <summary> 支点データを読み込む </summary>
+    public void SetJointData(Dictionary<string, object> objJson)
+    {
+        this.ListJointData = new Dictionary<int, Dictionary<int, JointData>>();
+        if (objJson.ContainsKey("joint"))
+        {
+            Dictionary<string, object> joint1 = objJson["joint"] as Dictionary<string, object>;
+
+            foreach (string key1 in joint1.Keys)
             {
-                Dictionary<int, JointDataEx> tmp = new Dictionary<int, JointDataEx>();
+                Dictionary<int, JointData> tmp = new Dictionary<int, JointData>();
                 try
                 {
                     int typ = int.Parse(key1);
-                    foreach (JointData jo in _webframe.joint[key1])
+                    List<object> joint2 = joint1[key1] as List<object>;
+
+                    foreach (var jo in joint2)
                     {
-                        int id = int.Parse(jo.m);
+                        Dictionary<string, object> joint3 = jo as Dictionary<string, object>;
+
+                        int id = Convert.ToInt32(joint3["m"]);
+
                         if (this.ListMemberData.ContainsKey(id) == false)
                             continue;
 
-                        JointDataEx ex = new JointDataEx(jo.xi, jo.yi, jo.zi, jo.xj, jo.yj, jo.zj);
+                        int xi = Convert.ToInt32(joint3["xi"]);
+                        int yi = Convert.ToInt32(joint3["yi"]);
+                        int zi = Convert.ToInt32(joint3["zi"]);
+                        int xj = Convert.ToInt32(joint3["xj"]);
+                        int yj = Convert.ToInt32(joint3["yj"]);
+                        int zj = Convert.ToInt32(joint3["zj"]);
+
+                        JointData ex = new JointData(xi, yi, zi, xj, yj, zj);
                         if (tmp.ContainsKey(id) == true)
                         {
                             tmp[id] = ex;
@@ -468,43 +505,132 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            //	荷重データ
-            this.ListLoadData = new Dictionary<int, LoadDataEx>();
-            foreach (string key1 in _webframe.load.Keys)
+        }
+    }
+
+    #endregion
+
+    #region 荷重データ
+
+    public partial class LoadData
+    {
+        public int fix_node = 1;
+        public int fix_member = 1;
+        public int element = 1;
+        public int joint = 1;
+        public List<LoadNodeData> load_node;
+        public List<LoadMemberData> load_member;
+    }
+
+    public partial class LoadNodeData
+    {
+        public int n = 0;
+        public double tx = 0.0;
+        public double ty = 0.0;
+        public double tz = 0.0;
+        public double rx = 0.0;
+        public double ry = 0.0;
+        public double rz = 0.0;
+        public LoadNodeData(int _n, double _tx, double _ty, double _tz, double _rx, double _ry, double _rz)
+        {
+            this.n = _n;
+            this.tx = _tx;
+            this.ty = _ty;
+            this.tz = _tz;
+            this.rx = _rx;
+            this.ry = _ry;
+            this.rz = _rz;
+        }
+    }
+
+    public partial class LoadMemberData
+    {
+        public int m = 0;
+        public string direction = "";
+        public int mark = 0;
+        public double L1 = 0.0;
+        public double L2 = 0.0;
+        public double P1 = 0.0;
+        public double P2 = 0.0;
+        public LoadMemberData(int _m, string _direction, int _mark, double _L1, double _L2, double _P1, double _P2)
+        {
+            this.m = _m;
+            this.direction = _direction;
+            this.mark = _mark;
+            this.L1 = _L1;
+            this.L2 = _L2;
+            this.P1 = _P1;
+            this.P2 = _P2;
+        }
+    }
+
+    public Dictionary<int, LoadData> ListLoadData { get; set; }
+
+    /// <summary> 荷重データを読み込む </summary>
+    public void SetLoadData(Dictionary<string, object> objJson)
+    {
+        this.ListLoadData = new Dictionary<int, LoadData>();
+        if (objJson.ContainsKey("load"))
+        {
+            Dictionary<string, object> load1 = objJson["load"] as Dictionary<string, object>;
+            foreach (string key1 in load1.Keys)
             {
-                LoadDataEx tmp = new LoadDataEx();
+                LoadData tmp = new LoadData();
                 try
                 {
                     int caseNo = int.Parse(key1);
+                    Dictionary<string, object> load2 = load1[key1] as Dictionary<string, object>;
 
-                    LoadData lo = _webframe.load[key1];
+                    int fix_node = Convert.ToInt32(load2["fix_node"]);
+                    int fix_member = Convert.ToInt32(load2["fix_member"]);
+                    int element = Convert.ToInt32(load2["element"]);
+                    int joint = Convert.ToInt32(load2["joint"]);
 
-                    tmp.fix_node = lo.fix_node;
-                    tmp.fix_member = lo.fix_member;
-                    tmp.element = lo.element;
-                    tmp.joint = lo.joint;
-
-                    List<LoadNodeEx> load_node = new List<LoadNodeEx>();
-                    foreach (LoadNodeData ln in lo.load_node)
+                    List<LoadNodeData> load_node = new List<LoadNodeData>();
+                    if (load2.ContainsKey("load_node"))
                     {
-                        int id = int.Parse(ln.n);
-                        if (this.listNodePoint.ContainsKey(id) == false)
-                            continue;
+                        List<object> load3 = load2["load_node"] as List<object>;
+                        foreach (Dictionary<string, object> ln in load3)
+                        {
+                            int id = Convert.ToInt32(ln["n"]);
 
-                        LoadNodeEx ex = new LoadNodeEx(id, ln.tx, ln.ty, ln.tz, ln.rx, ln.ry, ln.rz);
-                        load_node.Add(ex);
+                            if (this.listNodePoint.ContainsKey(id) == false)
+                                continue;
+
+                            double tx = Convert.ToDouble(ln["tx"]);
+                            double ty = Convert.ToDouble(ln["ty"]);
+                            double tz = Convert.ToDouble(ln["tz"]);
+                            double rx = Convert.ToDouble(ln["rx"]);
+                            double ry = Convert.ToDouble(ln["ry"]);
+                            double rz = Convert.ToDouble(ln["rz"]);
+
+                            LoadNodeData ex = new LoadNodeData(id, tx, ty, tz, rx, ry, rz);
+                            load_node.Add(ex);
+                        }
                     }
                     tmp.load_node = load_node;
 
-                    List<LoadMemberEx> load_member = new List<LoadMemberEx>();
-                    foreach (LoadMemberData ln in lo.load_member)
+                    List<LoadMemberData> load_member = new List<LoadMemberData>();
+                    if (load2.ContainsKey("load_member"))
                     {
-                        int id = int.Parse(ln.m);
-                        if (this.ListMemberData.ContainsKey(id) == false)
-                            continue;
+                        List<object> load3 = load2["load_member"] as List<object>;
+                        foreach (Dictionary<string, object> lm in load3)
+                        {
+                            int id = Convert.ToInt32(lm["m"]);
 
-                        LoadMemberEx ex = new LoadMemberEx(id, ln.direction, ln.mark, ln.L1, ln.L2, ln.P1, ln.P2);
-                        load_member.Add(ex);
+                            if (this.ListMemberData.ContainsKey(id) == false)
+                                continue;
+
+                            string direction = lm["direction"].ToString();
+                            int mark = Convert.ToInt32(lm["mark"]);
+                            double L1 = Convert.ToDouble(lm["L1"]);
+                            double L2 = Convert.ToDouble(lm["L2"]);
+                            double P1 = Convert.ToDouble(lm["P1"]);
+                            double P2 = Convert.ToDouble(lm["P2"]);
+
+                            LoadMemberData ex = new LoadMemberData(id, direction, mark, L1, L2, P1, P2);
+                            load_member.Add(ex);
+                        }
                     }
                     tmp.load_member = load_member;
 
@@ -515,16 +641,250 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
-            */
         }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        return true;
     }
 
     #endregion
+
+    #region 変位量データ
+    public partial class DisgData
+    {
+        public double dx = 0.0;
+        public double dy = 0.0;
+        public double dz = 0.0;
+        public double rx = 0.0;
+        public double ry = 0.0;
+        public double rz = 0.0;
+        public DisgData(double _dx, double _dy, double _dz, double _rx, double _ry, double _rz)
+        {
+            this.dx = _dx;
+            this.dy = _dy;
+            this.dz = _dz;
+            this.rx = _rx;
+            this.ry = _ry;
+            this.rz = _rz;
+        }
+    }
+    public Dictionary<int, DisgData> ListDisgData { get; set; }
+
+    /// <summary> 変位量データを読み込む </summary>
+    public void SetDisgData(Dictionary<string, object> objJson)
+    {
+        this.ListDisgData = new Dictionary<int, DisgData>();
+        if (objJson.ContainsKey("disg"))
+        {
+            Dictionary<string, object> disg1 = objJson["disg"] as Dictionary<string, object>;
+            foreach (string key in disg1.Keys)
+            {
+                try
+                {
+                    Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
+
+                    int id = int.Parse(key);
+
+                    if (this.listNodePoint.ContainsKey(id))
+                    {
+                        double dx = Convert.ToDouble(disg2["dx"]);
+                        double dy = Convert.ToDouble(disg2["dy"]);
+                        double dz = Convert.ToDouble(disg2["dz"]);
+                        double rx = Convert.ToDouble(disg2["rx"]);
+                        double ry = Convert.ToDouble(disg2["ry"]);
+                        double rz = Convert.ToDouble(disg2["rz"]);
+
+                        DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
+                        this.ListDisgData.Add(id, ex);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region  反力データ
+    public partial class ReacData
+    {
+        public double tx = 0.0;
+        public double ty = 0.0;
+        public double tz = 0.0;
+        public double mx = 0.0;
+        public double my = 0.0;
+        public double mz = 0.0;
+        public ReacData(double _tx, double _ty, double _tz, double _mx, double _my, double _mz)
+        {
+            this.tx = _tx;
+            this.ty = _ty;
+            this.tz = _tz;
+            this.mx = _mx;
+            this.my = _my;
+            this.mz = _mz;
+        }
+    }
+    public Dictionary<int, ReacData> ListReacData { get; set; }
+
+    /// <summary> 反力データを読み込む </summary>
+    public void SetReacData(Dictionary<string, object> objJson)
+    {
+        this.ListReacData = new Dictionary<int, ReacData>();
+        if (objJson.ContainsKey("reac"))
+        {
+            Dictionary<string, object> reac1 = objJson["reac"] as Dictionary<string, object>;
+            foreach (string key in reac1.Keys)
+            {
+                try
+                {
+                    Dictionary<string, object> reac2 = reac1[key] as Dictionary<string, object>;
+
+                    int id = int.Parse(key);
+
+                    if (this.listNodePoint.ContainsKey(id))
+                    {
+                        double tx = Convert.ToDouble(reac2["tx"]);
+                        double ty = Convert.ToDouble(reac2["ty"]);
+                        double tz = Convert.ToDouble(reac2["tz"]);
+                        double mx = Convert.ToDouble(reac2["mx"]);
+                        double my = Convert.ToDouble(reac2["my"]);
+                        double mz = Convert.ToDouble(reac2["mz"]);
+
+                        ReacData ex = new ReacData(tx, ty, tz, mx, my, mz);
+                        this.ListReacData.Add(id, ex);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region  断面力データ
+
+    public partial class FsecData
+    {
+        public double fxi = 0.0;
+        public double fyi = 0.0;
+        public double fzi = 0.0;
+        public double mxi = 0.0;
+        public double myi = 0.0;
+        public double mzi = 0.0;
+        public double fxj = 0.0;
+        public double fyj = 0.0;
+        public double fzj = 0.0;
+        public double mxj = 0.0;
+        public double myj = 0.0;
+        public double mzj = 0.0;
+        public double L = 0.0;
+        public FsecData(double _fxi, double _fyi, double _fzi, double _mxi, double _myi, double _mzi, 
+            double _fxj, double _fyj, double _fzj, double _mxj, double _myj, double _mzj, double _L)
+        {
+            this.fxi = _fxi;
+            this.fyi = _fyi;
+            this.fzi = _fzi;
+            this.mxi = _mxi;
+            this.myi = _myi;
+            this.mzi = _mzi;
+            this.fxj = _fxj;
+            this.fyj = _fyj;
+            this.fzj = _fzj;
+            this.mxj = _mxj;
+            this.myj = _myj;
+            this.mzj = _mzj;
+            this.L = _L;
+        }
+    }
+    public Dictionary<int, Dictionary<string, FsecData>> ListFsecData { get; set; }
+
+    /// <summary> 断面力データを読み込む </summary>
+    public void SetFsecData(Dictionary<string, object> objJson)
+    {
+        this.ListFsecData = new Dictionary<int, Dictionary<string, FsecData>>();
+        if (objJson.ContainsKey("fsec"))
+        {
+            Dictionary<string, object> fsec1 = objJson["fsec"] as Dictionary<string, object>;
+            foreach (string key1 in fsec1.Keys)
+            {
+                Dictionary<string, FsecData> tmp = new Dictionary<string, FsecData>();
+                try
+                {
+                    Dictionary<string, object> fsec2 = fsec1[key1] as Dictionary<string, object>;
+
+                    int id = int.Parse(key1);
+
+                    foreach (string key2 in fsec2.Keys)
+                    {
+                        Dictionary<string, object> fsec3 = fsec2[key2] as Dictionary<string, object>;
+
+                        double fxi = Convert.ToDouble(fsec3["fxi"]);
+                        double fyi = Convert.ToDouble(fsec3["fyi"]);
+                        double fzi = Convert.ToDouble(fsec3["fzi"]);
+                        double mxi = Convert.ToDouble(fsec3["mxi"]);
+                        double myi = Convert.ToDouble(fsec3["myi"]);
+                        double mzi = Convert.ToDouble(fsec3["mzi"]);
+                        double fxj = Convert.ToDouble(fsec3["fxj"]);
+                        double fyj = Convert.ToDouble(fsec3["fyj"]);
+                        double fzj = Convert.ToDouble(fsec3["fzj"]);
+                        double mxj = Convert.ToDouble(fsec3["mxj"]);
+                        double myj = Convert.ToDouble(fsec3["myj"]);
+                        double mzj = Convert.ToDouble(fsec3["mzj"]);
+                        double L = Convert.ToDouble(fsec3["L"]);
+
+                        FsecData f = new FsecData(fxi, fyi, fzi, mxi, myi, mzi, fxj, fyj, fzj, mxj, myj, mzj, L);
+
+                        tmp.Add(key2, f);
+                    }
+                    this.ListFsecData.Add(id, tmp);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    /// <summary> データを作成する </summary>
+    public void Create(string strJson)
+    {
+        /* Jsonデータを読み込む */
+        var objJson = Json.Deserialize(strJson) as Dictionary<string, object>;
+
+        /* 読み込んだデータをUnity内で使う用に編集・再定義 */
+        // 格点データ
+        SetNodePoint(objJson);
+        // 属性データ
+        SetElementData(objJson);
+        // 要素データ
+        SetMemberData(objJson);
+        // 着目点データ
+        SetNoticePoint(objJson);
+        //	パネルデータ
+        SetPanelData(objJson);
+        //	支点データ
+        SetFixNode(objJson);
+        //	バネデータ
+        SetFixMember(objJson);
+        //	結合データ
+        SetJointData(objJson);
+        //	荷重データ
+        SetLoadData(objJson);
+        // 変位量データ
+        SetDisgData(objJson);
+        // 反力データ
+        SetReacData(objJson);
+        // 断面力データ
+        SetFsecData(objJson);
+
+    }
+
 
     #region データヘルパー
 

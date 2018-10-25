@@ -17,7 +17,7 @@ public class PanelDispManager : PartsDispManager
 			return;
 		}
 
-        Dictionary<int, webframe.PanelDataEx> listPanelData = _webframe.ListPanelData;
+        Dictionary<int, webframe.PanelData> listPanelData = _webframe.ListPanelData;
 
 		CreatePartsCommon( listPanelData.Count, "Panel" );
 	}
@@ -28,7 +28,7 @@ public class PanelDispManager : PartsDispManager
 	/// </summary>
 	public	override void	SetBlockStatus( int id )
 	{
-		webframe.PanelDataEx panelData = _webframe.ListPanelData[id];
+		webframe.PanelData panelData = _webframe.ListPanelData[id];
 		BlockWorkData	blockWorkData = _blockWorkData[id];
 		PartsDispStatus	partsDispStatus;
 
@@ -93,7 +93,7 @@ public class PanelDispManager : PartsDispManager
 	/// <param name="search_node"></param>
 	public	void CheckNodeAndUpdateStatus( int search_node )
 	{
-        Dictionary<int, webframe.PanelDataEx> listPanelData = _webframe.ListPanelData;
+        Dictionary<int, webframe.PanelData> listPanelData = _webframe.ListPanelData;
 		int		i, j;
 		int		nodeNo;
 
