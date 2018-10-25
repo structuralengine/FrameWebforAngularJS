@@ -20,21 +20,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'X',
+                                        data: 'x1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'Y',
+                                        data: 'y1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'Z',
+                                        data: 'z1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -45,7 +45,7 @@ angular.module('webframe')
                             items: {
                                 'R': {
                                     'column': {
-                                        data: 'R',
+                                        data: 'r1',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -62,21 +62,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'X',
+                                        data: 'x2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'Y',
+                                        data: 'y2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'Z',
+                                        data: 'z2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -87,7 +87,7 @@ angular.module('webframe')
                             items: {
                                 'R': {
                                     'column': {
-                                        data: 'R',
+                                        data: 'r2',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -104,21 +104,21 @@ angular.module('webframe')
                             items: {
                                 'X': {
                                     'column': {
-                                        data: 'X',
+                                        data: 'x3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Y': {
                                     'column': {
-                                        data: 'Y',
+                                        data: 'y3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
                                 },
                                 'Z': {
                                     'column': {
-                                        data: 'Z',
+                                        data: 'z3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }
@@ -129,7 +129,7 @@ angular.module('webframe')
                             items: {
                                 'R': {
                                     'column': {
-                                        data: 'R',
+                                        data: 'r3',
                                         type: 'numeric',
                                         'format': '0.0000'
                                     }

@@ -23,7 +23,7 @@ angular.module('webframe')
                                     'column':{
                                         data:'n',
                                         type:'numeric',
-                                        format:'0.0000'
+                                        'format':'0'
                                     }
                                 }
                             }

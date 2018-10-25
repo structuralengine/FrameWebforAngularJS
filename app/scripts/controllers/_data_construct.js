@@ -3,15 +3,6 @@
 // 戻り値: 整形後のJSONデータ 
 // --------------------------------------------------------------
 
-const nodev = ['x', 'y', 'z'];
-const fix_nodev = fnlist();
-const elementv = ['E', 'G', 'Xp', 'A1', 'J1', 'Iy1', 'Iz1', 'A2', 'J2', 'Iy2', 'Iz2', 'A3', 'J3', 'Iy3', 'Iz3'];
-const panelv = ['no1', 'no2', 'no3', 'area', 'e'];
-const jointv = jointlist();
-const notice_pointv = nplist();
-const fix_memberv = nplist();
-const loadv = ['m1', 'm2', 'direction', 'mark', 'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
-
 function DataConstruct(_mode) {
 
     const mode = (_mode + '').trim();
@@ -44,7 +35,7 @@ function DataConstruct(_mode) {
     }
     if (mode == 'elements' || mode == '') {
         json += '"element":';
-        json += elementJson(data, elementv);
+        json += elementJson(data);
         json += ',';
     }
     if (mode == 'joints' || mode == '') {
@@ -64,7 +55,7 @@ function DataConstruct(_mode) {
     }
     if (mode == 'loads' || mode == '') {
         json += '"load":';
-        json += loadJson(data, loadv);
+        json += loadJson(data);
         json += ',';
     }
 
@@ -75,6 +66,13 @@ function DataConstruct(_mode) {
     return json;
 }
 
+
+const nodev = ['x', 'y', 'z'];
+const fix_nodev = fnlist();
+const panelv = ['no1', 'no2', 'no3', 'area', 'e'];
+const jointv = jointlist();
+const notice_pointv = nplist();
+const fix_memberv = fmlist();
 
 //整形用関数
 function cnst(json, name, array){
@@ -101,7 +99,7 @@ function cnst(json, name, array){
         var obj = {};
         for(var j in array) obj[array[j]] = y[j];
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i) + 1)] = obj;
 
     }
 
@@ -183,9 +181,7 @@ function memberJson(json) {
 //fix_nodeデータの整形
 function fixNodeJson(json, array){
 
-    if(!('fix_nodes' in json)){
-        return '{}';
-    }
+    if(!('fix_nodes' in json)) return '{}';
 
     const data = json['fix_nodes'];
     let dic = {};
@@ -193,22 +189,23 @@ function fixNodeJson(json, array){
     for(var i in data){
 
         var x = [];
-        if(array[0] in data[i]) x[0] = String(data[i][array[0]]);
+        if('n' in data[i]) x[0] = String(data[i]['n']);
         else continue;
-        for(var j = 1; j < array.length; j++) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
+        for(var j = 1; j <= array.length; j++) x[j] = (array[j - 1] in data[i]) ? parseFloat(data[i][array[j - 1]]) : NaN;
 
         var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
+        for(var j = 1; j <= array.length; j++) flag *= isNaN(x[j]);
         if(flag) continue;
 
         var y = [];
         y[0] = x[0];
-        for(var j = 1; j < array.length; j++) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
+        for(var j = 1; j <= array.length; j++) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
 
         var obj = {};
-        for(var j in array) obj[array[j]] = y[j];
+        obj['n'] = y[0];
+        for(var j = 1; j<= array.length; j++) obj[array[j - 1]] = y[j];
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i) + 1)] = obj;
 
     }
 
@@ -218,8 +215,10 @@ function fixNodeJson(json, array){
 }
 
 //elementデータの整形
-function elementJson(json, array){
+function elementJson(json){
 
+    const array = ['E', 'G', 'Xp', 'A1', 'J1', 'Iy1', 'Iz1',
+        'A2', 'J2', 'Iy2', 'Iz2', 'A3', 'J3', 'Iy3', 'Iz3'];
     const item = ['E', 'G', 'Xp', 'A', 'J', 'Iy', 'Iz'];
 
     if(!('elements' in json)) return '{}';
@@ -242,11 +241,11 @@ function elementJson(json, array){
         var obj = {};
         for(var j = 0; j < 3; j++){
             obj[String(j + 1)] = {};
-            for(var k = 0; k < 3; k++) obj[String(j + 1)][item[k]] = y[item[k]];
-            for(var k = 0; k < 4; k++) obj[String(j + 1)][item[k + 3]] = y[array[4 * j + k + 3]];
+            for(var k = 0; k < 3; k++) obj[String(j + 1)][item[k]] = y[k];
+            for(var k = 0; k < 4; k++) obj[String(j + 1)][item[k + 3]] = y[4 * j + k + 3];
         }
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i) + 1)] = obj;
 
     }
 
@@ -281,12 +280,16 @@ function jointJson(json, array){
 
         var obj = [];
         for(var j = 0; j < 3; j++){
+            var flag = false;
+            for(var k = 0; k < 6; k++) if(y[6 * j + k]) flag = true;
+            if(!flag) continue;
+
             obj[j] = {};
             obj[j]['m'] = String(j + 1);
-            for(var k = 0; k < 6; k++) obj[j][item[k]] = y[array[6 * j + k]];
+            for(var k = 0; k < 6; k++) obj[j][item[k]] = y[6 * j + k];
         }
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i) + 1)] = obj;
 
     }
 
@@ -318,11 +321,11 @@ function noticePointJson(json, array){
         for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
 
         var obj = {};
-        obj['m'] = String(i + 1);
+        obj['m'] = String(parseInt(i) + 1);
         obj['Points'] = [];
-        for(var j = 0; j < array.length; j++) obj['Points'][j] = y[array[j]];
+        for(var j = 0; j < array.length; j++) obj['Points'][j] = y[j];
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i) + 1)] = obj;
 
     }
 
@@ -357,12 +360,16 @@ function fixMemberJson(json, array){
 
         var obj = [];
         for(var j = 0; j < 3; j++){
+            flag = 0;
+            for(var k = 0; k < 4; k++) if(y[4 * j + k]) flag = 1;
+            if(!flag) continue;
+            
             obj[j] = {};
-            obj[j]['m'] = String(j + 1);
-            for(var k = 0; k < 4; k++) obj[j][item[k]] = y[array[4 * j + k]];
+            obj[j]['m'] = String(parseInt(j) + 1);
+            for(var k = 0; k < 4; k++) obj[j][item[k]] = y[4 * j + k];
         }
 
-        dic[i + 1] = obj;
+        dic[String(parseInt(i))] = obj;
 
     }
 
@@ -372,8 +379,10 @@ function fixMemberJson(json, array){
 }
 
 //loadデータの整形
-function loadJson(json, array){
+function loadJson(json){
 
+    const array = ['no', 'm1', 'm2', 'direction', 'mark',
+        'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
     const itemName = ['fn', 'fm', 'fsec', 'joint'];
     const item = ['fix_node', 'fix_member', 'element', 'joint'];
     if( !('loads' in json && 'load_names' in json) ) return '{}';
@@ -385,7 +394,9 @@ function loadJson(json, array){
     for(var i in data2){
 
         var x2 = [];
-        for(var j in itemName) x2[j] = (array[j] in data2[i]) ? parseInt(data2[i][array[j]]) : NaN;
+        for(var j = 0; j < itemName.length; j++){
+            x2[j] = (itemName[j] in data2[i]) ? parseInt(data2[i][itemName[j]]) : NaN;
+        }
 
         var flag = 1;
         for(var j in array) flag *= isNaN(x2[j]);
@@ -394,9 +405,9 @@ function loadJson(json, array){
         var y2 = [];
         for(var j in itemName) y2[j] = ($.isNumeric(x2[j])) ? x2[j] : 1;
 
+        dic[String(parseInt(i) + 1)] = {};
         for(var j = 0; j < 4; j++){
-            dic[String(i + 1)] = {};
-            dic[String(i + 1)][item[j]] = y[itemName[j]];
+            dic[String(parseInt(i) + 1)][item[j]] = y2[j];
         }
 
     }
@@ -411,25 +422,29 @@ function loadJson(json, array){
         for(var j = 0; j < 4; j++) x1[array[j]] = String(data1[i][array[j]]);
         x1['mark'] = parseInt(data1[i]['mark']);
         x1['n'] = String(data1[i]['n']);
-        for(var j = 5; j < array.length; j++) if(array[j] != 'n') x1[j] = (array[j] in data1[i]) ? parseFloat(data1[i][array[j]]) : NaN;
+        for(var j = 5; j < array.length; j++) {
+            if(array[j] != 'n') x1[array[j]] = (array[j] in data1[i]) ? parseFloat(data1[i][array[j]]) : NaN;
+        }
 
         var flag = 1;
-        for(var j in array) flag *= isNaN(x1[j]);
+        for(var j in array) flag *= isNaN(x1[array[j]]);
         if(flag) continue;
 
         var y1 = [];
         for(var j = 0; j < 4; j++) y1[array[j]] = x1[array[j]];
         y1['mark'] = x1['mark'];
         x1['n'] = x1['n'];
-        for(var j = 5; j < array.length; j++) if(array[j] != 'n') y1[j] = ($.isNumeric(x1[j])) ? x1[j] : 0.0;
+        for(var j = 5; j < array.length; j++){
+            if(array[j] != 'n') y1[array[j]] = ($.isNumeric(x1[array[j]])) ? x1[array[j]] : 0.0;
+        }
 
         var obj1 = {};
         var obj2 = {};
         for(var j = 1; j < 9; j++) obj1[array[j]] = y1[array[j]];
         for(var j = 9; j < array.length; j++) obj2[array[j]] = y1[array[j]];
 
-        dic[y1['no']]['load_node'] = obj1;
-        dic[y1['no']]['load_member'] = obj2;
+        dic[(y1['no'])]['load_node'] = obj1;
+        dic[(y1['no'])]['load_member'] = obj2;
 
     }
 
@@ -437,6 +452,7 @@ function loadJson(json, array){
     return str;
 
 }
+
 
 function fnlist(){
     var c1 = ['t', 'r'];
@@ -474,6 +490,19 @@ function nplist(){
         npv[i] = 'L' + (i+1);
     }
     return npv;
+}
+
+function fmlist(){
+    var array = ['x', 'y', 'z', 'r'];
+    var fmv = [];
+    var n = 0;
+    for(var i = 0; i < 3; i++){
+        for(var j = 0; j < 4; j++){
+            fmv[n] = array[j] + (i + 1);
+            n++;
+        }
+    }
+    return fmv;
 }
 
 
