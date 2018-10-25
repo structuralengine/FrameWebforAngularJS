@@ -27,16 +27,17 @@ function SendDataToUnity(mode_name) {
 
     // JSONの整形
     const data = DataConstruct(mode_name);
-    let sendJson = '';
+    const sendJson = '{' + data + '}';
 
     if (mode_name == '') {
-        sendJson += '{' + data + '}';
+        console.log('ReceiveData');
+        console.log(sendJson);
+        gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
     } else {
-        sendJson = data;
+        console.log('ReceiveModeData');
+        console.log(sendJson);
+        gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', mode_name, sendJson);
     }
-    console.log('ReceiveData');
-    console.log(sendJson);
-    gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
 }
 
 
