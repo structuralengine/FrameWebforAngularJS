@@ -37,26 +37,34 @@ public class webframe : Singleton<webframe>
     public void SetNodePoint(Dictionary<string, object> objJson)
     {
         this.listNodePoint = new Dictionary<int, Vector3>();
-        if (objJson.ContainsKey("node"))
+        try
         {
-            Dictionary<string, object> node1 = objJson["node"] as Dictionary<string, object>;
-            foreach (string key in node1.Keys)
+            if (objJson.ContainsKey("node"))
             {
-                try
+                Dictionary<string, object> node1 = objJson["node"] as Dictionary<string, object>;
+                foreach (string key in node1.Keys)
                 {
-                    Dictionary<string, object> node2 = node1[key] as Dictionary<string, object>;
-                    float x = Convert.ToSingle(node2["x"]);
-                    float y = Convert.ToSingle(node2["y"]);
-                    float z = Convert.ToSingle(node2["z"]);
-                    Vector3 xyz = new Vector3(x, y, z);
-                    int id = int.Parse(key);
-                    this.listNodePoint.Add(id, xyz);
-                }
-                catch
-                {
-                    continue;
+                    try
+                    {
+                        Dictionary<string, object> node2 = node1[key] as Dictionary<string, object>;
+                        float x = Convert.ToSingle(node2["x"]);
+                        float y = Convert.ToSingle(node2["y"]);
+                        float z = Convert.ToSingle(node2["z"]);
+                        Vector3 xyz = new Vector3(x, y, z);
+                        int id = int.Parse(key);
+                        this.listNodePoint.Add(id, xyz);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetNodePoint");
+            Debug.Log(e.Message);
         }
     }
 
@@ -86,31 +94,39 @@ public class webframe : Singleton<webframe>
     public void SetMemberData(Dictionary<string, object> objJson)
     {
         this.ListMemberData = new Dictionary<int, MemberData>();
-        if (objJson.ContainsKey("member"))
-        {
-            Dictionary<string, object> member1 = objJson["member"] as Dictionary<string, object>;
-            foreach (string key in member1.Keys)
+        try
+        { 
+            if (objJson.ContainsKey("member"))
             {
-                try
+                Dictionary<string, object> member1 = objJson["member"] as Dictionary<string, object>;
+                foreach (string key in member1.Keys)
                 {
-                    Dictionary<string, object> member2 = member1[key] as Dictionary<string, object>;
-                    int id = int.Parse(key);
-                    int i = Convert.ToInt32(member2["ni"]);
-                    int j = Convert.ToInt32(member2["nj"]);
-                    int e = Convert.ToInt32(member2["e"]);
-                    if (this.listNodePoint.ContainsKey(i)
-                        && this.listNodePoint.ContainsKey(j)
-                        && this.ListElementData.ContainsKey(e))
+                    try
                     {
-                        MemberData ex = new MemberData(i, j, e);
-                        this.ListMemberData.Add(id, ex);
+                        Dictionary<string, object> member2 = member1[key] as Dictionary<string, object>;
+                        int id = int.Parse(key);
+                        int i = Convert.ToInt32(member2["ni"]);
+                        int j = Convert.ToInt32(member2["nj"]);
+                        int e = Convert.ToInt32(member2["e"]);
+                        if (this.listNodePoint.ContainsKey(i)
+                            && this.listNodePoint.ContainsKey(j)
+                            && this.ListElementData.ContainsKey(e))
+                        {
+                            MemberData ex = new MemberData(i, j, e);
+                            this.ListMemberData.Add(id, ex);
+                        }
+                    }
+                    catch
+                    {
+                        continue;
                     }
                 }
-                catch
-                {
-                    continue;
-                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetMemberData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -124,31 +140,38 @@ public class webframe : Singleton<webframe>
     public void SetNoticePoint(Dictionary<string, object> objJson)
     {
         this.ListNoticePoint = new Dictionary<int, List<float>>();
-        if (objJson.ContainsKey("notice_points"))
-        {
-            List<object> notice1 = objJson["notice_points"] as List<object>;
-            foreach (Dictionary<string, object> tmp in notice1)
+        try {
+            if (objJson.ContainsKey("notice_points"))
             {
-                try
+                List<object> notice1 = objJson["notice_points"] as List<object>;
+                foreach (Dictionary<string, object> tmp in notice1)
                 {
-                    int id = Convert.ToInt32(tmp["m"]);
-                    if (this.ListMemberData.ContainsKey(id))
+                    try
                     {
-                        List<object> pos1 = tmp["Points"] as List<object>;
-                        List<float> pos2 = new List<float>();
-                        foreach (var p in pos1)
+                        int id = Convert.ToInt32(tmp["m"]);
+                        if (this.ListMemberData.ContainsKey(id))
                         {
-                            if (p != null)
-                                pos2.Add(Convert.ToSingle(p));
+                            List<object> pos1 = tmp["Points"] as List<object>;
+                            List<float> pos2 = new List<float>();
+                            foreach (var p in pos1)
+                            {
+                                if (p != null)
+                                    pos2.Add(Convert.ToSingle(p));
+                            }
+                            this.ListNoticePoint.Add(id, pos2);
                         }
-                        this.ListNoticePoint.Add(id, pos2);
+                    }
+                    catch
+                    {
+                        continue;
                     }
                 }
-                catch
-                {
-                    continue;
-                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetNoticePoint");
+            Debug.Log(e.Message);
         }
     }
     
@@ -185,37 +208,44 @@ public class webframe : Singleton<webframe>
     public void SetElementData(Dictionary<string, object> objJson)
     {
         this.ListElementData = new Dictionary<int, Dictionary<int, ElementData>>();
-        if (objJson.ContainsKey("element"))
-        {
-            Dictionary<string, object> element1 = objJson["element"] as Dictionary<string, object>;
-            foreach (string key1 in element1.Keys)
+        try { 
+            if (objJson.ContainsKey("element"))
             {
-                Dictionary<int, ElementData> tmp = new Dictionary<int, ElementData>();
-                try
+                Dictionary<string, object> element1 = objJson["element"] as Dictionary<string, object>;
+                foreach (string key1 in element1.Keys)
                 {
-                    Dictionary<string, object> element2 = element1[key1] as Dictionary<string, object>;
-                    int id = int.Parse(key1);
-                    foreach (string key2 in element2.Keys)
+                    Dictionary<int, ElementData> tmp = new Dictionary<int, ElementData>();
+                    try
                     {
-                        int type_no = int.Parse(key2);
-                        Dictionary<string, object> element3 = element2[key2] as Dictionary<string, object>;
-                        float E = Convert.ToSingle(element3["E"]);
-                        float G = Convert.ToSingle(element3["G"]);
-                        float Xp = Convert.ToSingle(element3["Xp"]);
-                        float A = Convert.ToSingle(element3["A"]);
-                        float J = Convert.ToSingle(element3["J"]);
-                        float Iz = Convert.ToSingle(element3["Iz"]);
-                        float Iy = Convert.ToSingle(element3["Iy"]);
-                        ElementData e = new ElementData(E, G, Xp, A, J, Iz, Iy);
-                        tmp.Add(type_no, e);
+                        Dictionary<string, object> element2 = element1[key1] as Dictionary<string, object>;
+                        int id = int.Parse(key1);
+                        foreach (string key2 in element2.Keys)
+                        {
+                            int type_no = int.Parse(key2);
+                            Dictionary<string, object> element3 = element2[key2] as Dictionary<string, object>;
+                            float E = Convert.ToSingle(element3["E"]);
+                            float G = Convert.ToSingle(element3["G"]);
+                            float Xp = Convert.ToSingle(element3["Xp"]);
+                            float A = Convert.ToSingle(element3["A"]);
+                            float J = Convert.ToSingle(element3["J"]);
+                            float Iz = Convert.ToSingle(element3["Iz"]);
+                            float Iy = Convert.ToSingle(element3["Iy"]);
+                            ElementData e = new ElementData(E, G, Xp, A, J, Iz, Iy);
+                            tmp.Add(type_no, e);
+                        }
+                        this.ListElementData.Add(id, tmp);
                     }
-                    this.ListElementData.Add(id, tmp);
-                }
-                catch
-                {
-                    continue;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetElementData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -245,33 +275,40 @@ public class webframe : Singleton<webframe>
     public void SetPanelData(Dictionary<string, object> objJson)
     {
         this.ListPanelData = new Dictionary<int, PanelData>();
-        if (objJson.ContainsKey("panel"))
-        {
-            Dictionary<string, object> panel1 = objJson["panel"] as Dictionary<string, object>;
-            foreach (string key in panel1.Keys)
+        try { 
+            if (objJson.ContainsKey("panel"))
             {
-                try
+                Dictionary<string, object> panel1 = objJson["panel"] as Dictionary<string, object>;
+                foreach (string key in panel1.Keys)
                 {
-                    Dictionary<string, object> panel2 = panel1[key] as Dictionary<string, object>;
-                    int id = int.Parse(key);
-                    int n1 = Convert.ToInt32(panel2["no1"]);
-                    int n2 = Convert.ToInt32(panel2["no2"]);
-                    int n3 = Convert.ToInt32(panel2["no3"]);
-                    int e = Convert.ToInt32(panel2["e"]);
-                    if (this.listNodePoint.ContainsKey(n1)
-                        && this.listNodePoint.ContainsKey(n2)
-                        && this.listNodePoint.ContainsKey(n3)
-                        && this.ListElementData.ContainsKey(e))
+                    try
                     {
-                        PanelData ex = new PanelData(n1, n2, n3, e);
-                        this.ListPanelData.Add(id, ex);
+                        Dictionary<string, object> panel2 = panel1[key] as Dictionary<string, object>;
+                        int id = int.Parse(key);
+                        int n1 = Convert.ToInt32(panel2["no1"]);
+                        int n2 = Convert.ToInt32(panel2["no2"]);
+                        int n3 = Convert.ToInt32(panel2["no3"]);
+                        int e = Convert.ToInt32(panel2["e"]);
+                        if (this.listNodePoint.ContainsKey(n1)
+                            && this.listNodePoint.ContainsKey(n2)
+                            && this.listNodePoint.ContainsKey(n3)
+                            && this.ListElementData.ContainsKey(e))
+                        {
+                            PanelData ex = new PanelData(n1, n2, n3, e);
+                            this.ListPanelData.Add(id, ex);
+                        }
+                    }
+                    catch
+                    {
+                        continue;
                     }
                 }
-                catch
-                {
-                    continue;
-                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetPanelData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -304,56 +341,64 @@ public class webframe : Singleton<webframe>
     public void SetFixNode(Dictionary<string, object> objJson)
     {
         this.ListFixNode = new Dictionary<int, Dictionary<int, FixNodeData>>();
-        if (objJson.ContainsKey("fix_node"))
-        {
-            Dictionary<string, object> fix_node1 = objJson["fix_node"] as Dictionary<string, object>;
-            foreach (string key1 in fix_node1.Keys)
+
+        try { 
+            if (objJson.ContainsKey("fix_node"))
             {
-                Dictionary<int, FixNodeData> tmp = new Dictionary<int, FixNodeData>();
-                try
+                Dictionary<string, object> fix_node1 = objJson["fix_node"] as Dictionary<string, object>;
+                foreach (string key1 in fix_node1.Keys)
                 {
-                    int typ = int.Parse(key1);
-                    List<object> fix_node2 = fix_node1[key1] as List<object>;
-
-                    foreach (var fn in fix_node2)
+                    Dictionary<int, FixNodeData> tmp = new Dictionary<int, FixNodeData>();
+                    try
                     {
-                        Dictionary<string, object> fix_node3 = fn as Dictionary<string, object>;
+                        int typ = int.Parse(key1);
+                        List<object> fix_node2 = fix_node1[key1] as List<object>;
 
-                        int id = Convert.ToInt32(fix_node3["n"]);
-
-                        if (this.listNodePoint.ContainsKey(id) == false)
-                            continue;
-
-                        double tx = Convert.ToDouble(fix_node3["tx"]);
-                        double ty = Convert.ToDouble(fix_node3["ty"]);
-                        double tz = Convert.ToDouble(fix_node3["tz"]);
-                        double rx = Convert.ToDouble(fix_node3["rx"]);
-                        double ry = Convert.ToDouble(fix_node3["ry"]);
-                        double rz = Convert.ToDouble(fix_node3["rz"]);
-
-                        FixNodeData ex = new FixNodeData(tx, ty, tz, rx, ry, rz);
-                        if (tmp.ContainsKey(id) == true)
+                        foreach (var fn in fix_node2)
                         {
-                            ex.tx += tmp[id].tx;
-                            ex.ty += tmp[id].ty;
-                            ex.tz += tmp[id].tz;
-                            ex.rx += tmp[id].rx;
-                            ex.ry += tmp[id].ry;
-                            ex.rz += tmp[id].rz;
-                            tmp[id] = ex;
+                            Dictionary<string, object> fix_node3 = fn as Dictionary<string, object>;
+
+                            int id = Convert.ToInt32(fix_node3["n"]);
+
+                            if (this.listNodePoint.ContainsKey(id) == false)
+                                continue;
+
+                            double tx = Convert.ToDouble(fix_node3["tx"]);
+                            double ty = Convert.ToDouble(fix_node3["ty"]);
+                            double tz = Convert.ToDouble(fix_node3["tz"]);
+                            double rx = Convert.ToDouble(fix_node3["rx"]);
+                            double ry = Convert.ToDouble(fix_node3["ry"]);
+                            double rz = Convert.ToDouble(fix_node3["rz"]);
+
+                            FixNodeData ex = new FixNodeData(tx, ty, tz, rx, ry, rz);
+                            if (tmp.ContainsKey(id) == true)
+                            {
+                                ex.tx += tmp[id].tx;
+                                ex.ty += tmp[id].ty;
+                                ex.tz += tmp[id].tz;
+                                ex.rx += tmp[id].rx;
+                                ex.ry += tmp[id].ry;
+                                ex.rz += tmp[id].rz;
+                                tmp[id] = ex;
+                            }
+                            else
+                            {
+                                tmp.Add(id, ex);
+                            }
                         }
-                        else
-                        {
-                            tmp.Add(id, ex);
-                        }
+                        this.ListFixNode.Add(typ, tmp);
                     }
-                    this.ListFixNode.Add(typ, tmp);
-                }
-                catch
-                {
-                    continue;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetFixNode");
+            Debug.Log(e.Message);
         }
     }
 
@@ -382,52 +427,61 @@ public class webframe : Singleton<webframe>
     public void SetFixMember(Dictionary<string, object> objJson)
     {
         this.ListFixMember = new Dictionary<int, Dictionary<int, FixMemberData>>();
-        if (objJson.ContainsKey("fix_member"))
-        {
-            Dictionary<string, object> fix_member1 = objJson["fix_member"] as Dictionary<string, object>;
-            foreach (string key1 in fix_member1.Keys)
+
+        try { 
+
+            if (objJson.ContainsKey("fix_member"))
             {
-                Dictionary<int, FixMemberData> tmp = new Dictionary<int, FixMemberData>();
-                try
+                Dictionary<string, object> fix_member1 = objJson["fix_member"] as Dictionary<string, object>;
+                foreach (string key1 in fix_member1.Keys)
                 {
-                    int typ = int.Parse(key1);
-                    List<object> fix_member2 = fix_member1[key1] as List<object>;
-
-                    foreach (var fm in fix_member2)
+                    Dictionary<int, FixMemberData> tmp = new Dictionary<int, FixMemberData>();
+                    try
                     {
-                        Dictionary<string, object> fix_member3 = fm as Dictionary<string, object>;
+                        int typ = int.Parse(key1);
+                        List<object> fix_member2 = fix_member1[key1] as List<object>;
 
-                        int id = Convert.ToInt32(fix_member3["m"]);
-
-                        if (this.ListMemberData.ContainsKey(id) == false)
-                            continue;
-
-                        double tx = Convert.ToDouble(fix_member3["tx"]);
-                        double ty = Convert.ToDouble(fix_member3["ty"]);
-                        double tz = Convert.ToDouble(fix_member3["tz"]);
-                        double tr = Convert.ToDouble(fix_member3["tr"]);
-
-                        FixMemberData ex = new FixMemberData(tx, ty, tz, tr);
-                        if (tmp.ContainsKey(id) == true)
+                        foreach (var fm in fix_member2)
                         {
-                            ex.tx += tmp[id].tx;
-                            ex.ty += tmp[id].ty;
-                            ex.tz += tmp[id].tz;
-                            ex.tr += tmp[id].tr;
-                            tmp[id] = ex;
+                            Dictionary<string, object> fix_member3 = fm as Dictionary<string, object>;
+
+                            int id = Convert.ToInt32(fix_member3["m"]);
+
+                            if (this.ListMemberData.ContainsKey(id) == false)
+                                continue;
+
+                            double tx = Convert.ToDouble(fix_member3["tx"]);
+                            double ty = Convert.ToDouble(fix_member3["ty"]);
+                            double tz = Convert.ToDouble(fix_member3["tz"]);
+                            double tr = Convert.ToDouble(fix_member3["tr"]);
+
+                            FixMemberData ex = new FixMemberData(tx, ty, tz, tr);
+                            if (tmp.ContainsKey(id) == true)
+                            {
+                                ex.tx += tmp[id].tx;
+                                ex.ty += tmp[id].ty;
+                                ex.tz += tmp[id].tz;
+                                ex.tr += tmp[id].tr;
+                                tmp[id] = ex;
+                            }
+                            else
+                            {
+                                tmp.Add(id, ex);
+                            }
                         }
-                        else
-                        {
-                            tmp.Add(id, ex);
-                        }
+                        this.ListFixMember.Add(typ, tmp);
                     }
-                    this.ListFixMember.Add(typ, tmp);
-                }
-                catch
-                {
-                    continue;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetFixMember");
+            Debug.Log(e.Message);
         }
     }
 
@@ -460,51 +514,61 @@ public class webframe : Singleton<webframe>
     public void SetJointData(Dictionary<string, object> objJson)
     {
         this.ListJointData = new Dictionary<int, Dictionary<int, JointData>>();
-        if (objJson.ContainsKey("joint"))
-        {
-            Dictionary<string, object> joint1 = objJson["joint"] as Dictionary<string, object>;
 
-            foreach (string key1 in joint1.Keys)
+        try {
+
+            if (objJson.ContainsKey("joint"))
             {
-                Dictionary<int, JointData> tmp = new Dictionary<int, JointData>();
-                try
-                {
-                    int typ = int.Parse(key1);
-                    List<object> joint2 = joint1[key1] as List<object>;
+                Dictionary<string, object> joint1 = objJson["joint"] as Dictionary<string, object>;
 
-                    foreach (var jo in joint2)
+                foreach (string key1 in joint1.Keys)
+                {
+                    Dictionary<int, JointData> tmp = new Dictionary<int, JointData>();
+                    try
                     {
-                        Dictionary<string, object> joint3 = jo as Dictionary<string, object>;
+                        int typ = int.Parse(key1);
+                        List<object> joint2 = joint1[key1] as List<object>;
 
-                        int id = Convert.ToInt32(joint3["m"]);
-
-                        if (this.ListMemberData.ContainsKey(id) == false)
-                            continue;
-
-                        int xi = Convert.ToInt32(joint3["xi"]);
-                        int yi = Convert.ToInt32(joint3["yi"]);
-                        int zi = Convert.ToInt32(joint3["zi"]);
-                        int xj = Convert.ToInt32(joint3["xj"]);
-                        int yj = Convert.ToInt32(joint3["yj"]);
-                        int zj = Convert.ToInt32(joint3["zj"]);
-
-                        JointData ex = new JointData(xi, yi, zi, xj, yj, zj);
-                        if (tmp.ContainsKey(id) == true)
+                        foreach (var jo in joint2)
                         {
-                            tmp[id] = ex;
+                            Dictionary<string, object> joint3 = jo as Dictionary<string, object>;
+
+                            int id = Convert.ToInt32(joint3["m"]);
+
+                            if (this.ListMemberData.ContainsKey(id) == false)
+                                continue;
+
+                            int xi = Convert.ToInt32(joint3["xi"]);
+                            int yi = Convert.ToInt32(joint3["yi"]);
+                            int zi = Convert.ToInt32(joint3["zi"]);
+                            int xj = Convert.ToInt32(joint3["xj"]);
+                            int yj = Convert.ToInt32(joint3["yj"]);
+                            int zj = Convert.ToInt32(joint3["zj"]);
+
+                            JointData ex = new JointData(xi, yi, zi, xj, yj, zj);
+                            if (tmp.ContainsKey(id) == true)
+                            {
+                                tmp[id] = ex;
+                            }
+                            else
+                            {
+                                tmp.Add(id, ex);
+                            }
                         }
-                        else
-                        {
-                            tmp.Add(id, ex);
-                        }
+                        this.ListJointData.Add(typ, tmp);
                     }
-                    this.ListJointData.Add(typ, tmp);
-                }
-                catch
-                {
-                    continue;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetJointData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -570,14 +634,14 @@ public class webframe : Singleton<webframe>
     public void SetLoadData(Dictionary<string, object> objJson)
     {
         this.ListLoadData = new Dictionary<int, LoadData>();
-        if (objJson.ContainsKey("load"))
-        {
-            Dictionary<string, object> load1 = objJson["load"] as Dictionary<string, object>;
-            foreach (string key1 in load1.Keys)
+
+        try { 
+            if (objJson.ContainsKey("load"))
             {
-                LoadData tmp = new LoadData();
-                try
+                Dictionary<string, object> load1 = objJson["load"] as Dictionary<string, object>;
+                foreach (string key1 in load1.Keys)
                 {
+                    LoadData tmp = new LoadData();
                     int caseNo = int.Parse(key1);
                     Dictionary<string, object> load2 = load1[key1] as Dictionary<string, object>;
 
@@ -589,23 +653,31 @@ public class webframe : Singleton<webframe>
                     List<LoadNodeData> load_node = new List<LoadNodeData>();
                     if (load2.ContainsKey("load_node"))
                     {
-                        List<object> load3 = load2["load_node"] as List<object>;
-                        foreach (Dictionary<string, object> ln in load3)
+                        try { 
+                            List<object> load3 = load2["load_node"] as List<object>;
+                            foreach (Dictionary<string, object> ln in load3)
+                            {
+                                int id = Convert.ToInt32(ln["n"]);
+
+                                if (this.listNodePoint.ContainsKey(id) == false)
+                                    continue;
+
+                                double tx = Convert.ToDouble(ln["tx"]);
+                                double ty = Convert.ToDouble(ln["ty"]);
+                                double tz = Convert.ToDouble(ln["tz"]);
+                                double rx = Convert.ToDouble(ln["rx"]);
+                                double ry = Convert.ToDouble(ln["ry"]);
+                                double rz = Convert.ToDouble(ln["rz"]);
+
+                                LoadNodeData ex = new LoadNodeData(id, tx, ty, tz, rx, ry, rz);
+                                load_node.Add(ex);
+                            }
+                        }
+                        catch (Exception e)
                         {
-                            int id = Convert.ToInt32(ln["n"]);
-
-                            if (this.listNodePoint.ContainsKey(id) == false)
-                                continue;
-
-                            double tx = Convert.ToDouble(ln["tx"]);
-                            double ty = Convert.ToDouble(ln["ty"]);
-                            double tz = Convert.ToDouble(ln["tz"]);
-                            double rx = Convert.ToDouble(ln["rx"]);
-                            double ry = Convert.ToDouble(ln["ry"]);
-                            double rz = Convert.ToDouble(ln["rz"]);
-
-                            LoadNodeData ex = new LoadNodeData(id, tx, ty, tz, rx, ry, rz);
-                            load_node.Add(ex);
+                            Debug.Log("Error!! at webframe SetLoadNodeData");
+                            Debug.Log(e.Message);
+                            return;
                         }
                     }
                     tmp.load_node = load_node;
@@ -613,34 +685,43 @@ public class webframe : Singleton<webframe>
                     List<LoadMemberData> load_member = new List<LoadMemberData>();
                     if (load2.ContainsKey("load_member"))
                     {
-                        List<object> load3 = load2["load_member"] as List<object>;
-                        foreach (Dictionary<string, object> lm in load3)
+                        try { 
+                            List<object> load3 = load2["load_member"] as List<object>;
+                            foreach (Dictionary<string, object> lm in load3)
+                            {
+                                int id = Convert.ToInt32(lm["m"]);
+
+                                if (this.ListMemberData.ContainsKey(id) == false)
+                                    continue;
+
+                                string direction = lm["direction"].ToString();
+                                int mark = Convert.ToInt32(lm["mark"]);
+                                double L1 = Convert.ToDouble(lm["L1"]);
+                                double L2 = Convert.ToDouble(lm["L2"]);
+                                double P1 = Convert.ToDouble(lm["P1"]);
+                                double P2 = Convert.ToDouble(lm["P2"]);
+
+                                LoadMemberData ex = new LoadMemberData(id, direction, mark, L1, L2, P1, P2);
+                                load_member.Add(ex);
+                            }
+                        }
+                        catch (Exception e)
                         {
-                            int id = Convert.ToInt32(lm["m"]);
-
-                            if (this.ListMemberData.ContainsKey(id) == false)
-                                continue;
-
-                            string direction = lm["direction"].ToString();
-                            int mark = Convert.ToInt32(lm["mark"]);
-                            double L1 = Convert.ToDouble(lm["L1"]);
-                            double L2 = Convert.ToDouble(lm["L2"]);
-                            double P1 = Convert.ToDouble(lm["P1"]);
-                            double P2 = Convert.ToDouble(lm["P2"]);
-
-                            LoadMemberData ex = new LoadMemberData(id, direction, mark, L1, L2, P1, P2);
-                            load_member.Add(ex);
+                            Debug.Log("Error!! at webframe SetLoadMemberData");
+                            Debug.Log(e.Message);
+                            return;
                         }
                     }
                     tmp.load_member = load_member;
 
                     this.ListLoadData.Add(caseNo, tmp);
                 }
-                catch
-                {
-                    continue;
-                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetLoadData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -671,41 +752,51 @@ public class webframe : Singleton<webframe>
     public void SetDisgData(Dictionary<string, object> objJson)
     {
         this.ListDisgData = new Dictionary<int, DisgData>();
-        if (objJson.ContainsKey("disg"))
-        {
-            Dictionary<string, object> disg1 = objJson["disg"] as Dictionary<string, object>;
-            foreach (string key in disg1.Keys)
+        try { 
+
+            if (objJson.ContainsKey("disg"))
             {
-                try
+                Dictionary<string, object> disg1 = objJson["disg"] as Dictionary<string, object>;
+                foreach (string key in disg1.Keys)
                 {
-                    Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
-
-                    int id = int.Parse(key);
-
-                    if (this.listNodePoint.ContainsKey(id))
+                    try
                     {
-                        double dx = Convert.ToDouble(disg2["dx"]);
-                        double dy = Convert.ToDouble(disg2["dy"]);
-                        double dz = Convert.ToDouble(disg2["dz"]);
-                        double rx = Convert.ToDouble(disg2["rx"]);
-                        double ry = Convert.ToDouble(disg2["ry"]);
-                        double rz = Convert.ToDouble(disg2["rz"]);
+                        Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
 
-                        DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
-                        this.ListDisgData.Add(id, ex);
+                        int id = int.Parse(key);
+
+                        if (this.listNodePoint.ContainsKey(id))
+                        {
+                            double dx = Convert.ToDouble(disg2["dx"]);
+                            double dy = Convert.ToDouble(disg2["dy"]);
+                            double dz = Convert.ToDouble(disg2["dz"]);
+                            double rx = Convert.ToDouble(disg2["rx"]);
+                            double ry = Convert.ToDouble(disg2["ry"]);
+                            double rz = Convert.ToDouble(disg2["rz"]);
+
+                            DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
+                            this.ListDisgData.Add(id, ex);
+                        }
+                    }
+                    catch
+                    {
+                        continue;
                     }
                 }
-                catch
-                {
-                    continue;
-                }
             }
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetDisgData");
+            Debug.Log(e.Message);
         }
     }
 
     #endregion
 
     #region  反力データ
+
     public partial class ReacData
     {
         public double tx = 0.0;
@@ -730,6 +821,8 @@ public class webframe : Singleton<webframe>
     public void SetReacData(Dictionary<string, object> objJson)
     {
         this.ListReacData = new Dictionary<int, ReacData>();
+        try { 
+
         if (objJson.ContainsKey("reac"))
         {
             Dictionary<string, object> reac1 = objJson["reac"] as Dictionary<string, object>;
@@ -759,6 +852,13 @@ public class webframe : Singleton<webframe>
                     continue;
                 }
             }
+        }
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetReacData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -805,47 +905,57 @@ public class webframe : Singleton<webframe>
     public void SetFsecData(Dictionary<string, object> objJson)
     {
         this.ListFsecData = new Dictionary<int, Dictionary<string, FsecData>>();
-        if (objJson.ContainsKey("fsec"))
-        {
-            Dictionary<string, object> fsec1 = objJson["fsec"] as Dictionary<string, object>;
-            foreach (string key1 in fsec1.Keys)
+
+        try { 
+
+            if (objJson.ContainsKey("fsec"))
             {
-                Dictionary<string, FsecData> tmp = new Dictionary<string, FsecData>();
-                try
+                Dictionary<string, object> fsec1 = objJson["fsec"] as Dictionary<string, object>;
+                foreach (string key1 in fsec1.Keys)
                 {
-                    Dictionary<string, object> fsec2 = fsec1[key1] as Dictionary<string, object>;
-
-                    int id = int.Parse(key1);
-
-                    foreach (string key2 in fsec2.Keys)
+                    Dictionary<string, FsecData> tmp = new Dictionary<string, FsecData>();
+                    try
                     {
-                        Dictionary<string, object> fsec3 = fsec2[key2] as Dictionary<string, object>;
+                        Dictionary<string, object> fsec2 = fsec1[key1] as Dictionary<string, object>;
 
-                        double fxi = Convert.ToDouble(fsec3["fxi"]);
-                        double fyi = Convert.ToDouble(fsec3["fyi"]);
-                        double fzi = Convert.ToDouble(fsec3["fzi"]);
-                        double mxi = Convert.ToDouble(fsec3["mxi"]);
-                        double myi = Convert.ToDouble(fsec3["myi"]);
-                        double mzi = Convert.ToDouble(fsec3["mzi"]);
-                        double fxj = Convert.ToDouble(fsec3["fxj"]);
-                        double fyj = Convert.ToDouble(fsec3["fyj"]);
-                        double fzj = Convert.ToDouble(fsec3["fzj"]);
-                        double mxj = Convert.ToDouble(fsec3["mxj"]);
-                        double myj = Convert.ToDouble(fsec3["myj"]);
-                        double mzj = Convert.ToDouble(fsec3["mzj"]);
-                        double L = Convert.ToDouble(fsec3["L"]);
+                        int id = int.Parse(key1);
 
-                        FsecData f = new FsecData(fxi, fyi, fzi, mxi, myi, mzi, fxj, fyj, fzj, mxj, myj, mzj, L);
+                        foreach (string key2 in fsec2.Keys)
+                        {
+                            Dictionary<string, object> fsec3 = fsec2[key2] as Dictionary<string, object>;
 
-                        tmp.Add(key2, f);
+                            double fxi = Convert.ToDouble(fsec3["fxi"]);
+                            double fyi = Convert.ToDouble(fsec3["fyi"]);
+                            double fzi = Convert.ToDouble(fsec3["fzi"]);
+                            double mxi = Convert.ToDouble(fsec3["mxi"]);
+                            double myi = Convert.ToDouble(fsec3["myi"]);
+                            double mzi = Convert.ToDouble(fsec3["mzi"]);
+                            double fxj = Convert.ToDouble(fsec3["fxj"]);
+                            double fyj = Convert.ToDouble(fsec3["fyj"]);
+                            double fzj = Convert.ToDouble(fsec3["fzj"]);
+                            double mxj = Convert.ToDouble(fsec3["mxj"]);
+                            double myj = Convert.ToDouble(fsec3["myj"]);
+                            double mzj = Convert.ToDouble(fsec3["mzj"]);
+                            double L = Convert.ToDouble(fsec3["L"]);
+
+                            FsecData f = new FsecData(fxi, fyi, fzi, mxi, myi, mzi, fxj, fyj, fzj, mxj, myj, mzj, L);
+
+                            tmp.Add(key2, f);
+                        }
+                        this.ListFsecData.Add(id, tmp);
                     }
-                    this.ListFsecData.Add(id, tmp);
-                }
-                catch
-                {
-                    continue;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
+
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe SetFsecData");
+            Debug.Log(e.Message);
         }
     }
 
@@ -855,7 +965,16 @@ public class webframe : Singleton<webframe>
     public void Create(string strJson)
     {
         /* Jsonデータを読み込む */
-        var objJson = Json.Deserialize(strJson) as Dictionary<string, object>;
+        Dictionary<string, object> objJson;
+        try {
+            objJson = Json.Deserialize(strJson) as Dictionary<string, object>;
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error!! at webframe Create Json.Deserialize");
+            Debug.Log(e.Message);
+            return;
+        }
 
         /* 読み込んだデータをUnity内で使う用に編集・再定義 */
         // 格点データ
@@ -882,7 +1001,6 @@ public class webframe : Singleton<webframe>
         SetReacData(objJson);
         // 断面力データ
         SetFsecData(objJson);
-
     }
 
 

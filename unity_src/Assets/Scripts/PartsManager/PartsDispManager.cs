@@ -8,7 +8,7 @@ public class PartsDispManager : MonoBehaviour
 {
 	public struct PartsDispStatus
 	{
-		public	int			id;
+		public	string			id;
 		public	bool		enable;
 	}
 	
@@ -35,71 +35,9 @@ public class PartsDispManager : MonoBehaviour
 	}
 
 	[SerializeField]
-	GameObject			_blockPrefab = null;
+	public GameObject			_blockPrefab = null;
 
-	protected	List<BlockWorkData>	_blockWorkData = new List<BlockWorkData>();
-
-	
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="count"></param>
-	//protected IEnumerable	CreatePartsCommon( int parts_count, string partsName )
-	protected void	CreatePartsCommon( int parts_count, string partsName )
-	{
-		if( _blockPrefab == null ) {
-			//yield	break;
-			return;
-		}
-
-		int		i;
-
-
-		BlockWorkData	blockWorkData;
-		MeshFilter		meshFileter;
-
-
-		for( i = 0; i < _blockWorkData.Count; i++ ) {
-			Destroy( _blockWorkData[i].renderer.sharedMaterial );
-			Destroy( _blockWorkData[i].gameObject );
-		}
-
-		_blockWorkData.Clear();
-		for( i = 0; i < parts_count; i++ ) {
-            blockWorkData = new BlockWorkData{ gameObject = Instantiate(_blockPrefab) };
-            _blockWorkData.Add( blockWorkData );
-		}
-
-		for( i = 0; i < parts_count; i++ ) {
-			blockWorkData = _blockWorkData[i];
-			blockWorkData.gameObjectTransform   = blockWorkData.gameObject.transform;
-			blockWorkData.rootBlockTransform = blockWorkData.gameObjectTransform.Find("Root");
-			blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<BlockData>();
-			blockWorkData.blockData.id = i; 
-			blockWorkData.directionArrow =  blockWorkData.gameObject.GetComponentInChildren<DirectionArrow>();
-			blockWorkData.renderer = blockWorkData.gameObject.GetComponentInChildren<Renderer>();
-			if( blockWorkData.renderer == null ) {
-				continue;
-			}
-			blockWorkData.renderer.sharedMaterial = Instantiate( blockWorkData.renderer.sharedMaterial );
-			blockWorkData.materialPropertyBlock = new MaterialPropertyBlock();
-			blockWorkData.materialPropertyBlock.SetColor("_Color", Color.white );
-			blockWorkData.renderer.SetPropertyBlock( blockWorkData.materialPropertyBlock );
-
-			blockWorkData.gameObject.name  = partsName + "[" + i + "]";
-			blockWorkData.gameObjectTransform.parent = this.gameObject.transform;
-			blockWorkData.gameObject.SetActive( false );
-				
-			//	メシュの取得
-			meshFileter = blockWorkData.gameObject.GetComponentInChildren<MeshFilter>();
-			if( meshFileter != null ) { 
-				blockWorkData.mesh = meshFileter.mesh;
-			}
-		}
-	}
-
-
+	protected Dictionary<string, BlockWorkData>	_blockWorkData = new Dictionary<string, BlockWorkData>();
 
 	/// <summary>
 	/// 
@@ -108,7 +46,7 @@ public class PartsDispManager : MonoBehaviour
 	/// <returns></returns>
 	protected bool	SetBlockStatusCommon( PartsDispStatus partsDispStatus )
 	{
-		if( partsDispStatus.id >= _blockWorkData.Count ) {
+        if (_blockWorkData.ContainsKey(partsDispStatus.id) == false) { 
 			return	false;
 		}
 
@@ -151,7 +89,7 @@ public class PartsDispManager : MonoBehaviour
 	/// <summary>
 	/// 表示ブロックの設定の仮想関数
 	/// </summary>
-	public	virtual	void	SetBlockStatus( int id )
+	public	virtual	void	SetBlockStatus( string id )
 	{
 	}
 
@@ -161,10 +99,8 @@ public class PartsDispManager : MonoBehaviour
 	/// </summary>
 	public	virtual	void	SetBlockStatusAll()
 	{
-		int		i;
-
-		for( i = 0; i < _blockWorkData.Count; i++ ) {
-			SetBlockStatus( i );
+		foreach(string id in _blockWorkData.Keys) { 
+			SetBlockStatus( id );
 		}
 	}
 
@@ -176,7 +112,7 @@ public class PartsDispManager : MonoBehaviour
 	/// </summary>
 	/// <param name="id"></param>
 	/// <param name="color"></param>
-	protected	void	SetPartsColor( int id, bool onoff, Color color )
+	protected	void	SetPartsColor( string id, bool onoff, Color color )
 	{
 		BlockWorkData	blockWorkData = _blockWorkData[id];
 
@@ -213,13 +149,20 @@ public class PartsDispManager : MonoBehaviour
 		}
 	}
 
+
     /// <summary>
     /// ブロックの色を変更
     /// </summary>
     /// <param name="id"></param>
-    public void ChengeForcuseBlock(int id) {
+    public virtual void ChengeForcuseBlock(int i)
+    {
 
-        for (int i = 0; i < _blockWorkData.Count; i++){
+    }
+
+    public void ChengeForcuseBlock(string id) {
+
+        foreach(string i in _blockWorkData.Keys)
+        {
             if ( i == id )
                 SetPartsColor(i, true, s_selectColor);
             else
@@ -228,9 +171,20 @@ public class PartsDispManager : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () {
-		_webframe = webframe.Instance;
+    void Awake()
+    {
+        try { 
+        _webframe = webframe.Instance;
         _mainFrameManager = FindObjectOfType<MainFrameManager>();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("PartsDispManager Awake" + e.Message);
+        }
+    }
+
+    void Start () {
+
     }
 
     // Update is called once per frame

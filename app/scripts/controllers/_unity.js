@@ -30,12 +30,8 @@ function SendDataToUnity(mode_name) {
     const sendJson = '{' + data + '}';
 
     if (mode_name == '') {
-        console.log('ReceiveData');
-        console.log(sendJson);
         gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
     } else {
-        console.log('ReceiveModeData');
-        console.log(sendJson);
         gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', mode_name, sendJson);
     }
 }

@@ -82,11 +82,7 @@ public class MainFrameManager : MonoBehaviour
         //	描画マネージャを起動する
         InstantiatePrefab();
 
-        // javascript に起動時のデータを問い合わせる
-        ExternalConnect.SendAngular("GetInputJSON");
-
-        // javascript に起動時の画面のを問い合わせる
-        ExternalConnect.SendAngular("GetInputMode");
+        Debug.Log("MainFrameManager Start() Done!!");
 
     }
 
@@ -96,34 +92,41 @@ public class MainFrameManager : MonoBehaviour
     /// <param name="label"></param>
     public void SetActiveDispManager(InputPanelLabel label)
     {
-        int i;
+        Debug.Log("MainFrameManager SetActiveDispManager実行");
 
-        for (i = 0; i < _partsDispWorks.Length; i++)
-        {
-            if (_partsDispWorks[i] == null)
+        try {
+            for (int i = 0; i < _partsDispWorks.Length; i++)
             {
-                continue;
-            }
-            if (_partsDispWorks[i].partsGameObject == null)
-            {
-                continue;
-            }
-            //	要素の時は非表示にせずに表示モードを切り替える
-            if ((InputPanelLabel)i == InputPanelLabel.Member)
-            {
-                if (label == InputPanelLabel.Member)
+                if (_partsDispWorks[i] == null)
                 {
-                    MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Block);
+                    continue;
+                }
+                if (_partsDispWorks[i].partsGameObject == null)
+                {
+                    continue;
+                }
+                //	要素の時は非表示にせずに表示モードを切り替える
+                if ((InputPanelLabel)i == InputPanelLabel.Member)
+                {
+                    if (label == InputPanelLabel.Member)
+                    {
+                        MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Block);
+                    }
+                    else
+                    {
+                        MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Line);
+                    }
                 }
                 else
                 {
-                    MemberDispManager.ChangeDispMode(MemberDispManager.DispType.Line);
+                    _partsDispWorks[i].partsGameObject.SetActive((InputPanelLabel)i == label);
                 }
             }
-            else
-            {
-                _partsDispWorks[i].partsGameObject.SetActive((InputPanelLabel)i == label);
-            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("MainFrameManager SetActiveDispManager エラー!!");
+            Debug.Log(e.Message);
         }
     }
 
@@ -173,10 +176,8 @@ public class MainFrameManager : MonoBehaviour
     /// </summary>
     public void CreateParts()
     {
-        int i;
-
         //	パーツの作成
-        for (i = 0; i < _partsDispWorks.Length; i++){
+        for (int i = 0; i < _partsDispWorks.Length; i++){
             if (_partsDispWorks[i].partsDispManager == null){
                 continue;
             }
@@ -202,7 +203,7 @@ public class MainFrameManager : MonoBehaviour
 		}
 		//	指定されたものと関わっているものだけ更新する
 		else {
-			NodeDispManager.SetBlockStatus( search_node );
+			NodeDispManager.SetBlockStatus("Node[" + search_node + "]" );
 			if( NodeDispManager.CalcNodeBlockScale(search_node) ) {	//	サイズが更新されていたら節点のサイズも更新する
 				MemberDispManager.SetBlockStatusAll();
 				PanelDispManager.SetBlockStatusAll();
@@ -329,7 +330,7 @@ public class MainFrameManager : MonoBehaviour
     }
 
     /// <summary> JavaScript から Active Item の変更通知が来た </summary>
-    public void SelectItemChange(int id)
+    public void SelectItemChange(int i)
     {
         if (this.inputMode == InputPanelLabel.None) {
             ExternalConnect.SendAngular("GetInputMode");
@@ -337,15 +338,23 @@ public class MainFrameManager : MonoBehaviour
         }
 
         PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
-        partsDispWork.partsDispManager.ChengeForcuseBlock(id);
+        partsDispWork.partsDispManager.ChengeForcuseBlock(i);
     }
 
     /// <summary> JavaScript から インプットデータ の変更通知が来た </summary>
     public void InputDataChenge(string json)
     {
         this._webframe.Create(json);
+        Debug.Log("MainFrameManager _webframe.Create Done!!");
         this.CreateParts();
+        Debug.Log("MainFrameManager CreateParts Done!!");
         this.SetAllBlockStatus();
+        Debug.Log("MainFrameManager SetAllBlockStatus Done!!");
+
+        if (this.inputMode == InputPanelLabel.None){
+            Debug.Log("MainFrameManager Call GetInputMode");
+            ExternalConnect.SendAngular("GetInputMode");
+        }
     }
 
     /// <summary> JavaScript から インプットデータ の変更通知が来た </summary>

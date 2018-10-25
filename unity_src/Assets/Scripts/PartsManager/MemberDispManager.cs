@@ -26,23 +26,103 @@ public class MemberDispManager : PartsDispManager
 	/// </summary>
 	public	override void	CreateParts()
 	{
-		if( _webframe == null ) {
-			return;
+        if ( _webframe == null ) {
+            Debug.Log("MemberDispManager _webframe == null");
+            return;
 		}
 
-        Dictionary<int, webframe.MemberData> memberData = _webframe.ListMemberData;
-        Dictionary<int, Dictionary<int, webframe.ElementData>> elementData = _webframe.ListElementData;
-
-        CreatePartsCommon( memberData.Count, "Member" );
+        CreateMembers();
 	}
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="count"></param>
+    //protected IEnumerable	CreatePartsCommon( int parts_count, string partsName )
+    private void CreateMembers()
+    {
+        try
+        {
+            BlockWorkData blockWorkData;
+            MeshFilter meshFileter;
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public	override void	SetBlockStatus( int id )
+            // 前のオブジェクトを消す
+            foreach (string id in base._blockWorkData.Keys)
+            {
+                try
+                {
+                    Destroy(base._blockWorkData[id].renderer.sharedMaterial);
+                    Destroy(base._blockWorkData[id].gameObject);
+                }
+                catch { }
+            }
+            base._blockWorkData.Clear();
+
+            // 新しいオブジェクトを生成する
+            foreach (int i in _webframe.ListMemberData.Keys)
+            {
+                blockWorkData = new BlockWorkData { gameObject = Instantiate(_blockPrefab) };
+                base._blockWorkData.Add("Member[" + i + "]", blockWorkData);
+            }
+
+            // 新しいオブジェクトのプロパティを設定する
+            foreach (int i in _webframe.ListMemberData.Keys)
+            {
+                blockWorkData = base._blockWorkData["Member[" + i + "]"];
+                blockWorkData.gameObjectTransform = blockWorkData.gameObject.transform;
+                blockWorkData.rootBlockTransform = blockWorkData.gameObjectTransform.Find("Root");
+                blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<BlockData>();
+                blockWorkData.blockData.id = i;
+                blockWorkData.directionArrow = blockWorkData.gameObject.GetComponentInChildren<DirectionArrow>();
+                blockWorkData.renderer = blockWorkData.gameObject.GetComponentInChildren<Renderer>();
+                if (blockWorkData.renderer == null)
+                {
+                    continue;
+                }
+                blockWorkData.renderer.sharedMaterial = Instantiate(blockWorkData.renderer.sharedMaterial);
+                blockWorkData.materialPropertyBlock = new MaterialPropertyBlock();
+                blockWorkData.materialPropertyBlock.SetColor("_Color", Color.white);
+                blockWorkData.renderer.SetPropertyBlock(blockWorkData.materialPropertyBlock);
+
+                blockWorkData.gameObject.name = "Member[" + i + "]";
+                blockWorkData.gameObjectTransform.parent = this.gameObject.transform;
+                blockWorkData.gameObject.SetActive(false);
+
+                //	メシュの取得
+                meshFileter = blockWorkData.gameObject.GetComponentInChildren<MeshFilter>();
+                if (meshFileter != null)
+                {
+                    blockWorkData.mesh = meshFileter.mesh;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("MemberDispManager CreateMembers" + e.Message);
+        }
+    }
+
+    /// <summary>
+    /// ブロックの色を変更
+    /// </summary>
+    /// <param name="id"></param>
+    public override void ChengeForcuseBlock(int i)
+    {
+        base.ChengeForcuseBlock("Member[" + i + "]");
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public	override void	SetBlockStatus( string id )
 	{
-        webframe.MemberData memberData = _webframe.ListMemberData[id];
+        if (!base._blockWorkData.ContainsKey(id))
+            return;
+
+        BlockWorkData blockWorkData = base._blockWorkData[id];
+        int i = blockWorkData.blockData.id;
+
+        webframe.MemberData memberData = _webframe.ListMemberData[i];
 
         // 節点が有効かどうか調べる
         int nodeI = memberData.ni;
@@ -56,7 +136,7 @@ public class MemberDispManager : PartsDispManager
 		partsDispStatus.id = id;
 		partsDispStatus.enable = true;
 
-		if( SetBlockStatusCommon(partsDispStatus) == false ) {
+		if( base.SetBlockStatusCommon(partsDispStatus) == false ) {
 			return;
 		}
 
@@ -71,11 +151,13 @@ public class MemberDispManager : PartsDispManager
         scale.z = length;
 
         if ( _dispType == DispType.Block ) {
+
             // 材料情報が有効かどうか調べる
             int e = memberData.e;
-            if (0 <= e && e < _webframe.ListElementData.Count){
-                Dictionary<int, webframe.ElementData> tmp = _webframe.ListElementData[1]; // とりあえず タイプ1 を選択
-                webframe.ElementData elementData = tmp[e];
+            Dictionary<int, webframe.ElementData> ListElementData = _webframe.ListElementData[1]; // とりあえず タイプ1 を選択
+
+            if (ListElementData.ContainsKey(e)){
+                webframe.ElementData elementData = ListElementData[e];
 
                 float	danmenseki = elementData.A;
 			    float	moment_z = elementData.Iz;
@@ -92,8 +174,6 @@ public class MemberDispManager : PartsDispManager
 			    }
             }
         }
-
-        BlockWorkData blockWorkData = _blockWorkData[id];
 
         //	姿勢を設定
         blockWorkData.rootBlockTransform.position = pos_i;
@@ -119,7 +199,6 @@ public class MemberDispManager : PartsDispManager
 
 		//	色の指定
 		Color	color;
-		int		i;
 
 		if( _dispType == DispType.Block ) {
 			color = s_noSelectColor;
@@ -127,8 +206,8 @@ public class MemberDispManager : PartsDispManager
 		else {
 			color = s_lineTypeBlockColor;
 		}
-		for( i = 0; i < _blockWorkData.Count; i++ ) {
-			SetPartsColor( i, false, color );
+        foreach( string j in base._blockWorkData.Keys) {
+			SetPartsColor( j, false, color );
 		}
 	}
 
@@ -140,7 +219,7 @@ public class MemberDispManager : PartsDispManager
 	{
         Dictionary<int, webframe.MemberData> ListMemberData = _webframe.ListMemberData;
 
-		for(int i = 0; i < ListMemberData.Count; i++ ) {
+        foreach(int i in ListMemberData.Keys) {
             int nodeI = ListMemberData[i].ni;
             int nodeJ = ListMemberData[i].nj;
 
@@ -150,7 +229,7 @@ public class MemberDispManager : PartsDispManager
 			if( search_node != nodeI && search_node != nodeJ) {
 				continue;		//	関わっていないので無視
 			}
-			SetBlockStatus( i );
+			SetBlockStatus("Member[" + i + "]");
 		}
 	}
 
