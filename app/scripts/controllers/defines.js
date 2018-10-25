@@ -2,18 +2,15 @@
 
 /**
  * @ngdoc function
- * @name webframe.controller:LoadsCtrl
+ * @name webframe.controller:DefinesCtrl
  * @description
- * # LoadsCtrl
+ * # DefinesCtrl
  * Controller of the webframe
  */
-// angular.module('webframe')
-//     .controller('LoadsCtrl', function () {
-//     });
 
 angular.module('webframe')
-.controller('LoadsCtrl', ['$scope', '$filter', '$q', 'Load', 'loadDefaults',
-    function ($scope, $filter, $q, Load, loadDefaults) {
+.controller('DefinesCtrl', ['$scope', '$filter', '$q', 'Define', 'defineDefaults',
+    function ($scope, $filter, $q, Define, defineDefaults) {
         let ctrl = this;
 
         var element = document.getElementById('popupConfigElement');
@@ -25,18 +22,18 @@ angular.module('webframe')
 
         function init() {
             elementsMode = false;
-            let loads = Load.query();
+            let defines = Define.query();
 
-            if (loads.length == 0) {
-                Load.createDefaultEntries();
-                loads = Load.query();
+            if (defines.length == 0) {
+                Define.createDefaultEntries();
+                defines = Define.query();
             }
 
-            ctrl.loads = loads;
-            ctrl.settings = Load.settings;
+            ctrl.defines = defines;
+            ctrl.settings = Define.settings;
 
             $scope.ngPopupConfig = {
-                width: 900,
+                width: 400,
                 height: 450,
                 resizable: true,
                 draggable: true,
@@ -44,7 +41,7 @@ angular.module('webframe')
                     top: 135,
                     left: 15
                 },
-                title: '荷重強度',
+                title: '組合せ',
                 hasTitleBar: true,
                 pinned: false,
                 isShow: true,

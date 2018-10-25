@@ -23,6 +23,8 @@ angular.module('webframe')
                 loads: [],
                 load_names: [],
                 combines: [],
+                defines: [],
+                pickups: [],
                 disgs: [],
                 reacs: [],
                 fsecs: [],

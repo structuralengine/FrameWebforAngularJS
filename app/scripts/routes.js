@@ -86,10 +86,20 @@ angular.module('webframe')
         controller: 'LoadNamesCtrl',
         controllerAs: 'ctrl',
       })
+      .when('/defines', {
+        templateUrl: 'views/defines.html',
+        controller: 'DefinesCtrl',
+        controllerAs: 'ctrl'
+      })
       .when('/combines', {
         templateUrl: 'views/combines.html',
         controller: 'CombinesCtrl',
         controllerAs: 'ctrl',
+      })
+      .when('/pickups', {
+        templateUrl: 'views/pickups.html',
+        controller: 'PickupsCtrl',
+        controllerAs: 'ctrl'
       })
       .when('/disg', {
         templateUrl: 'views/disg.html',

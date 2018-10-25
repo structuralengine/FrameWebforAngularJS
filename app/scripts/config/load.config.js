@@ -10,7 +10,7 @@
 angular.module('webframe')
     .factory('loadConfig', ['HtHelper', 'htSpeedInput',
         function (HtHelper, htSpeedInput) { 
-            const name = ['m1', 'm2', 'direction', 'mark', 'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
+            const name = ['no', 'm1', 'm2', 'direction', 'mark', 'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
 
             function column(str){
                 var dic = {'items':{'':{'column':{'data':str, 'type':'numeric', 'format':'0.0000'} }} };
@@ -18,6 +18,11 @@ angular.module('webframe')
             }
 
             return {
+                '部材No.': {
+                    'items': {
+                        '': column('no')
+                    }
+                },
                 '部材荷重': {
                     items: {
                         '部材1': column('m1'),

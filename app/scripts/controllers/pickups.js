@@ -2,18 +2,15 @@
 
 /**
  * @ngdoc function
- * @name webframe.controller:LoadsCtrl
+ * @name webframe.controller:PickupsCtrl
  * @description
- * # LoadsCtrl
+ * # PickupsCtrl
  * Controller of the webframe
  */
-// angular.module('webframe')
-//     .controller('LoadsCtrl', function () {
-//     });
 
 angular.module('webframe')
-.controller('LoadsCtrl', ['$scope', '$filter', '$q', 'Load', 'loadDefaults',
-    function ($scope, $filter, $q, Load, loadDefaults) {
+.controller('PickupsCtrl', ['$scope', '$filter', '$q', 'Pickup', 'pickupDefaults',
+    function ($scope, $filter, $q, Pickup, pickupDefaults) {
         let ctrl = this;
 
         var element = document.getElementById('popupConfigElement');
@@ -25,18 +22,18 @@ angular.module('webframe')
 
         function init() {
             elementsMode = false;
-            let loads = Load.query();
+            let pickups = Pickup.query();
 
-            if (loads.length == 0) {
-                Load.createDefaultEntries();
-                loads = Load.query();
+            if (pickups.length == 0) {
+                Pickup.createDefaultEntries();
+                pickups = Pickup.query();
             }
 
-            ctrl.loads = loads;
-            ctrl.settings = Load.settings;
+            ctrl.pickups = pickups;
+            ctrl.settings = Pickup.settings;
 
             $scope.ngPopupConfig = {
-                width: 900,
+                width: 400,
                 height: 450,
                 resizable: true,
                 draggable: true,
@@ -44,7 +41,7 @@ angular.module('webframe')
                     top: 135,
                     left: 15
                 },
-                title: '荷重強度',
+                title: '組合せ',
                 hasTitleBar: true,
                 pinned: false,
                 isShow: true,

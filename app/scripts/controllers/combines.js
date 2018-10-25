@@ -7,9 +7,6 @@
  * # CombinesCtrl
  * Controller of the webframe
  */
-// angular.module('webframe')
-//     .controller('CombinesCtrl', function () {
-//     });
 
 angular.module('webframe')
 .controller('CombinesCtrl', ['$scope', '$filter', '$q', 'Combine', 'combineDefaults',

@@ -31,6 +31,7 @@ angular.module('webframe')
         let models = [
           'CombFsec',
           'Combine',
+          'Define',
           'Disg',
           'Fix_member',
           'Fix_node',
@@ -43,6 +44,7 @@ angular.module('webframe')
           'Notice_point',
           'Panel',
           'PicFsec',
+          'Pickup',
           'Reac'
         ];
         models.forEach(function(model) {
