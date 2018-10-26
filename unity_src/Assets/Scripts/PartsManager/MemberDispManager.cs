@@ -21,30 +21,51 @@ public class MemberDispManager : PartsDispManager
 	[SerializeField]
 	float		_elementScale = 1.0f;
 
-	/// <summary>
-	/// パーツを作成する
-	/// </summary>
-	public	override void	CreateParts()
+
+    /// <summary>ブロックの初期値を設定する </summary>
+    /// <param name="_blockWorkData"></param>
+    /// <param name="data_id"> データID </param>
+    private void InitBlock(ref BlockWorkData blockWorkData, int data_id, string block_id)
+    {
+        blockWorkData.gameObjectTransform = blockWorkData.gameObject.transform;
+        blockWorkData.rootBlockTransform = blockWorkData.gameObjectTransform.Find("Root");
+        blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<BlockData>();
+        blockWorkData.blockData.id = data_id;
+        blockWorkData.directionArrow = blockWorkData.gameObject.GetComponentInChildren<DirectionArrow>();
+        blockWorkData.renderer = blockWorkData.gameObject.GetComponentInChildren<Renderer>();
+        if (blockWorkData.renderer == null)
+            return;
+        blockWorkData.renderer.sharedMaterial = Instantiate(blockWorkData.renderer.sharedMaterial);
+        blockWorkData.materialPropertyBlock = new MaterialPropertyBlock();
+        blockWorkData.materialPropertyBlock.SetColor("_Color", Color.white);
+        blockWorkData.renderer.SetPropertyBlock(blockWorkData.materialPropertyBlock);
+
+        blockWorkData.gameObject.name = block_id;
+        blockWorkData.gameObjectTransform.parent = this.gameObject.transform;
+        blockWorkData.gameObject.SetActive(false);
+
+        //	メシュの取得
+        MeshFilter meshFileter;
+        meshFileter = blockWorkData.gameObject.GetComponentInChildren<MeshFilter>();
+        if (meshFileter != null)
+        {
+            blockWorkData.mesh = meshFileter.mesh;
+        }
+    }
+
+    /// <summary>
+    /// パーツを作成する
+    /// </summary>
+    public override void	CreateParts()
 	{
         if ( _webframe == null ) {
             Debug.Log("MemberDispManager _webframe == null");
             return;
 		}
 
-        CreateMembers();
-	}
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="count"></param>
-    //protected IEnumerable	CreatePartsCommon( int parts_count, string partsName )
-    private void CreateMembers()
-    {
         try
         {
             BlockWorkData blockWorkData;
-            MeshFilter meshFileter;
 
             // 前のオブジェクトを消す
             foreach (string id in base._blockWorkData.Keys)
@@ -62,38 +83,14 @@ public class MemberDispManager : PartsDispManager
             foreach (int i in _webframe.ListMemberData.Keys)
             {
                 blockWorkData = new BlockWorkData { gameObject = Instantiate(_blockPrefab) };
-                base._blockWorkData.Add("Member[" + i + "]", blockWorkData);
+                base._blockWorkData.Add(GetBlockID(i), blockWorkData);
             }
 
             // 新しいオブジェクトのプロパティを設定する
             foreach (int i in _webframe.ListMemberData.Keys)
             {
-                blockWorkData = base._blockWorkData["Member[" + i + "]"];
-                blockWorkData.gameObjectTransform = blockWorkData.gameObject.transform;
-                blockWorkData.rootBlockTransform = blockWorkData.gameObjectTransform.Find("Root");
-                blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<BlockData>();
-                blockWorkData.blockData.id = i;
-                blockWorkData.directionArrow = blockWorkData.gameObject.GetComponentInChildren<DirectionArrow>();
-                blockWorkData.renderer = blockWorkData.gameObject.GetComponentInChildren<Renderer>();
-                if (blockWorkData.renderer == null)
-                {
-                    continue;
-                }
-                blockWorkData.renderer.sharedMaterial = Instantiate(blockWorkData.renderer.sharedMaterial);
-                blockWorkData.materialPropertyBlock = new MaterialPropertyBlock();
-                blockWorkData.materialPropertyBlock.SetColor("_Color", Color.white);
-                blockWorkData.renderer.SetPropertyBlock(blockWorkData.materialPropertyBlock);
-
-                blockWorkData.gameObject.name = "Member[" + i + "]";
-                blockWorkData.gameObjectTransform.parent = this.gameObject.transform;
-                blockWorkData.gameObject.SetActive(false);
-
-                //	メシュの取得
-                meshFileter = blockWorkData.gameObject.GetComponentInChildren<MeshFilter>();
-                if (meshFileter != null)
-                {
-                    blockWorkData.mesh = meshFileter.mesh;
-                }
+                blockWorkData = base._blockWorkData[GetBlockID(i)];
+                InitBlock(ref blockWorkData, i, GetBlockID(i));
             }
         }
         catch (Exception e)
@@ -102,13 +99,112 @@ public class MemberDispManager : PartsDispManager
         }
     }
 
+
     /// <summary>
-    /// ブロックの色を変更
+    /// パーツを変更する
     /// </summary>
+    public override void ChengeParts()
+    {
+        if (_webframe == null)
+        {
+            Debug.Log("MemberDispManager _webframe == null");
+            return;
+        }
+
+        try
+        {
+            BlockWorkData blockWorkData;
+
+            // データに無いブロックは消す
+            foreach (string id in base._blockWorkData.Keys)
+            {
+                int i = GetDataID(id);
+                if (!_webframe.ListMemberData.ContainsKey(i))
+                {
+                    try
+                    {
+                        Destroy(base._blockWorkData[id].renderer.sharedMaterial);
+                        Destroy(base._blockWorkData[id].gameObject);
+                    }
+                    catch { }
+                    finally
+                    {
+                        base._blockWorkData.Remove(id);
+                    }
+                }
+            }
+
+            // 新しいブロックを生成する
+            foreach (int i in _webframe.ListMemberData.Keys)
+            {
+                string id = GetBlockID(i);
+                if (!base._blockWorkData.ContainsKey(id))
+                {
+                    // 新しいオブジェクトを生成する
+                    blockWorkData = new BlockWorkData { gameObject = Instantiate(_blockPrefab) };
+                    InitBlock(ref blockWorkData, i, id);
+                    base._blockWorkData.Add(id, blockWorkData);
+                }
+                // 座標を修正する
+                SetBlockStatus(id);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("MemberDispManager ChengeParts" + e.Message);
+        }
+    }
+
+
+    /// <summary> ブロックのIDを取得 </summary>
+    /// <param name="i"></param>
+    private string GetBlockID(int i)
+    {
+        return "Member[" + i + "]";
+    }
+    
+    /// <summary> データのIDを取得 </summary>
     /// <param name="id"></param>
+    private int GetDataID(string id)
+    {
+        string s1 = id.Replace("Member[", "");
+        string s2 = s1.Replace("]", "");
+        return int.Parse(s2);
+    }
+
+    /// <summary>JSに選択アイテムの変更を通知する </summary>
+    public override void SendSelectChengeMessage(string id)
+    {
+        int inputID = GetDataID(id);
+        ExternalConnect.SendAngularSelectItemChenge(inputID);
+    }
+
+    /// <summary> ブロックの色を変更 </summary>
     public override void ChengeForcuseBlock(int i)
     {
-        base.ChengeForcuseBlock("Member[" + i + "]");
+        string id = this.GetBlockID(i);
+
+        base.ChengeForcuseBlock(id);
+
+        foreach (string j in base._blockWorkData.Keys)
+        {
+            if (j == id)
+                this.SetAllowStatus(j, true);
+            else
+                this.SetAllowStatus(j, false);
+        }
+    }
+
+     /// <summary> ブロックの矢印を設定する </summary>
+    /// <param name="onoff"></param>
+    private void SetAllowStatus(string id, bool onoff)
+    {
+        BlockWorkData blockWorkData = base._blockWorkData[id];
+
+        if (blockWorkData.directionArrow != null)
+        {
+            blockWorkData.directionArrow.EnableRenderer(onoff);
+        }
     }
 
     /// <summary>
@@ -119,8 +215,7 @@ public class MemberDispManager : PartsDispManager
         if (!base._blockWorkData.ContainsKey(id))
             return;
 
-        BlockWorkData blockWorkData = base._blockWorkData[id];
-        int i = blockWorkData.blockData.id;
+        int i = GetDataID(id);
 
         webframe.MemberData memberData = _webframe.ListMemberData[i];
 
@@ -176,6 +271,8 @@ public class MemberDispManager : PartsDispManager
         }
 
         //	姿勢を設定
+        BlockWorkData blockWorkData = base._blockWorkData[id];
+
         blockWorkData.rootBlockTransform.position = pos_i;
 		blockWorkData.rootBlockTransform.LookAt( pos_j );
 		blockWorkData.rootBlockTransform.localScale = scale;
@@ -207,9 +304,11 @@ public class MemberDispManager : PartsDispManager
 			color = s_lineTypeBlockColor;
 		}
         foreach( string j in base._blockWorkData.Keys) {
-			SetPartsColor( j, false, color );
-		}
-	}
+            base.SetPartsColor( j, color );
+            this.SetAllowStatus(j, false);
+        }
+    }
+
 
     /// <summary>
     /// 指定された節点と一致するブロックを設定する
@@ -229,7 +328,7 @@ public class MemberDispManager : PartsDispManager
 			if( search_node != nodeI && search_node != nodeJ) {
 				continue;		//	関わっていないので無視
 			}
-			SetBlockStatus("Member[" + i + "]");
+			this.SetBlockStatus(GetBlockID(i));
 		}
 	}
 

@@ -81,23 +81,26 @@ public class PartsDispManager : MonoBehaviour
 	/// </summary>
 	public	virtual void	CreateParts()
 	{
-
 	}
 
+    /// <summary>
+    /// パーツの変更の仮想関数
+    /// </summary>
+    public virtual void ChengeParts()
+    {
+    }
+    
 
-
-	/// <summary>
-	/// 表示ブロックの設定の仮想関数
-	/// </summary>
-	public	virtual	void	SetBlockStatus( string id )
+    /// <summary>
+    /// 表示ブロックの設定の仮想関数
+    /// </summary>
+    public	virtual	void	SetBlockStatus( string id )
 	{
 	}
 
 
-	/// <summary>
-	/// 表示ブロックの設定の仮想関数
-	/// </summary>
-	public	virtual	void	SetBlockStatusAll()
+	/// <summary> 表示ブロックの設定 </summary>
+	public	void SetBlockStatusAll()
 	{
 		foreach(string id in _blockWorkData.Keys) { 
 			SetBlockStatus( id );
@@ -105,68 +108,64 @@ public class PartsDispManager : MonoBehaviour
 	}
 
 
-
-	
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="id"></param>
-	/// <param name="color"></param>
-	protected	void	SetPartsColor( string id, bool onoff, Color color )
+    /// <summary>ブロックの色を設定する </summary>
+    /// <param name="id">ブロックのID</param>
+    /// <param name="color">色</param>
+    public void SetPartsColor( string id, Color color )
 	{
 		BlockWorkData	blockWorkData = _blockWorkData[id];
 
 		blockWorkData.materialPropertyBlock.SetColor("_Color", color );
 		blockWorkData.renderer.SetPropertyBlock( blockWorkData.materialPropertyBlock );
-		if( blockWorkData.directionArrow != null ) {
-			blockWorkData.directionArrow.EnableRenderer( onoff );
-		}
 	}
 
+    /// <summary>JSに選択アイテムの変更を通知する </summary>
+    public virtual void SendSelectChengeMessage(string id)
+    {
 
+    }
 
-	/// <summary>
-	/// マウスの入力制御
-	/// </summary>
-	public	virtual void	InputMouse()
+    /// <summary> マウスの入力制御 </summary>
+    public virtual void	InputMouse()
 	{
 		if (Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit = new RaycastHit();
  
 			if (Physics.Raycast(ray, out hit)){
-				GameObject	obj = hit.collider.gameObject; 
+				GameObject	obj = hit.collider.gameObject;
 
-				//	ブロックが選択された
-				{
+                //	ブロックが選択された
+                ChengeForcuseBlock(obj.name);
+                SendSelectChengeMessage(obj.name);
+                /*{
 					BlockData	blockData;
 					blockData = obj.GetComponentInParent<BlockData>();
 					if( blockData != null ){
                         _mainFrameManager.SelectItemChange(blockData.id); // ここで AngularJS に通知する
                     }
-				}
-			}
+				}*/
+            }
 		}
 	}
 
 
-    /// <summary>
-    /// ブロックの色を変更
-    /// </summary>
-    /// <param name="id"></param>
-    public virtual void ChengeForcuseBlock(int i)
+    /// <summary> ブロックの色を変更の仮想関数 </summary>
+    public virtual void ChengeForcuseBlock(int i )
     {
 
     }
 
-    public void ChengeForcuseBlock(string id) {
-
+    /// <summary> ブロックの色を変更 </summary>
+    /// <param name="id"></param>
+    public void ChengeForcuseBlock(string id)
+    {
         foreach(string i in _blockWorkData.Keys)
         {
             if ( i == id )
-                SetPartsColor(i, true, s_selectColor);
+                SetPartsColor(i, s_selectColor);
             else
-                SetPartsColor(i, false, s_noSelectColor);
+                SetPartsColor(i, s_noSelectColor);
         }
     }
 
@@ -174,8 +173,8 @@ public class PartsDispManager : MonoBehaviour
     void Awake()
     {
         try { 
-        _webframe = webframe.Instance;
-        _mainFrameManager = FindObjectOfType<MainFrameManager>();
+            _webframe = webframe.Instance;
+            _mainFrameManager = FindObjectOfType<MainFrameManager>();
         }
         catch (Exception e)
         {

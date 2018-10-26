@@ -22,6 +22,11 @@ function ReceiveUnity(str) {
             break;
     }
 }
+// Unity→Html (UnityからJS内でイベント発火)
+function ReceiveUnitySelectItemChenge(id) {
+    console.log('Called!! - Receive Unity Select Item Chenge');
+    console.log(id);
+}
 
 function SendDataToUnity(mode_name) {
 
@@ -32,7 +37,7 @@ function SendDataToUnity(mode_name) {
     if (mode_name == '') {
         gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
     } else {
-        gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', mode_name, sendJson);
+        gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
     }
 }
 
@@ -45,18 +50,33 @@ function SendCaptureToUnity() {
 
 function SendModeToUnity(templateUrl) {
 
-    let mode_name = templateUrl + ''; //toString() と同じことしてる
+    if (typeof templateUrl == 'undefined')
+        return;
+    
+    console.log('ChengeMode');
 
-    mode_name = mode_name.replace('#!/', '')
-    mode_name = mode_name.replace('views/', '')
-    mode_name = mode_name.replace('.html', '')
-    mode_name.trim();
+    let mode_name = GetModeName(templateUrl);
         
     if (mode_name == '') {
         mode_name = 'nodes'; // デフォルトの設定
     }
 
-    console.log('ChengeMode');
     console.log(mode_name);
     gameInstance.SendMessage('ExternalConnect', 'ChengeMode', mode_name);
+}
+
+function GetModeName(templateUrl) {
+
+    let mode_name = templateUrl + ''; //toString() と同じことしてる
+
+    mode_name = mode_name.replace('#!/', '')
+    mode_name = mode_name.replace('views/', '')
+    mode_name = mode_name.replace('.html', '')
+    return mode_name.trim();  
+}
+
+function SendSelectItemToUnity(id) {
+    console.log('SendSelectItemToUnity');
+    const mode_name = GetModeName(location.hash);
+    gameInstance.SendMessage('ExternalConnect', 'SelectItemChange', mode_name, id);
 }

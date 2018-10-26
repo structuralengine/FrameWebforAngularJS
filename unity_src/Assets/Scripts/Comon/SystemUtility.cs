@@ -11,6 +11,7 @@ using System.Collections;
 /// </summary>
 namespace SystemUtility
 {
+    /*
 	[Serializable]
 	public class StringVector3
 	{
@@ -73,9 +74,41 @@ namespace SystemUtility
 			}
 		}
 	}
+    */
 
 	public	class ComonFunctions
     {
+        public static int ConvertToInt(object obj, int defaultvalue = 0 )
+        {
+            int result = 0;
+
+            string str = obj.ToString();
+            if (!int.TryParse(str, out result))
+                result = defaultvalue;
+
+            return result;
+        }
+        public static double ConvertToDouble(object obj, double defaultvalue = 0.0)
+        {
+            double result = 0;
+
+            string str = obj.ToString();
+            if (!double.TryParse(str, out result))
+                result = defaultvalue;
+
+            return result;
+        }
+        public static float ConvertToSingle(object obj, float defaultvalue = 0.0F)
+        {
+            float result = 0;
+
+            string str = obj.ToString();
+            if (!float.TryParse(str, out result))
+                result = defaultvalue;
+
+            return result;
+        }
+
         /// <summary>
         /// 引数に有効な、数値が含まれているか調べる
         /// </summary>
