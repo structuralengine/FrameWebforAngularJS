@@ -10,7 +10,7 @@ function ReceiveUnity(str) {
     switch (str) {
         case 'GetInputJSON':// 入力データを要求された
             console.log('Called!! - GetInputJSON');
-            SendDataToUnity('');
+            SendAllDataToUnity();
             break;
         case 'GetInputMode':// 入力モードを要求された
             console.log('Called!! - GetInputMode');
@@ -28,17 +28,22 @@ function ReceiveUnitySelectItemChenge(id) {
     console.log(id);
 }
 
-function SendDataToUnity(mode_name) {
+function SendAllDataToUnity() {
 
     // JSONの整形
-    const data = DataConstruct(mode_name);
+    const data = AllDataConstruct();
+    const sendJson = '{' + data + '}';
+    
+    gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
+}
+
+function SendDataToUnity(mode_name, jsonObj) {
+
+    // JSONの整形
+    const data = DataConstruct(mode_name, jsonObj);
     const sendJson = '{' + data + '}';
 
-    if (mode_name == '') {
-        gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
-    } else {
-        gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
-    }
+    gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
 }
 
 

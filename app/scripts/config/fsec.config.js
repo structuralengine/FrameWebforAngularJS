@@ -15,6 +15,7 @@ angular.module('webframe')
       return {
         '節点': {
             'column': {
+              readOnly: true,
               'data': 'n',
               'type': 'numeric',
               'format': '0.001'
@@ -22,13 +23,15 @@ angular.module('webframe')
         },
         '着目点': {
             'column': {
-                'data': 'np',
-                'type': 'numeric',
-                'format': '0.001'
+              readOnly: true,
+              'data': 'np',
+              'type': 'numeric',
+              'format': '0.001'
             }
         },
         'Fx': {
           'column': {
+            readOnly: true,
             'data': 'fx',
             'type': 'numeric',
             'format': '0.001'
@@ -36,6 +39,7 @@ angular.module('webframe')
         },
         'Fy': {
           'column': {
+            readOnly: true,
             'data': 'fy',
             'type': 'numeric',
             'format': '0.001'
@@ -43,6 +47,7 @@ angular.module('webframe')
         },
         'Fz': {
           'column': {
+            readOnly: true,
             'data': 'fz',
             'type': 'numeric',
             'format': '0.001'
@@ -50,6 +55,7 @@ angular.module('webframe')
         },
         'Mx': {
             'column': {
+              readOnly: true,
               'data': 'mx',
               'type': 'numeric',
               'format': '0.001'
@@ -57,6 +63,7 @@ angular.module('webframe')
           },
           'My': {
             'column': {
+              readOnly: true,
               'data': 'my',
               'type': 'numeric',
               'format': '0.001'
@@ -64,6 +71,7 @@ angular.module('webframe')
           },
           'Mz': {
             'column': {
+              readOnly: true,
               'data': 'mz',
               'type': 'numeric',
               'format': '0.001'

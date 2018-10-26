@@ -3,14 +3,28 @@
 // 戻り値: 整形後のJSONデータ 
 // --------------------------------------------------------------
 
-function DataConstruct(_mode) {
+function AllDataConstruct() {
+
+    //const storage = localStorage.getItem('webframe.2');
+    const storage = localStorage.getItem('webframe.2');
+    return DataConstruct('', storage);
+}
+
+function DataConstruct(_mode, _jsonObj) {
 
     const mode = (_mode + '').trim();
 
-    // この変数でJSON整形を行ってください。
-    const storage = localStorage.getItem('webframe.2');
-    const data = JSON.parse(storage);
+    // 引数を整形する
+    let jsonStr = '';
+    if (mode != '') {
+        jsonStr = JSON.stringify(_jsonObj); 
+        jsonStr = '{"'+ mode + '":' + jsonStr + '}'
+    } else {
+        jsonStr = _jsonObj;
+    }
+    const data = JSON.parse(jsonStr);
 
+    // Unityや計算サーバーが解釈できる JSONを生成する
     let json = '';
 
     if (mode == 'nodes' || mode == '') {
@@ -61,8 +75,7 @@ function DataConstruct(_mode) {
 
     //最後の , を削除する
     json = json.slice(0, -1);
-    // 整形したJSONデータを戻り値にセットしてください。
-    console.log(json);
+
     return json;
 }
 
@@ -516,7 +529,7 @@ function HttpSendRequest($http) {
     var password = 'test1105';
 
     // JSONの整形
-    var data = DataConstruct('');
+    var data = AllDataConstruct();
     
     var json = 'inp_grid='
         + '{'

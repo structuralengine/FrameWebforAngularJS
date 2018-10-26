@@ -15,6 +15,7 @@ angular.module('webframe')
       return {     
         'Rx': {
           'column': {
+            readOnly: true,
             'data': 'rx',
             'type': 'numeric',
             'format': '0.001'
@@ -22,6 +23,7 @@ angular.module('webframe')
         },
         'Ry': {
           'column': {
+            readOnly: true,
             'data': 'ry',
             'type': 'numeric',
             'format': '0.001'
@@ -29,6 +31,7 @@ angular.module('webframe')
         },
         'Rz': {
           'column': {
+            readOnly: true,
             'data': 'rz',
             'type': 'numeric',
             'format': '0.001'
@@ -36,6 +39,7 @@ angular.module('webframe')
         },
         'Mx': {
             'column': {
+              readOnly: true,
               'data': 'mx',
               'type': 'numeric',
               'format': '0.001'
@@ -43,6 +47,7 @@ angular.module('webframe')
           },
           'My': {
             'column': {
+              readOnly: true,
               'data': 'my',
               'type': 'numeric',
               'format': '0.001'
@@ -50,6 +55,7 @@ angular.module('webframe')
           },
           'Mz': {
             'column': {
+              readOnly: true,
               'data': 'mz',
               'type': 'numeric',
               'format': '0.001'

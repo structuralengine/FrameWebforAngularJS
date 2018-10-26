@@ -11,7 +11,7 @@ angular.module('webframe')
   .factory('nodeConfig', ['HtHelper', 'htSpeedInput',
     function(HtHelper, htSpeedInput) {
 
-      return {     
+      return { 
         'X': {
           'column': {
             'data': 'x',

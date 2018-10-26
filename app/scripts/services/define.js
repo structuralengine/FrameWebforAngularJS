@@ -23,7 +23,10 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let define = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('defines');
+                /* // this table is not send unity
+                let jsonObj = $lowdb.get('defines').value();
+                SendDataToUnity('defines', jsonObj)
+                */
             };
 
             _.mixin(Define, HtHelper);

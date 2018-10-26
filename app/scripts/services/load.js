@@ -22,7 +22,8 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let load = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('loads');
+                let jsonObj = $lowdb.get('loads').value();
+                SendDataToUnity('loads', jsonObj)
             };
 
             _.mixin(Load, HtHelper);

@@ -22,7 +22,10 @@ angular.module('webframe')
                     let [row, prop, oldVal, newVal] = change;
                     let combine = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('combines');
+                /* // this table is not send unity
+                let jsonObj = $lowdb.get('combines').value();
+                SendDataToUnity('combines', jsonObj)
+                */
             };
 
             _.mixin(Combine, HtHelper);

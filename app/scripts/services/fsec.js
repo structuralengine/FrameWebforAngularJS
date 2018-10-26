@@ -15,16 +15,17 @@ angular.module('webframe')
                 'table': 'fsecs',
                 'defaultEntries': fsecDefaults
             });
-
+            /* // this table is read only
             Fsec.afterChange = function (changes, source) {
                 let hot = this;
                 changes.forEach(function (change) {
                     let [row, prop, oldVal, newVal] = change;
                     let fsec = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('fsec');
+                let jsonObj = $lowdb.get('fsec').value();
+                SendDataToUnity('fsec', jsonObj)
             };
-
+            */
             _.mixin(Fsec, HtHelper);
             Fsec.htInit(fsecConfig);
             

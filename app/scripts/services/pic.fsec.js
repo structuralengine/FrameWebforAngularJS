@@ -15,16 +15,17 @@ angular.module('webframe')
                 'table': 'picFsecs',
                 'defaultEntries': picFsecDefaults
             });
-
+            /* // this table is read only
             PicFsec.afterChange = function (changes, source) {
                 let hot = this;
                 changes.forEach(function (change) {
                     let [row, prop, oldVal, newVal] = change;
                     let picFsec = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('pic.fsec');
+                let jsonObj = $lowdb.get('pic.fsec').value();
+                SendDataToUnity('pic.fsec', jsonObj)
             };
-
+            */
             _.mixin(PicFsec, HtHelper);
             PicFsec.htInit(picFsecConfig);
             

@@ -15,16 +15,17 @@ angular.module('webframe')
                 'table': 'combFsecs',
                 'defaultEntries': combFsecDefaults
             });
-
+            /* // this table is read only
             CombFsec.afterChange = function (changes, source) {
                 let hot = this;
                 changes.forEach(function (change) {
                     let [row, prop, oldVal, newVal] = change;
                     let combFsec = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('comb.fsec');
+                let jsonObj = $lowdb.get('comb.fsec').value();
+                SendDataToUnity('comb.fsec', jsonObj)
             };
-
+            */
             _.mixin(CombFsec, HtHelper);
             CombFsec.htInit(combFsecConfig);
             

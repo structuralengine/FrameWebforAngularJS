@@ -15,16 +15,17 @@ angular.module('webframe')
                 'table': 'reacs',
                 'defaultEntries': reacDefaults
             });
-
+            /* // this table is read only
             Reac.afterChange = function (changes, source) {
                 let hot = this;
                 changes.forEach(function (change) {
                     let [row, prop, oldVal, newVal] = change;
                     let reac = hot.getSourceDataAtRow(row);
                 });
-                SendDataToUnity('reac');
+                let jsonObj = $lowdb.get('reac').value();
+                SendDataToUnity('reac', jsonObj)
             };
-
+            */
             _.mixin(Reac, HtHelper);
             Reac.htInit(reacConfig);
             
