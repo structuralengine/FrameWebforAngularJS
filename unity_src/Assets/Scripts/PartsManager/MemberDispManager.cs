@@ -173,9 +173,8 @@ public class MemberDispManager : PartsDispManager
     }
 
     /// <summary>JSに選択アイテムの変更を通知する </summary>
-    public override void SendSelectChengeMessage(string id)
+    public override void SendSelectChengeMessage(int inputID)
     {
-        int inputID = GetDataID(id);
         ExternalConnect.SendAngularSelectItemChenge(inputID);
     }
 
@@ -249,24 +248,35 @@ public class MemberDispManager : PartsDispManager
 
             // 材料情報が有効かどうか調べる
             int e = memberData.e;
-            Dictionary<int, webframe.ElementData> ListElementData = _webframe.ListElementData[1]; // とりあえず タイプ1 を選択
 
-            if (ListElementData.ContainsKey(e)){
-                webframe.ElementData elementData = ListElementData[e];
+            Dictionary<int, webframe.ElementData> ListElementData = null;
+            foreach( var key in _webframe.ListElementData.Keys){
+                ListElementData = _webframe.ListElementData[key];    // とりあえず タイプ1 を選択
+                break;
+            }
+            if (ListElementData == null)
+            {   // 材料の設定が存在しなければ デフォルト値
+                scale.x = 0.5f;
+                scale.y = 0.5f;
+            }
+            else { 
+                if (ListElementData.ContainsKey(e)){
+                    webframe.ElementData elementData = ListElementData[e];
 
-                float	danmenseki = elementData.A;
-			    float	moment_z = elementData.Iz;
-			    float	moment_y = elementData.Iy;
+                    float	danmenseki = elementData.A;
+			        float	moment_z = elementData.Iz;
+			        float	moment_y = elementData.Iy;
 
-			    //	スケール値を計算
-			    if( danmenseki > 0.0f ) { 
-				    scale.x = (float)System.Math.Sqrt( (double)(12.0f * moment_z/danmenseki) ) * _elementScale;
-				    scale.y = (float)System.Math.Sqrt( (double)(12.0f * moment_y/danmenseki) ) * _elementScale;
-			    }
-			    else {
-				    scale.x = 1.0f;
-				    scale.y = 1.0f;
-			    }
+			        //	スケール値を計算
+			        if( danmenseki > 0.0f ) { 
+				        scale.x = (float)System.Math.Sqrt( (double)(12.0f * moment_z/danmenseki) ) * _elementScale;
+				        scale.y = (float)System.Math.Sqrt( (double)(12.0f * moment_y/danmenseki) ) * _elementScale;
+			        }
+			        else {
+				        scale.x = 0.5f;
+				        scale.y = 0.5f;
+			        }
+                }
             }
         }
 
@@ -331,7 +341,6 @@ public class MemberDispManager : PartsDispManager
 			this.SetBlockStatus(GetBlockID(i));
 		}
 	}
-
 
 
 	/// <summary>

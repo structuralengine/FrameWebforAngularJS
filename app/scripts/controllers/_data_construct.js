@@ -4,7 +4,6 @@
 // --------------------------------------------------------------
 
 function AllDataConstruct() {
-
     //const storage = localStorage.getItem('webframe.2');
     const storage = localStorage.getItem('webframe.2');
     return DataConstruct('', storage);

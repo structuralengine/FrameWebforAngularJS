@@ -156,9 +156,8 @@ public class NodeDispManager : PartsDispManager
     }
 
     /// <summary>JSに選択アイテムの変更を通知する </summary>
-    public override void SendSelectChengeMessage(string id)
+    public override void SendSelectChengeMessage(int inputID)
     {
-        int inputID = GetDataID(id);
         ExternalConnect.SendAngularSelectItemChenge(inputID);
     }
 

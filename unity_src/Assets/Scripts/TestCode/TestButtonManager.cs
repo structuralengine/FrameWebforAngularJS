@@ -22,6 +22,8 @@ public class TestButtonManager : MonoBehaviour {
         this.script = connecter.GetComponent<ExternalConnect>();
 
         this.script.ReceiveData(init_textUI.text);
+        this.script.ChengeMode("nodes");
+
     }
 
     public void testBotton_Click()

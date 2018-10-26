@@ -120,7 +120,7 @@ public class PartsDispManager : MonoBehaviour
 	}
 
     /// <summary>JSに選択アイテムの変更を通知する </summary>
-    public virtual void SendSelectChengeMessage(string id)
+    public virtual void SendSelectChengeMessage(int i)
     {
 
     }
@@ -136,15 +136,14 @@ public class PartsDispManager : MonoBehaviour
 				GameObject	obj = hit.collider.gameObject;
 
                 //	ブロックが選択された
-                ChengeForcuseBlock(obj.name);
-                SendSelectChengeMessage(obj.name);
-                /*{
+                {
 					BlockData	blockData;
 					blockData = obj.GetComponentInParent<BlockData>();
 					if( blockData != null ){
-                        _mainFrameManager.SelectItemChange(blockData.id); // ここで AngularJS に通知する
+                        ChengeForcuseBlock(blockData.id);
+                        SendSelectChengeMessage(blockData.id);
                     }
-				}*/
+				}
             }
 		}
 	}
