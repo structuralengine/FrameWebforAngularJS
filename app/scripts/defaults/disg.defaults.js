@@ -7,7 +7,4 @@
  * # config/disgDefaults
  * Constant in the webframe.
  */
-
-const ROW = 10;                   //表の行数
-
-angular.module('webframe').constant('disgDefaults', Array(ROW).fill({}));
+angular.module('webframe').constant('disgDefaults', Array(100).fill().map(u => ({})));

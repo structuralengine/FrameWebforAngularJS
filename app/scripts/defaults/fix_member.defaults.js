@@ -7,7 +7,4 @@
  * # config/fixMemberDefaults
  * Constant in the webframe.
  */
-
-const ROW = 10;                   //表の行数
-
-angular.module('webframe').constant('fixMemberDefaults', Array(ROW).fill({}));
+angular.module('webframe').constant('fixMemberDefaults', Array(100).fill().map(u => ({})));

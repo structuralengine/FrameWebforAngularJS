@@ -7,7 +7,4 @@
  * # config/combineDefaults
  * Constant in the webframe.
  */
-
-const ROW = 10;                   //表の行数
-
-angular.module('webframe').constant('combineDefaults', Array(ROW).fill({}));
+angular.module('webframe').constant('combineDefaults', Array(100).fill().map(u => ({})));

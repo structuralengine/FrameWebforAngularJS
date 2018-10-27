@@ -7,7 +7,4 @@
  * # config/jointDefaults
  * Constant in the webframe.
  */
-
-const ROW = 10;                   //表の行数
-
-angular.module('webframe').constant('jointDefaults', Array(ROW).fill({}));
+angular.module('webframe').constant('jointDefaults', Array(100).fill().map(u => ({})));
