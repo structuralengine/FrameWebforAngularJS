@@ -322,7 +322,7 @@ Prefab:
     - target: {fileID: 114999057798924508, guid: ba713c3c7d8b20d4297d203e964bf539,
         type: 2}
       propertyPath: m_Text
-      value: '{"node":{"1":{"x":5,"y":1,"z":1},"2":{"x":3,"y":3,"z":2},"3":{"x":1,"y":2,"z":4}}}'
+      value: "{\"element\":{\"1\":{\"1\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0},\"2\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0},\"3\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0}}}}\r\n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba713c3c7d8b20d4297d203e964bf539, type: 2}
@@ -699,7 +699,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '{"node":{"1":{"x":5,"y":1,"z":1},"2":{"x":3,"y":3,"z":2},"3":{"x":1,"y":2,"z":4}}}'
+  m_Text: "{\"element\":{\"1\":{\"1\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0},\"2\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0},\"3\":{\"E\":2000,\"G\":0,\"Xp\":0,\"A\":0,\"J\":0,\"Iy\":0,\"Iz\":0}}}}\r\n"
 --- !u!222 &1029876316
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -861,7 +861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1919760994
 MonoBehaviour:
   m_ObjectHideFlags: 0

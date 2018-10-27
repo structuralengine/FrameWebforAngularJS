@@ -313,6 +313,9 @@ public class MainFrameManager : MonoBehaviour
         // ゲームオブジェクトを変更します。
         PartsDispWork partsDispWork = _partsDispWorks[(int)this.inputMode];
 
+        if (partsDispWork.partsDispManager == null)
+            return;
+
         partsDispWork.partsDispManager.ChengeParts();
 
         // 節点に変更があった場合 他のオブジェクトに影響する
