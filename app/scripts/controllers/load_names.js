@@ -7,6 +7,10 @@
  * # LoadNamesCtrl
  * Controller of the webframe
  */
+// angular.module('webframe')
+//     .controller('LoadNamesCtrl', function () {
+//     });
+
 
 angular.module('webframe')
 .controller('LoadNamesCtrl', ['$scope', '$filter', '$q', 'Load_name', 'loadNameDefaults',
@@ -33,7 +37,7 @@ angular.module('webframe')
             ctrl.settings = Load_name.settings;
 
             $scope.ngPopupConfig = {
-                width: 500,
+                width: 700,
                 height: 450,
                 resizable: true,
                 draggable: true,

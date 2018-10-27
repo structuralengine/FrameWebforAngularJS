@@ -46,7 +46,6 @@ function SendDataToUnity(mode_name, jsonObj) {
     gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
 }
 
-
 // Html->Unityへキャプチャを行うための信号を送る
 function SendCaptureToUnity() {
     console.log('SendCapture');
@@ -70,6 +69,12 @@ function SendModeToUnity(templateUrl) {
     gameInstance.SendMessage('ExternalConnect', 'ChengeMode', mode_name);
 }
 
+function SendSelectItemToUnity(id) {
+    console.log('SendSelectItemToUnity');
+    const mode_name = GetModeName(location.hash);
+    gameInstance.SendMessage('ExternalConnect', 'SelectItemChange', mode_name, id);
+}
+
 function GetModeName(templateUrl) {
 
     let mode_name = templateUrl + ''; //toString() と同じことしてる
@@ -77,11 +82,5 @@ function GetModeName(templateUrl) {
     mode_name = mode_name.replace('#!/', '')
     mode_name = mode_name.replace('views/', '')
     mode_name = mode_name.replace('.html', '')
-    return mode_name.trim();  
-}
-
-function SendSelectItemToUnity(id) {
-    console.log('SendSelectItemToUnity');
-    const mode_name = GetModeName(location.hash);
-    gameInstance.SendMessage('ExternalConnect', 'SelectItemChange', mode_name, id);
+    return mode_name.trim();
 }
