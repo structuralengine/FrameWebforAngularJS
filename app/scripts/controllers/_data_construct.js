@@ -33,7 +33,7 @@ function DataConstruct(_mode, _jsonObj) {
     }
     if (mode == 'fix_nodes' || mode == '') {
         json += '"fix_node":';
-        json += fixNodeJson(data, fix_nodev);
+        json += fixNodeJson(data);
         json += ',';
     }
     if (mode == 'members' || mode == '') {
@@ -85,6 +85,22 @@ const panelv = ['no1', 'no2', 'no3', 'area', 'e'];
 const jointv = jointlist();
 const notice_pointv = nplist();
 const fix_memberv = fmlist();
+
+
+//空欄に0を追加する
+function compromise(json, array1, array2){
+    var flag = true;
+    for(var i in array1) if(array1[i] in json){
+        flag = false;
+        break;
+    }
+    if(flag) return null;
+    var dic = {};
+    for(var i in array1){
+        dic[array2[i]] = array1[i] in json ? parseFloat(json[array1[i]]) : 0.0;
+    }
+    return dic;
+}
 
 //整形用関数
 function cnst(json, name, array){
@@ -191,39 +207,29 @@ function memberJson(json) {
 }
 
 //fix_nodeデータの整形
-function fixNodeJson(json, array){
-
+function fixNodeJson(json){
     if(!('fix_nodes' in json)) return '{}';
 
+    const array = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
+    var item = [];
+    item[1] = ['tx1', 'ty1', 'tz1', 'rx1', 'ry1', 'rz1'];
+    item[2] = ['tx2', 'ty2', 'tz2', 'rx2', 'ry2', 'rz2'];
+    item[3] = ['tx3', 'ty3', 'tz3', 'rx3', 'ry3', 'rz3'];
+    const fix_node_item = [item[1], item[2], item[3]];
     const data = json['fix_nodes'];
     let dic = {};
 
     for(var i in data){
-
-        var x = [];
-        if('n' in data[i]) x[0] = String(data[i]['n']);
-        else continue;
-        for(var j = 1; j <= array.length; j++) x[j] = (array[j - 1] in data[i]) ? parseFloat(data[i][array[j - 1]]) : NaN;
-
-        var flag = 1;
-        for(var j = 1; j <= array.length; j++) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        y[0] = x[0];
-        for(var j = 1; j <= array.length; j++) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
-        var obj = {};
-        obj['n'] = y[0];
-        for(var j = 1; j<= array.length; j++) obj[array[j - 1]] = y[j];
-
-        dic[String(parseInt(i) + 1)] = obj;
-
+        if(!('n' in data[i])) continue;
+        for(var j = 0; j < 3; j++){
+            var x;
+            if(x = compromise(data[i], fix_node_item[j], array)){
+                dic[j + 1] = [];
+                dic[j + 1].push(x);
+            }
+        }
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 //elementデータの整形
