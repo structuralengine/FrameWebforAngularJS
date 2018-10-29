@@ -22,7 +22,7 @@ public class TestButtonManager : MonoBehaviour {
         this.script = connecter.GetComponent<ExternalConnect>();
 
         this.script.ReceiveData(init_textUI.text);
-        this.script.ChengeMode("elements");
+        this.script.ChengeMode("nodes");
 
     }
 
@@ -30,7 +30,6 @@ public class TestButtonManager : MonoBehaviour {
     {
         test_textUI = GameObject.Find("TestTextBlock").GetComponent<Text>();
 
-        this.script.ChengeMode("elements");
         this.script.ReceiveModeData(test_textUI.text);
         /*
             case "nodes":

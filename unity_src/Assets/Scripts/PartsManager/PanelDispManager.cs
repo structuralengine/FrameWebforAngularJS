@@ -102,6 +102,7 @@ public class PanelDispManager : PartsDispManager
             BlockWorkData blockWorkData;
 
             // データに無いブロックは消す
+            List<string> DeleteKeys = new List<string>();
             foreach (string id in base._blockWorkData.Keys)
             {
                 int i = GetDataID(id);
@@ -115,9 +116,12 @@ public class PanelDispManager : PartsDispManager
                     catch { }
                     finally
                     {
-                        base._blockWorkData.Remove(id);
+                        DeleteKeys.Add(id);
                     }
                 }
+            }
+            foreach (string id in DeleteKeys){
+                base._blockWorkData.Remove(id);
             }
 
             // 新しいブロックを生成する

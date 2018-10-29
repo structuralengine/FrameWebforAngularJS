@@ -116,6 +116,7 @@ public class MemberDispManager : PartsDispManager
             BlockWorkData blockWorkData;
 
             // データに無いブロックは消す
+            List<string> DeleteKeys = new List<string>();
             foreach (string id in base._blockWorkData.Keys)
             {
                 int i = GetDataID(id);
@@ -129,9 +130,12 @@ public class MemberDispManager : PartsDispManager
                     catch { }
                     finally
                     {
-                        base._blockWorkData.Remove(id);
+                        DeleteKeys.Add(id);
                     }
                 }
+            }
+            foreach (string id in DeleteKeys) {
+                base._blockWorkData.Remove(id);
             }
 
             // 新しいブロックを生成する
@@ -218,17 +222,18 @@ public class MemberDispManager : PartsDispManager
 
         webframe.MemberData memberData = _webframe.ListMemberData[i];
 
+        BlockWorkData blockWorkData;
+
         // 節点が有効かどうか調べる
         int nodeI = memberData.ni;
         int nodeJ = memberData.nj;
 
         float length = 0.0f;
-        if (_webframe.GetNodeLength(nodeI, nodeJ, out length) == false)
-            return;
+
 
         PartsDispStatus partsDispStatus;
-		partsDispStatus.id = id;
-		partsDispStatus.enable = true;
+        partsDispStatus.id = id;
+        partsDispStatus.enable = _webframe.GetNodeLength(nodeI, nodeJ, out length);
 
 		if( base.SetBlockStatusCommon(partsDispStatus) == false ) {
 			return;
@@ -250,10 +255,13 @@ public class MemberDispManager : PartsDispManager
             int e = memberData.e;
 
             Dictionary<int, webframe.ElementData> ListElementData = null;
-            foreach( var key in _webframe.ListElementData.Keys){
-                ListElementData = _webframe.ListElementData[key];    // とりあえず タイプ1 を選択
+
+            // とりあえず タイプ1 を選択
+            foreach ( var key in _webframe.ListElementData.Keys){
+                ListElementData = _webframe.ListElementData[key];    
                 break;
             }
+
             if (ListElementData == null)
             {   // 材料の設定が存在しなければ デフォルト値
                 scale.x = 0.5f;
@@ -281,7 +289,7 @@ public class MemberDispManager : PartsDispManager
         }
 
         //	姿勢を設定
-        BlockWorkData blockWorkData = base._blockWorkData[id];
+        blockWorkData = base._blockWorkData[id];
 
         blockWorkData.rootBlockTransform.position = pos_i;
 		blockWorkData.rootBlockTransform.LookAt( pos_j );

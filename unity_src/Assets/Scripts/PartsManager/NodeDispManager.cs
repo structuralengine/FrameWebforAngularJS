@@ -104,6 +104,7 @@ public class NodeDispManager : PartsDispManager
             BlockWorkData blockWorkData;
 
             // データに無いブロックは消す
+            List<string> DeleteKeys = new List<string>();
             foreach (string id in base._blockWorkData.Keys){
                 int i = GetDataID(id);
                 if (!_webframe.listNodePoint.ContainsKey(i)){
@@ -113,10 +114,16 @@ public class NodeDispManager : PartsDispManager
                     }
                     catch {}
                     finally {
-                        base._blockWorkData.Remove(id);
+                        DeleteKeys.Add(id);
                     }
                 }
             }
+            foreach( string id in DeleteKeys){
+                base._blockWorkData.Remove(id);
+            }
+
+            // 円のスケールを再計算する
+            //CalcNodeBlockScale(); ・・・後でやるのでコメントアウト
 
             // 新しいブロックを生成する
             foreach (int i in _webframe.listNodePoint.Keys)
@@ -129,7 +136,7 @@ public class NodeDispManager : PartsDispManager
                     base._blockWorkData.Add(id, blockWorkData);
                 }
                 // 座標を修正する
-                SetBlockStatus(id);
+                //SetBlockStatus(id); ・・・後でやるのでコメントアウト
             }
         }
         catch (Exception e)
@@ -190,12 +197,12 @@ public class NodeDispManager : PartsDispManager
 
         //	姿勢を設定
         blockWorkData.gameObjectTransform.position = nodePoint;
-		blockWorkData.gameObjectTransform.localScale = new Vector3( _nodeScale, _nodeScale, _nodeScale );
-	}
+        blockWorkData.gameObjectTransform.localScale = new Vector3(_nodeScale, _nodeScale, _nodeScale);
+    }
 
 
-	/// <summary> 接点を表示するためのサイズの計算をする </summary>
-	public bool CalcNodeBlockScale( int search_node=-1 )
+    /// <summary> 接点を表示するためのサイズの計算をする </summary>
+    public bool CalcNodeBlockScale( int search_node=-1 )
 	{
         Dictionary<int, Vector3> listNodePoint = _webframe.listNodePoint;
 		Vector3	startPos, endPos, disVec;
@@ -256,9 +263,16 @@ public class NodeDispManager : PartsDispManager
 			return	false;
 		}
 
-		_maxNodeLangth = max_length;
-		_nodeScale = _maxNodeLangth * NODE_SCALE;
+        if (max_length > 0) {
+           _maxNodeLangth = max_length;
+            _nodeScale = _maxNodeLangth * NODE_SCALE;
+        }
+        else{
+            // デフォルト値
+            _maxNodeLangth = 0.0f;
+            _nodeScale = 1.0f;
+        }
 
-		return	true;
+        return	true;
 	}
 }
