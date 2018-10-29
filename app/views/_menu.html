@@ -23,8 +23,12 @@
   <a ng-click="menu.print()">印刷</a>
 </li>
 
+<li id="loginStatus" style="padding:10px 15px; border-radius:4px; display:none;">
+  <!--ログイン時にスクリプトから内容を追記する-->
+</li>
+
 <li>
-  <a ng-hide-auth="" data-toggle="modal" data-target="#myModal">Log In</a>
+  <a id="loginButton" ng-hide-auth="" data-toggle="modal" data-target="#myModal">ログイン</a>
   <a ng-show-auth="" href="#!/account">Account</a>
 </li>
 
@@ -35,23 +39,18 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" ng-hide="createMode">Login</h4>
-          <h4 class="modal-title" ng-show="createMode">新規登録</h4>
+          <h4 class="modal-title" ng-hide="createMode">ログイン</h4>
         </div>
         <div class="modal-body">
 
             <form role="form">
                 <p class="form-group">
-                  <label for="loginEmail">email</label>
-                  <input id="loginEmail" required name="email" type="email" ng-model="email" class="form-control" />
+                  <label for="loginId">ユーザーID</label>
+                  <input id="loginId" required name="userid" type="text" ng-model="text" class="form-control" />
                 </p>
                 <p class="form-group">
-                  <label for="loginPass">password</label>
+                  <label for="loginPass">パスワード</label>
                   <input id="loginPass" required name="pass" type="password" ng-model="pass" class="form-control" />
-                </p>
-                <p class="form-group" ng-cloak ng-show="createMode">
-                  <label for="loginConfirm">confirm pass</label>
-                  <input id="loginConfirm" required name="confirm" type="password" ng-model="confirm" class="form-control" />
                 </p>
             
               </form>
@@ -61,10 +60,7 @@
 
         </div>
         <div class="modal-footer">
-          <button  class="btn btn-primary" ng-click="passwordLogin(email, pass)" ng-hide="createMode">Log In</button>
-          <button  class="btn btn-default" ng-click="createMode = true" ng-hide="createMode">Register</button>
-          <button  class="btn btn-primary" ng-cloak ng-show="createMode" ng-click="createAccount(email, pass, confirm)">Create Account</button>
-          <button  class="btn btn-default" ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
+          <button  class="btn btn-primary" onclick="Login()" ng-hide="createMode">ログイン</button>
 
          </div>
       </div>
