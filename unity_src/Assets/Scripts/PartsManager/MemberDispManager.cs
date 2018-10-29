@@ -230,7 +230,6 @@ public class MemberDispManager : PartsDispManager
 
         float length = 0.0f;
 
-
         PartsDispStatus partsDispStatus;
         partsDispStatus.id = id;
         partsDispStatus.enable = _webframe.GetNodeLength(nodeI, nodeJ, out length);
