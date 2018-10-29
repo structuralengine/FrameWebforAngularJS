@@ -129,7 +129,8 @@ gulp.task('serve:dist', ['default'], () => {
   });
 
   gulp.src('app/unity/Build/**').pipe( gulp.dest('dist/unity/Build') );
-  gulp.src('app/unity/TemplateData/**').pipe( gulp.dest('dist/unity/TemplateData') );
+  gulp.src('app/unity/TemplateData/**').pipe(gulp.dest('dist/unity/TemplateData'));
+  gulp.src('app/unity/TemplateData/*.png').pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('serve:test', ['scripts'], () => {
