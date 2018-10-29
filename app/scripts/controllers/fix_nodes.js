@@ -29,12 +29,13 @@ angular.module('webframe')
                 }
 
                 ctrl.fix_nodes = fix_nodes;
+                Fix_node.settings['rowHeaders'] = false;
                 ctrl.settings = Fix_node.settings;
 
                 $scope.ngPopupConfig = {
                     width: 1050,
-                    height: 450,
-                    resizable: true,
+                    height: 630,
+                    resizable: false,
                     draggable: true,
                     position:{
                         top: 135,
@@ -50,6 +51,11 @@ angular.module('webframe')
                     onDragEnd: function () { },
                     onResize: function () { }
                 }
+                // エクセル表が若干はみ出しているため、それの調整
+                setTimeout(function () {
+                    var content = $('.ht_master');
+                    content.css('height', '560px');
+                }, 100);
             }
 
             init();

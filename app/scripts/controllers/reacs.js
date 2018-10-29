@@ -45,8 +45,8 @@ angular.module('webframe')
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {
             width: 400,
-            height: 600,
-            resizable: true,
+            height: 630,
+            resizable: false,
             draggable: true,
             position: {
                 top: 135,
@@ -62,7 +62,6 @@ angular.module('webframe')
             onDragEnd: function () { },
             onResize: function () { }
         }
-
         // エクセル表が若干はみ出しているため、それの調整
         setTimeout(function(){
           var content = $('.ht_master');

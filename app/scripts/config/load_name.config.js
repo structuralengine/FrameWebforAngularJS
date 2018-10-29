@@ -10,16 +10,8 @@
 angular.module('webframe')
     .factory('loadNameConfig', ['HtHelper', 'htSpeedInput',
         function (HtHelper, htSpeedInput) { 
-/*
-            function column(str){
-                return { 'column':{'data':str, 'type':'numeric', 'format':'0.0000'} };
-            }
-            function space(dic){
-                return {'items':{'':dic}};
-            }
-*/
             return {
-                '割増係数': {
+                '割増': {
                     en: 'p1',
                     'column': {
                         'data': 'coef',
@@ -27,10 +19,10 @@ angular.module('webframe')
                         'format': '0.0000'
                     },
                     items: {
-                        '': {}
+                        '係数': {}
                     }
                 },
-                '荷重No': {
+                '荷重': {
                     en: 'p2',
                     'column': {
                         'data': 'no',
@@ -38,7 +30,7 @@ angular.module('webframe')
                         'format': '0'
                     },
                     items: {
-                        '': {}
+                        'No': {}
                     }
                 },
                 '記号': {
@@ -53,7 +45,8 @@ angular.module('webframe')
                 '名称': {
                     en: 'p4',
                     'column': {
-                        'data': 'name'
+                        'data': 'name',
+                        'width':'300px'
                     },
                     items: {
                         '': {}
@@ -87,7 +80,7 @@ angular.module('webframe')
                             'column': {
                                 data: 'fsec',
                                 type: 'numeric',
-                                'format': 'joint'
+                                'format': '0'
                             }
                         }  
                     }

@@ -16,11 +16,11 @@ angular.module('webframe')
                 var dic = {'items':{'':{'column':{'data':str, 'type':'numeric', 'format':'0.0000'} }} };
                 return dic;
             }
-
+            
             return {
-                '部材No.': {
+                '荷重': {
                     'items': {
-                        '': column('no')
+                        '番号': column('no')
                     }
                 },
                 '部材荷重': {

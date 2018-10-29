@@ -37,9 +37,9 @@ angular.module('webframe')
             ctrl.settings = Load_name.settings;
 
             $scope.ngPopupConfig = {
-                width: 700,
-                height: 450,
-                resizable: true,
+                width: 730,
+                height: 630,
+                resizable: false,
                 draggable: true,
                 position:{
                     top: 135,
@@ -55,8 +55,12 @@ angular.module('webframe')
                 onDragEnd: function () { },
                 onResize: function () { }
             }
+            // エクセル表が若干はみ出しているため、それの調整
+            setTimeout(function () {
+                var content = $('.ht_master');
+                content.css('height', '490px');
+            }, 100);
         }
-
         init();
     }
 ]);

@@ -45,8 +45,8 @@ function ($scope, $filter, $q, PicFsec, picFsecDefaults) {
     // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
     $scope.ngPopupConfig = {
         width: 500,
-        height: 600,
-        resizable: true,
+        height: 630,
+        resizable: false,
         draggable: true,
         position: {
             top: 135,

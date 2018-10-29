@@ -18,7 +18,7 @@ angular.module('webframe')
             readOnly: true,
             'data': 'x',
             'type': 'numeric',
-            'format': '0.001'
+            'format': '0.000'
           }
         },
         'Y': {
@@ -26,7 +26,7 @@ angular.module('webframe')
             readOnly: true,
             'data': 'y',
             'type': 'numeric',
-            'format': '0.001'
+            'format': '0.000'
           }
         },
         'Z': {
@@ -34,7 +34,7 @@ angular.module('webframe')
             readOnly: true,
             'data': 'z',
             'type': 'numeric',
-            'format': '0.001'
+            'format': '0.000'
           }
         },
         'argX': {
@@ -50,7 +50,7 @@ angular.module('webframe')
               readOnly: true,
               'data': 'y',
               'type': 'numeric',
-              'format': '0.001'
+              'format': '0.000'
             }
           },
           'argZ': {
@@ -58,7 +58,7 @@ angular.module('webframe')
               readOnly: true,
               'data': 'z',
               'type': 'numeric',
-              'format': '0.001'
+              'format': '0.000'
             }
           }
         };

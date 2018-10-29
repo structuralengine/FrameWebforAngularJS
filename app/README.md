@@ -363,7 +363,7 @@
                 <td>断面力のせん断照査</td>     
             </tr>
             <tr>
-                <td>33</td><td>_tabs.html</td>
+                <td>33</td><td>tabs.html</td>
                 <td>&nbsp;</td><td>&nbsp;</td>     
                 <td>&nbsp;</td><td>&nbsp;</td>     
                 <td>&nbsp;</td><td>&nbsp;</td>     

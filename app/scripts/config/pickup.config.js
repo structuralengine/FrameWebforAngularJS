@@ -17,7 +17,7 @@ angular.module('webframe')
             function item(n){
                 var json = {};
                 for (var i = 0; i < n; i++){
-                    json[String(i + 1)] = { 'column':{'data':String(i + 1), 'type':'numeric', 'format':'0.0000'} };
+                    json[String(i + 1)] = { 'column':{'data':String(i + 1), 'type':'numeric', 'format':'0'} };
                 }
                 return json;
             }
