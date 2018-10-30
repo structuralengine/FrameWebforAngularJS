@@ -76,7 +76,7 @@ function DataConstruct(_mode, _jsonObj) {
     json = json.slice(0, -1);
 
     console.log(json);
-    
+
     return json;
 }
 
@@ -85,7 +85,7 @@ const node_item = ['x', 'y', 'z'];
 const panel_item = ['no1', 'no2', 'no3', 'area', 'e'];
 
 //JSONデータを受け取って空欄に0を追加する（全て空ならNULLを返す）
-function compromise(json, array1, array2, type){
+function addZero(json, array1, array2, type){
     
     var flag = true;
     for(var i = 0; i < array1.length; i++) if(array1[i] in json){
@@ -116,7 +116,7 @@ function construct(json, name, item, type){
     let dic = {};
 
     for(var i in data){
-        var obj = compromise(data[i], item, item, type)
+        var obj = addZero(data[i], item, item, type)
         if(!obj) continue;
         dic[parseInt(i) + 1] = obj;
     }
@@ -133,10 +133,10 @@ function memberJson(json) {
     let dic = {};
 
     for (var i = 0; i < data.length; i++) {
-        var x = compromise(data[i], item, item, 'int');
+        var x = addZero(data[i], item, item, 'int');
         if(!x) continue;
         dic[i] = x;
-        dic[i] = compromise(dic[i], item, item, 'string');
+        dic[i] = addZero(dic[i], item, item, 'string');
     }
     return JSON.stringify(dic);
 }
@@ -153,7 +153,7 @@ function fixNodeJson(json){
         if(!('n' in data[i])) continue;
         for(var j = 0; j < 3; j++){
             var x;
-            if(x = compromise(data[i], addStr(item, j + 1), item, 'float')){
+            if(x = addZero(data[i], addStr(item, j + 1), item, 'float')){
                 dic[j + 1] = [];
                 dic[j + 1].push(x);
             }
@@ -175,7 +175,7 @@ function elementJson(json){
     for(var i in data){
         var obj = {};
         for(var j = 0; j < 3; j++){
-            const x = compromise(data[i], item1 + item2, item1 + addStr(item2, i + 1), 'float');
+            const x = addZero(data[i], item1 + item2, item1 + addStr(item2, i + 1), 'float');
             if(!x) continue;
             obj[i + 1] = x;
         }
@@ -197,7 +197,7 @@ function jointJson(json){
         if(!('no' in data[i])) continue;
 
         for(var j = 1; j <= 3; j++){
-            const x = compromise(data[i], addStr(item, j), item, 'int');
+            const x = addZero(data[i], addStr(item, j), item, 'int');
             if(!x) continue;
             x['m'] = data[i]['no'];
             dic[j].push(x);
@@ -218,7 +218,7 @@ function noticePointJson(json){
     for(var i in data){
         if(!('no' in data[i])) continue;
         var obj = {};
-        const x = compromise(data[i], item, item, 'float');
+        const x = addZero(data[i], item, item, 'float');
         if(!x) continue;
         obj['m'] = data[i]['no'];
         obj['Points'] = [];
@@ -241,7 +241,7 @@ function fixMemberJson(json){
     for(var i in data){
         if(!('no' in data[i])) continue;
         for(var j = 1; j <= 3; j++){
-            var obj = compromise(data[i], addStr(item, j), item, 'float');
+            var obj = addZero(data[i], addStr(item, j), item, 'float');
             if(!obj) continue;
             obj['m'] = data[i]['no'];
             dic[j].push(obj);
