@@ -7,4 +7,4 @@
  * # config/memberDefaults
  * Constant in the webframe.
  */
-angular.module('webframe').constant('memberDefaults', Array(300).fill().map(u => ({})));
+angular.module('webframe').constant('memberDefaults', Array(5).fill().map(u => ({})));

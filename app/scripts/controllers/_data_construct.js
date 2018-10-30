@@ -28,7 +28,7 @@ function DataConstruct(_mode, _jsonObj) {
 
     if (mode == 'nodes' || mode == '') {
         json += '"node":';
-        json += nodeJson(data);
+        json += construct(data, 'nodes', node_item, 'float');
         json += ',';
     }
     if (mode == 'fix_nodes' || mode == '') {
@@ -43,7 +43,7 @@ function DataConstruct(_mode, _jsonObj) {
     }
     if (mode == 'panels' || mode == '') {
         json += '"panel":';
-        json += cnst(data, 'panels', panelv);
+        json += construct(data, 'panels', panel_item, 'float');
         json += ',';
     }
     if (mode == 'elements' || mode == '') {
@@ -53,17 +53,17 @@ function DataConstruct(_mode, _jsonObj) {
     }
     if (mode == 'joints' || mode == '') {
         json += '"joint":';
-        json += jointJson(data, jointv);
+        json += jointJson(data);
         json += ',';
     }
     if (mode == 'notice_points' || mode == '') {
         json += '"notice_point":';
-        json += noticePointJson(data, notice_pointv);
+        json += noticePointJson(data);
         json += ',';
     }
     if (mode == 'fix_members' || mode == '') {
         json += '"fix_member":';
-        json += fixMemberJson(data, fix_memberv);
+        json += fixMemberJson(data);
         json += ',';
     }
     if (mode == 'loads' || mode == '') {
@@ -75,147 +75,77 @@ function DataConstruct(_mode, _jsonObj) {
     //最後の , を削除する
     json = json.slice(0, -1);
 
+    console.log(json);
+    
     return json;
 }
 
 
-const nodev = ['x', 'y', 'z'];
-const fix_nodev = fnlist();
-const panelv = ['no1', 'no2', 'no3', 'area', 'e'];
-const jointv = jointlist();
-const notice_pointv = nplist();
-const fix_memberv = fmlist();
+const node_item = ['x', 'y', 'z'];
+const panel_item = ['no1', 'no2', 'no3', 'area', 'e'];
 
-
-//空欄に0を追加する
-function compromise(json, array1, array2){
+//JSONデータを受け取って空欄に0を追加する（全て空ならNULLを返す）
+function compromise(json, array1, array2, type){
+    
     var flag = true;
-    for(var i in array1) if(array1[i] in json){
+    for(var i = 0; i < array1.length; i++) if(array1[i] in json){
         flag = false;
         break;
     }
-    if(flag) return null;
+    if(flag) return false;
     var dic = {};
     for(var i in array1){
-        dic[array2[i]] = array1[i] in json ? parseFloat(json[array1[i]]) : 0.0;
+        if(!(array1[i] in json)) continue;
+        var x = json[array1[i]];
+        var y;
+        switch(type){
+            case 'int': y = parseInt(x); break;
+            case 'float': y = parseFloat(x); break;
+            case 'string': y = String(x);
+        }
+        dic[array2[i]] = array1[i] in json ? y : 0.0;
     }
     return dic;
 }
 
 //整形用関数
-function cnst(json, name, array){
+function construct(json, name, item, type){
 
-    if(!(name in json)){
-        return '{}';
-    }
-
+    if(!(name in json)) return '{}';
     const data = json[name];
     let dic = {};
 
     for(var i in data){
-
-        var x = [];
-        for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
-        var obj = {};
-        for(var j in array) obj[array[j]] = y[j];
-
-        dic[String(parseInt(i) + 1)] = obj;
-
+        var obj = compromise(data[i], item, item, type)
+        if(!obj) continue;
+        dic[parseInt(i) + 1] = obj;
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
-}
-
-// node データの整形
-function nodeJson(json) {
-
-    if (!('nodes' in json)) {
-        return '{}';
-    }
-
-    const data = json.nodes;
-
-    let node = {};
-    let id = 0;
-
-    for (var i in data) {
-
-        id++;
-
-        const x_ = ('x' in data[i]) ? parseFloat(data[i].x) : NaN;
-        const y_ = ('y' in data[i]) ? parseFloat(data[i].y) : NaN;
-        const z_ = ('z' in data[i]) ? parseFloat(data[i].z) : NaN;
-
-        if (isNaN(x_) && isNaN(y_) && isNaN(z_)) {
-            continue;
-        }
-
-        const _x = ($.isNumeric(x_)) ? x_ : 0.0;
-        const _y = ($.isNumeric(y_)) ? y_ : 0.0;
-        const _z = ($.isNumeric(z_)) ? z_ : 0.0;
-
-        const obj = { x: _x, y: _y, z: _z };
-        node[id] = obj;
-    };
-    const str = JSON.stringify(node);
-    return str;
+    return JSON.stringify(dic);
 }
 
 // member データの整形
 function memberJson(json) {
 
-    if (!('members' in json)) {
-        return '{}';
-    }
+    if (!('members' in json)) return '{}';
 
+    const item = ['ni', 'nj', 'e'];
     const data = json.members;
+    let dic = {};
 
-    let member = {};
-    let id = 0;
-
-    for (var i in data) {
-
-        id++;
-
-        const ni_ = ('ni' in data[i]) ? parseInt(data[i].ni) : NaN;
-        const nj_ = ('nj' in data[i]) ? parseInt(data[i].nj) : NaN;
-        const e_ = ('e' in data[i]) ? parseInt(data[i].e) : NaN;
-
-        if (isNaN(ni_) && isNaN(nj_) && isNaN(e_)) {
-            continue;
-        }
-
-        const _ni = ($.isNumeric(ni_)) ? ni_.toString() : '';
-        const _nj = ($.isNumeric(nj_)) ? nj_.toString() : '';
-        const _e = ($.isNumeric(e_)) ? e_.toString() : '';
-
-        const obj = { ni: _ni, nj: _nj, e: _e, cg: 0 };
-        member[id] = obj;
-    };
-    const str = JSON.stringify(member)
-    return str;
+    for (var i = 0; i < data.length; i++) {
+        var x = compromise(data[i], item, item, 'int');
+        if(!x) continue;
+        dic[i] = x;
+        dic[i] = compromise(dic[i], item, item, 'string');
+    }
+    return JSON.stringify(dic);
 }
 
 //fix_nodeデータの整形
 function fixNodeJson(json){
     if(!('fix_nodes' in json)) return '{}';
 
-    const array = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
-    var item = [];
-    item[1] = ['tx1', 'ty1', 'tz1', 'rx1', 'ry1', 'rz1'];
-    item[2] = ['tx2', 'ty2', 'tz2', 'rx2', 'ry2', 'rz2'];
-    item[3] = ['tx3', 'ty3', 'tz3', 'rx3', 'ry3', 'rz3'];
-    const fix_node_item = [item[1], item[2], item[3]];
+    const item = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
     const data = json['fix_nodes'];
     let dic = {};
 
@@ -223,7 +153,7 @@ function fixNodeJson(json){
         if(!('n' in data[i])) continue;
         for(var j = 0; j < 3; j++){
             var x;
-            if(x = compromise(data[i], fix_node_item[j], array)){
+            if(x = compromise(data[i], addStr(item, j + 1), item, 'float')){
                 dic[j + 1] = [];
                 dic[j + 1].push(x);
             }
@@ -235,165 +165,89 @@ function fixNodeJson(json){
 //elementデータの整形
 function elementJson(json){
 
-    const array = ['E', 'G', 'Xp', 'A1', 'J1', 'Iy1', 'Iz1',
-        'A2', 'J2', 'Iy2', 'Iz2', 'A3', 'J3', 'Iy3', 'Iz3'];
-    const item = ['E', 'G', 'Xp', 'A', 'J', 'Iy', 'Iz'];
-
     if(!('elements' in json)) return '{}';
 
+    const item1 = ['E', 'G', 'Xp'];
+    const item2 = ['A', 'J', 'Iy', 'Iz'];
     const data = json['elements'];
     let dic = {};
 
     for(var i in data){
-
-        var x = [];
-        for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
         var obj = {};
         for(var j = 0; j < 3; j++){
-            obj[String(j + 1)] = {};
-            for(var k = 0; k < 3; k++) obj[String(j + 1)][item[k]] = y[k];
-            for(var k = 0; k < 4; k++) obj[String(j + 1)][item[k + 3]] = y[4 * j + k + 3];
+            const x = compromise(data[i], item1 + item2, item1 + addStr(item2, i + 1), 'float');
+            if(!x) continue;
+            obj[i + 1] = x;
         }
-
-        dic[String(parseInt(i) + 1)] = obj;
-
+        if(obj.size) dic[parseInt(i) + 1] = obj;
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 //jointデータの整形
-function jointJson(json, array){
+function jointJson(json){
+
+    if(!('joints' in json))　return '{}';
 
     const item = ['xi', 'yi', 'zi', 'xj', 'yj', 'zj'];
-
-    if(!('joints' in json)){
-        return '{}';
-    }
-
     const data = json['joints'];
-    let dic = {};
+    let dic = {'1':[], '2':[], '3':[]};
 
     for(var i in data){
+        if(!('no' in data[i])) continue;
 
-        var x = [];
-        for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
-        var obj = [];
-        for(var j = 0; j < 3; j++){
-            var flag = false;
-            for(var k = 0; k < 6; k++) if(y[6 * j + k]) flag = true;
-            if(!flag) continue;
-
-            obj[j] = {};
-            obj[j]['m'] = String(j + 1);
-            for(var k = 0; k < 6; k++) obj[j][item[k]] = y[6 * j + k];
+        for(var j = 1; j <= 3; j++){
+            const x = compromise(data[i], addStr(item, j), item, 'int');
+            if(!x) continue;
+            x['m'] = data[i]['no'];
+            dic[j].push(x);
         }
-
-        dic[String(parseInt(i) + 1)] = obj;
-
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 //notice_pointデータの整形
-function noticePointJson(json, array){
+function noticePointJson(json){
 
-    if(!('notice_points' in json)){
-        return '{}';
-    }
+    if(!('notice_points' in json)) return '{}';
 
+    const item = mkNPList();
     const data = json['notice_points'];
-    let dic = {};
+    let dic = [];
 
     for(var i in data){
-
-        var x = [];
-        for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
+        if(!('no' in data[i])) continue;
         var obj = {};
-        obj['m'] = String(parseInt(i) + 1);
+        const x = compromise(data[i], item, item, 'float');
+        if(!x) continue;
+        obj['m'] = data[i]['no'];
         obj['Points'] = [];
-        for(var j = 0; j < array.length; j++) obj['Points'][j] = y[j];
+        for(var j in x) obj['Points'].push(x[j]);
 
-        dic[String(parseInt(i) + 1)] = obj;
-
+        dic.push(obj);
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 //fix_membersデータの整形
-function fixMemberJson(json, array){
+function fixMemberJson(json){
 
-    const item = ['tx', 'ty', 'tz', 'tr'];
-
-    if(!('fix_members' in json)){
-        return '{}';
-    }
+    if(!('fix_members' in json)) return '{}';
 
     const data = json['fix_members'];
-    let dic = {};
+    const item = ['x', 'y', 'z', 'r'];
+    let dic = {'1':[], '2':[], '3':[]};
 
     for(var i in data){
-
-        var x = [];
-        for(var j in array) x[j] = (array[j] in data[i]) ? parseFloat(data[i][array[j]]) : NaN;
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x[j]);
-        if(flag) continue;
-
-        var y = [];
-        for(var j in array) y[j] = ($.isNumeric(x[j])) ? x[j] : 0.0;
-
-        var obj = [];
-        for(var j = 0; j < 3; j++){
-            flag = 0;
-            for(var k = 0; k < 4; k++) if(y[4 * j + k]) flag = 1;
-            if(!flag) continue;
-            
-            obj[j] = {};
-            obj[j]['m'] = String(parseInt(j) + 1);
-            for(var k = 0; k < 4; k++) obj[j][item[k]] = y[4 * j + k];
+        if(!('no' in data[i])) continue;
+        for(var j = 1; j <= 3; j++){
+            var obj = compromise(data[i], addStr(item, j), item, 'float');
+            if(!obj) continue;
+            obj['m'] = data[i]['no'];
+            dic[j].push(obj);
         }
-
-        dic[String(parseInt(i))] = obj;
-
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 //loadデータの整形
@@ -472,55 +326,16 @@ function loadJson(json){
 }
 
 
-function fnlist(){
-    var c1 = ['t', 'r'];
-    var c2 = ['x', 'y', 'z'];
-    var fnv = [];
-    var n = 0;
-    for(var i = 0; i < 3; i++){
-        for(var j = 0; j < 2; j++){
-            for(var k = 0; k < 3; k++){
-                fnv[n] = c1[j] + c2[k] + (i+1);
-                n++;
-            }
-        }
-    }
-    return fnv;
+//配列の全要素の末尾にstrを付加する
+function addStr(array, str){
+    for(var i in array) array[i] = array[i] + str;
+    return array;
 }
 
-function jointlist(){
-    var jointv = [];
-    var n = 0;
-    for (var i = 0; i < 3; i++){
-        for(var j = 0; j < 2; j++){
-            for(var k = 0; k < 3; k++){
-                jointv[n] = nodev[k] + (j+1) + (i+1);
-                n++;
-            }
-        }
-    }
-    return jointv;
-}
-
-function nplist(){
+function mkNPList(){
     var npv = [];
-    for(var i = 0; i < 12; i++){
-        npv[i] = 'L' + (i+1);
-    }
+    for(var i = 0; i < 12; i++) npv[i] = 'L' + (i+1);
     return npv;
-}
-
-function fmlist(){
-    var array = ['x', 'y', 'z', 'r'];
-    var fmv = [];
-    var n = 0;
-    for(var i = 0; i < 3; i++){
-        for(var j = 0; j < 4; j++){
-            fmv[n] = array[j] + (i + 1);
-            n++;
-        }
-    }
-    return fmv;
 }
 
 

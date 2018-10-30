@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -12,6 +13,28 @@ angular.module('webframe')
         function (HtHelper, htSpeedInput) { 
 
             return {
+                '部材No':{
+                    'items':{
+                        '':{
+                            'column':{
+                                'data':'no',
+                                'type':'numeric',
+                                'format':'0'
+                            }
+                        }
+                    }
+                },
+                '部材長':{
+                    'items':{
+                        '':{
+                            'column':{
+                                'data':'len',
+                                'type':'numeric',
+                                'format':'0.0000'
+                            }
+                        }
+                    }
+                },
                 'i端からの距離': {
                     en: 'Ｄistance from the Edge i',
                     data: 'type1',

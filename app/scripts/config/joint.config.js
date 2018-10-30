@@ -12,6 +12,17 @@ angular.module('webframe')
         function (HtHelper, htSpeedInput) { 
 
             return {
+                '部材No':{
+                    'items':{
+                        '':{
+                            'column':{
+                                'data':'no',
+                                'type':'numeric',
+                                'format':'0'
+                            }
+                        }
+                    }
+                },
                 'タイプ1': {
                     en: 'type 1',
                     data: 'type1',
