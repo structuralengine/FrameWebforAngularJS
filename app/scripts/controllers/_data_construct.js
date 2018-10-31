@@ -99,11 +99,21 @@ function addZero(json, array1, array2, type){
         var x = json[array1[i]];
         var y;
         switch(type){
-            case 'int': y = parseInt(x); break;
-            case 'float': y = parseFloat(x); break;
-            case 'string': y = String(x);
+            case 'int':{
+                y = parseInt(x); 
+                dic[array2[i]] = array1[i] in json ? y : 0;
+                break;
+            }
+            case 'float':{
+                y = parseFloat(x);
+                dic[array2[i]] = array1[i] in json ? y : 0.0;
+                break;
+            }
+            case 'string':{
+                y = String(x);
+                dic[array2[i]] = array1[i] in json ? y : 1;
+            }
         }
-        dic[array2[i]] = array1[i] in json ? y : 0.0;
     }
     return dic;
 }
@@ -154,8 +164,8 @@ function fixNodeJson(json){
         for(var j = 0; j < 3; j++){
             var x;
             if(x = addZero(data[i], addStr(item, j + 1), item, 'float')){
-                dic[j + 1] = [];
-                dic[j + 1].push(x);
+                if(!(data[i]['n'] in dic)) dic[data[i]['n']] = [];
+                dic[data[i]['n']].push(x);
             }
         }
     }
@@ -189,7 +199,7 @@ function jointJson(json){
 
     if(!('joints' in json))　return '{}';
 
-    const item = ['xi', 'yi', 'zi', 'xj', 'yj', 'zj'];
+    const item = ['x1', 'y1', 'z1', 'x2', 'y2', 'z2'];
     const data = json['joints'];
     let dic = {'1':[], '2':[], '3':[]};
 
@@ -197,7 +207,7 @@ function jointJson(json){
         if(!('no' in data[i])) continue;
 
         for(var j = 1; j <= 3; j++){
-            const x = addZero(data[i], addStr(item, j), item, 'int');
+            var x = addZero(data[i], addStr(item, j), item, 'int');
             if(!x) continue;
             x['m'] = data[i]['no'];
             dic[j].push(x);
@@ -253,76 +263,42 @@ function fixMemberJson(json){
 //loadデータの整形
 function loadJson(json){
 
-    const array = ['no', 'm1', 'm2', 'direction', 'mark',
-        'L1', 'L2', 'P1', 'P2', 'n', 'tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
-    const itemName = ['fn', 'fm', 'fsec', 'joint'];
-    const item = ['fix_node', 'fix_member', 'element', 'joint'];
     if( !('loads' in json && 'load_names' in json) ) return '{}';
 
-    const data1 = json['loads'];
-    const data2 = json['load_names'];
+    const member_str_item = ['m1', 'm2', 'direction'];
+    const member_item = ['L1', 'L2', 'P1', 'P2'];
+    const node_item = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
+    const name_item = ['fn', 'fm', 'fsec', 'joint'];
+    const name_item_full = ['fix_node', 'fix_member', 'element', 'joint'];
+    const data = json['loads'];
+    const name_data = json['load_names'];
     let dic = {};
 
-    for(var i in data2){
-
-        var x2 = [];
-        for(var j = 0; j < itemName.length; j++){
-            x2[j] = (itemName[j] in data2[i]) ? parseInt(data2[i][itemName[j]]) : NaN;
-        }
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x2[j]);
-        if(flag) continue;
-
-        var y2 = [];
-        for(var j in itemName) y2[j] = ($.isNumeric(x2[j])) ? x2[j] : 1;
-
-        dic[String(parseInt(i) + 1)] = {};
-        for(var j = 0; j < 4; j++){
-            dic[String(parseInt(i) + 1)][item[j]] = y2[j];
-        }
-
+    for(var i in name_data){
+        if(!('no' in name_data[i])) continue;
+        var obj = addZero(name_data[i], name_item, name_item_full, 'int');
+        obj['load_node'], obj['load_member'] = [];
+        dic[name_data[i]['no']] = obj;
     }
 
-    for(var i in data1){
+    for(var i in data){
+        if(!('no' in data[i] && 
+            'direction' in data[i] &&
+            'mark' in data[i] &&
+            'n' in data[i]) ||
+            !('m1' in data[i] || 'm2' in data[i])) continue;
 
-        if(!('n' in data1[i] && 'm1' in data1[i] && 'm2' in data1[i]
-            && 'direction' in data1[i] && 'mark' in data1[i] && 'no' in data1[i])) continue;
-        if(!(String(data1[i]['no']) in dic)) continue;
+        var obj = addZero(data[i], node_item, node_item, 'float');
+        obj['n'] = data[i][n]
+        dic[data[i]['no']]['load_node'].push(obj);
 
-        var x1 = [];
-        for(var j = 0; j < 4; j++) x1[array[j]] = String(data1[i][array[j]]);
-        x1['mark'] = parseInt(data1[i]['mark']);
-        x1['n'] = String(data1[i]['n']);
-        for(var j = 5; j < array.length; j++) {
-            if(array[j] != 'n') x1[array[j]] = (array[j] in data1[i]) ? parseFloat(data1[i][array[j]]) : NaN;
-        }
-
-        var flag = 1;
-        for(var j in array) flag *= isNaN(x1[array[j]]);
-        if(flag) continue;
-
-        var y1 = [];
-        for(var j = 0; j < 4; j++) y1[array[j]] = x1[array[j]];
-        y1['mark'] = x1['mark'];
-        x1['n'] = x1['n'];
-        for(var j = 5; j < array.length; j++){
-            if(array[j] != 'n') y1[array[j]] = ($.isNumeric(x1[array[j]])) ? x1[array[j]] : 0.0;
-        }
-
-        var obj1 = {};
-        var obj2 = {};
-        for(var j = 1; j < 9; j++) obj1[array[j]] = y1[array[j]];
-        for(var j = 9; j < array.length; j++) obj2[array[j]] = y1[array[j]];
-
-        dic[(y1['no'])]['load_node'] = obj1;
-        dic[(y1['no'])]['load_member'] = obj2;
-
+        obj = addZero(data[i], memeber_item, memeber_item, 'float');
+        obj['m'] = String(data[i]['m1']);
+        obj['direction'] = String(data[i]['direction']);
+        obj['mark'] = parseInt(data[i]['mark']);        
+        dic[data[i]['no']]['load_member'].push(obj);        
     }
-
-    const str = JSON.stringify(dic);
-    return str;
-
+    return JSON.stringify(dic);
 }
 
 
