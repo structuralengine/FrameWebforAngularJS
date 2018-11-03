@@ -15,7 +15,7 @@ public class ExternalConnect : MonoBehaviour {
         this.mainFrameObject = Obj.GetComponent<MainFrameManager>();
 
         // javascript に起動時のデータを問い合わせる
-        SendAngular("GetInputJSON");
+        SendAngular("GetInputJSON"); 
     }
 
     #region Unity → Html へ メッセージを送る

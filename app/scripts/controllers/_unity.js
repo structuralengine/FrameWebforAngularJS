@@ -32,8 +32,8 @@ function SendAllDataToUnity() {
 
     // JSONの整形
     const data = AllDataConstruct();
-    const sendJson = '{' + data + '}';
-    
+    let sendJson = '{' + data + '}';
+
     gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
 }
 

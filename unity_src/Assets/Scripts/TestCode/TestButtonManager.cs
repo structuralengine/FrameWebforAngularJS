@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class TestButtonManager : MonoBehaviour {
 
     [SerializeField]
-    private Text init_textUI;
+    private Text init_textUI; //aka
 
     [SerializeField]
-    private Text test_textUI;
+    private Text test_textUI; //kiro
 
     private ExternalConnect script;
 

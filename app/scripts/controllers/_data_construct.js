@@ -157,15 +157,15 @@ function fixNodeJson(json){
 
     const item = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
     const data = json['fix_nodes'];
-    let dic = {};
+    let dic = {'1':[], '2':[], '3':[]};
 
     for(var i in data){
         if(!('n' in data[i])) continue;
         for(var j = 0; j < 3; j++){
             var x;
             if(x = addZero(data[i], addStr(item, j + 1), item, 'float')){
-                if(!(data[i]['n'] in dic)) dic[data[i]['n']] = [];
-                dic[data[i]['n']].push(x);
+                x['n'] = data[i]['n'];
+                dic[j + 1].push(x);
             }
         }
     }
@@ -263,6 +263,8 @@ function fixMemberJson(json){
 //loadデータの整形
 function loadJson(json){
 
+    // return '{}';
+
     if( !('loads' in json && 'load_names' in json) ) return '{}';
 
     const member_str_item = ['m1', 'm2', 'direction'];
@@ -277,7 +279,14 @@ function loadJson(json){
     for(var i in name_data){
         if(!('no' in name_data[i])) continue;
         var obj = addZero(name_data[i], name_item, name_item_full, 'int');
-        obj['load_node'], obj['load_member'] = [];
+        if(!obj){
+            obj = {};
+            for(var j = 0; j < name_item.length; j++){
+                obj[name_item_full[j]] = 1;
+            }
+        }
+        obj['load_node'] = [];
+        obj['load_member'] = [];
         dic[name_data[i]['no']] = obj;
     }
 
@@ -289,10 +298,10 @@ function loadJson(json){
             !('m1' in data[i] || 'm2' in data[i])) continue;
 
         var obj = addZero(data[i], node_item, node_item, 'float');
-        obj['n'] = data[i][n]
+        obj['n'] = data[i]['n']
         dic[data[i]['no']]['load_node'].push(obj);
 
-        obj = addZero(data[i], memeber_item, memeber_item, 'float');
+        obj = addZero(data[i], member_item, member_item, 'float');
         obj['m'] = String(data[i]['m1']);
         obj['direction'] = String(data[i]['direction']);
         obj['mark'] = parseInt(data[i]['mark']);        
@@ -304,8 +313,9 @@ function loadJson(json){
 
 //配列の全要素の末尾にstrを付加する
 function addStr(array, str){
-    for(var i in array) array[i] = array[i] + str;
-    return array;
+    var v = [];
+    for(var i in array) v[i] = array[i] + str;
+    return v;
 }
 
 function mkNPList(){

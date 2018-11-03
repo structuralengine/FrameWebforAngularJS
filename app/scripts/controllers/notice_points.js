@@ -37,7 +37,7 @@ angular.module('webframe')
                 ctrl.settings = Notice_point.settings;
 
                 $scope.ngPopupConfig = {
-                    width: 700,
+                    width: 750,
                     height: 630,
                     resizable: false,
                     draggable: true,
