@@ -95,7 +95,9 @@ function addZero(json, array1, array2, type){
     if(flag) return false;
     var dic = {};
     for(var i in array1){
-        if(!(array1[i] in json)) continue;
+        if (!(array1[i] in json)) {
+            continue;
+        }
         var x = json[array1[i]];
         var y;
         switch(type){
@@ -182,14 +184,19 @@ function elementJson(json){
     const data = json['elements'];
     let dic = {};
 
-    for(var i in data){
+    for (var i in data) {
         var obj = {};
-        for(var j = 0; j < 3; j++){
-            const x = addZero(data[i], item1 + item2, item1 + addStr(item2, i + 1), 'float');
-            if(!x) continue;
+        
+        for (var j = 0; j < 3; j++) {
+            var items1 = item1.concat(item2);
+            var items2 = item1.concat(addStr(item2, i + 1));
+            const x = addZero(data[i], items1, items2, 'float');
+            if (!x) continue;
             obj[i + 1] = x;
         }
-        if(obj.size) dic[parseInt(i) + 1] = obj;
+        if (Object.keys(obj).length) { 
+            dic[parseInt(i) + 1] = obj;
+        }
     }
     return JSON.stringify(dic);
 }

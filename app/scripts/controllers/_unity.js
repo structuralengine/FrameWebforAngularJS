@@ -42,7 +42,7 @@ function SendDataToUnity(mode_name, jsonObj) {
     // JSONの整形
     const data = DataConstruct(mode_name, jsonObj);
     const sendJson = '{' + data + '}';
-
+    console.log(sendJson);
     gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
 }
 
