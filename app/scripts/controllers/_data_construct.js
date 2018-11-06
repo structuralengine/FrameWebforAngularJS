@@ -94,6 +94,7 @@ function addZero(json, array1, array2, type){
     }
     if(flag) return false;
     var dic = {};
+    flag = false;
     for(var i in array1){
         if (!(array1[i] in json)) {
             continue;
@@ -103,21 +104,39 @@ function addZero(json, array1, array2, type){
         switch(type){
             case 'int':{
                 y = parseInt(x); 
-                dic[array2[i]] = array1[i] in json ? y : 0;
+                if (!isNaN(y)) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 0;
+                } else {
+                    dic[array2[i]] = 0;
+                }
                 break;
             }
             case 'float':{
                 y = parseFloat(x);
-                dic[array2[i]] = array1[i] in json ? y : 0.0;
+                if (!isNaN(y)) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 0.0;
+                } else {
+                    dic[array2[i]] = 0.0;
+                }
                 break;
             }
             case 'string':{
                 y = String(x);
-                dic[array2[i]] = array1[i] in json ? y : 1;
+                if (y.length > 0) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 1;
+                } else {
+                    dic[array2[i]] = '';
+                }
             }
         }
     }
-    return dic;
+    if (flag == true) {
+        return dic;
+    }
+    return false;
 }
 
 //整形用関数
@@ -164,11 +183,10 @@ function fixNodeJson(json){
     for(var i in data){
         if(!('n' in data[i])) continue;
         for(var j = 0; j < 3; j++){
-            var x;
-            if(x = addZero(data[i], addStr(item, j + 1), item, 'float')){
-                x['n'] = data[i]['n'];
-                dic[j + 1].push(x);
-            }
+            var x = addZero(data[i], addStr(item, j + 1), item, 'float');
+            if (!x) continue;
+            x['n'] = data[i]['n'];
+            dic[j + 1].push(x);
         }
     }
     return JSON.stringify(dic);

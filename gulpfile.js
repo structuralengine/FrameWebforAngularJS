@@ -91,7 +91,7 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'docs']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', () => {
   runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], () => {
@@ -131,6 +131,8 @@ gulp.task('serve:dist', ['default'], () => {
   gulp.src('app/unity/Build/**').pipe( gulp.dest('dist/unity/Build') );
   gulp.src('app/unity/TemplateData/**').pipe(gulp.dest('dist/unity/TemplateData'));
   gulp.src('app/unity/TemplateData/*.png').pipe(gulp.dest('dist/styles'));
+
+  del.bind(null, ['docs'])
   gulp.src('dist/**').pipe(gulp.dest('docs'));
 });
 
