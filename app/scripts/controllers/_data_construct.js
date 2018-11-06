@@ -180,16 +180,15 @@ function elementJson(json){
     const item1 = ['E', 'G', 'Xp'];
     const item2 = ['A', 'J', 'Iy', 'Iz'];
     const data = json['elements'];
-    let dic = {};
+    let dic = {'1':[], '2':[], '3':[]};
 
     for(var i in data){
-        var obj = {};
+        var obj = [];
         for(var j = 0; j < 3; j++){
-            const x = addZero(data[i], item1 + item2, item1 + addStr(item2, i + 1), 'float');
+            const x = addZero(data[i], item1.concat(addStr(item2, j + 1)), item1.concat(item2), 'float');
             if(!x) continue;
-            obj[i + 1] = x;
+            dic[j + 1].push(x);
         }
-        if(obj.size) dic[parseInt(i) + 1] = obj;
     }
     return JSON.stringify(dic);
 }
