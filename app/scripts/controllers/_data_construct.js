@@ -9,19 +9,21 @@ function AllDataConstruct() {
     return DataConstruct('', storage);
 }
 
-function DataConstruct(_mode, _jsonObj) {
+function DataConstruct(_mode, _json) {
 
     const mode = (_mode + '').trim();
 
     // 引数を整形する
-    let jsonStr = '';
+    let data = {};
     if (mode != '') {
-        jsonStr = JSON.stringify(_jsonObj); 
-        jsonStr = '{"'+ mode + '":' + jsonStr + '}'
+        if (mode == 'loads') {
+            data = _json;
+        } else {
+            data[mode] = _json;
+        }
     } else {
-        jsonStr = _jsonObj;
+        data = JSON.parse(_json)
     }
-    const data = JSON.parse(jsonStr);
 
     // Unityや計算サーバーが解釈できる JSONを生成する
     let json = '';
@@ -288,9 +290,7 @@ function fixMemberJson(json){
 //loadデータの整形
 function loadJson(json){
 
-    // return '{}';
-
-    if( !('loads' in json && 'load_names' in json) ) return '{}';
+    if (!('loads' in json) || !('load_names' in json)) return '{}';
 
     const member_str_item = ['m1', 'm2', 'direction'];
     const member_item = ['L1', 'L2', 'P1', 'P2'];
@@ -301,36 +301,61 @@ function loadJson(json){
     const name_data = json['load_names'];
     let dic = {};
 
-    for(var i in name_data){
-        if(!('no' in name_data[i])) continue;
-        var obj = addZero(name_data[i], name_item, name_item_full, 'int');
-        if(!obj){
-            obj = {};
-            for(var j = 0; j < name_item.length; j++){
-                obj[name_item_full[j]] = 1;
+    if ('load_names' in json) {
+        for(var i in name_data){
+            if(!('no' in name_data[i])) continue;
+            var obj = addZero(name_data[i], name_item, name_item_full, 'int');
+            if(!obj){
+                obj = {};
+                for(var j = 0; j < name_item.length; j++){
+                    obj[name_item_full[j]] = 1;
+                }
             }
+            obj['load_node'] = [];
+            obj['load_member'] = [];
+            dic[name_data[i]['no']] = obj;
         }
-        obj['load_node'] = [];
-        obj['load_member'] = [];
-        dic[name_data[i]['no']] = obj;
     }
 
-    for(var i in data){
-        if(!('no' in data[i] && 
-            'direction' in data[i] &&
-            'mark' in data[i] &&
-            'n' in data[i]) ||
-            !('m1' in data[i] || 'm2' in data[i])) continue;
+    if ('loads' in json) {
 
-        var obj = addZero(data[i], node_item, node_item, 'float');
-        obj['n'] = data[i]['n']
-        dic[data[i]['no']]['load_node'].push(obj);
+        for (var i in data) {
+            
+            if(!('no' in data[i])) continue;
 
-        obj = addZero(data[i], member_item, member_item, 'float');
-        obj['m'] = String(data[i]['m1']);
-        obj['direction'] = String(data[i]['direction']);
-        obj['mark'] = parseInt(data[i]['mark']);        
-        dic[data[i]['no']]['load_member'].push(obj);        
+            var obj = addZero(data[i], node_item, node_item, 'float');
+            if(obj){
+                obj['n'] = data[i]['n']
+                dic[data[i]['no']]['load_node'].push(obj);
+            }
+
+            if ('direction' in data[i] &&
+                'mark' in data[i] &&
+                ('m1' in data[i] || 'm2' in data[i])) {
+
+                obj = addZero(data[i], member_item, member_item, 'float');
+                if (obj) {
+                    let i1 = parseInt(String(data[i]['m1']));
+                    let i2 = parseInt(String(data[i]['m2']));
+                    if (isNaN(i1) && isNaN(i2)) continue;
+                    if (isNaN(i1)) i1 = i2;
+                    if (isNaN(i2)) i2 = i1;
+                    if (i1 > i2) {
+                        const i3 = i1;
+                        i1 = i2;
+                        i2 = i3;
+                    }
+                    for (var j = i1; j < i2 + 1; j++) {
+                        var tmp = [];
+                        Object.assign(tmp, obj);
+                        tmp['m'] = j.toString();
+                        tmp['direction'] = String(data[i]['direction']);
+                        tmp['mark'] = parseInt(data[i]['mark']);
+                        dic[data[i]['no']]['load_member'].push(tmp);
+                    }
+                }
+            }    
+        }
     }
     return JSON.stringify(dic);
 }

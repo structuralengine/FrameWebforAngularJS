@@ -22,7 +22,7 @@ public class TestButtonManager : MonoBehaviour {
         this.script = connecter.GetComponent<ExternalConnect>();
 
         this.script.ReceiveData(init_textUI.text);
-        this.script.ChengeMode("nodes");
+        this.script.ChengeMode("joints");
 
     }
 
