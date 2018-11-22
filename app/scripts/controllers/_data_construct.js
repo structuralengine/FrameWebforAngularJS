@@ -9,19 +9,21 @@ function AllDataConstruct() {
     return DataConstruct('', storage);
 }
 
-function DataConstruct(_mode, _jsonObj) {
+function DataConstruct(_mode, _json) {
 
     const mode = (_mode + '').trim();
 
     // 引数を整形する
-    let jsonStr = '';
+    let data = {};
     if (mode != '') {
-        jsonStr = JSON.stringify(_jsonObj); 
-        jsonStr = '{"'+ mode + '":' + jsonStr + '}'
+        if (mode == 'loads') {
+            data = _json;
+        } else {
+            data[mode] = _json;
+        }
     } else {
-        jsonStr = _jsonObj;
+        data = JSON.parse(_json)
     }
-    const data = JSON.parse(jsonStr);
 
     // Unityや計算サーバーが解釈できる JSONを生成する
     let json = '';
@@ -31,24 +33,24 @@ function DataConstruct(_mode, _jsonObj) {
         json += construct(data, 'nodes', node_item, 'float');
         json += ',';
     }
-    if (mode == 'fix_nodes' || mode == '') {
-        json += '"fix_node":';
-        json += fixNodeJson(data);
-        json += ',';
-    }
     if (mode == 'members' || mode == '') {
         json += '"member":';
         json += memberJson(data);
         json += ',';
     }
-    if (mode == 'panels' || mode == '') {
-        json += '"panel":';
-        json += construct(data, 'panels', panel_item, 'float');
-        json += ',';
-    }
     if (mode == 'elements' || mode == '') {
         json += '"element":';
         json += elementJson(data);
+        json += ',';
+    }
+    if (mode == 'fix_nodes' || mode == '') {
+        json += '"fix_node":';
+        json += fixNodeJson(data);
+        json += ',';
+    }
+    if (mode == 'panels' || mode == '') {
+        json += '"panel":';
+        json += construct(data, 'panels', panel_item, 'float');
         json += ',';
     }
     if (mode == 'joints' || mode == '') {
@@ -75,8 +77,6 @@ function DataConstruct(_mode, _jsonObj) {
     //最後の , を削除する
     json = json.slice(0, -1);
 
-    console.log(json);
-
     return json;
 }
 
@@ -94,28 +94,49 @@ function addZero(json, array1, array2, type){
     }
     if(flag) return false;
     var dic = {};
+    flag = false;
     for(var i in array1){
-        if(!(array1[i] in json)) continue;
+        if (!(array1[i] in json)) {
+            continue;
+        }
         var x = json[array1[i]];
         var y;
         switch(type){
             case 'int':{
                 y = parseInt(x); 
-                dic[array2[i]] = array1[i] in json ? y : 0;
+                if (!isNaN(y)) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 0;
+                } else {
+                    dic[array2[i]] = 0;
+                }
                 break;
             }
             case 'float':{
                 y = parseFloat(x);
-                dic[array2[i]] = array1[i] in json ? y : 0.0;
+                if (!isNaN(y)) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 0.0;
+                } else {
+                    dic[array2[i]] = 0.0;
+                }
                 break;
             }
             case 'string':{
                 y = String(x);
-                dic[array2[i]] = array1[i] in json ? y : 1;
+                if (y.length > 0) {
+                    flag = true;
+                    dic[array2[i]] = array1[i] in json ? y : 1;
+                } else {
+                    dic[array2[i]] = '';
+                }
             }
         }
     }
-    return dic;
+    if (flag == true) {
+        return dic;
+    }
+    return false;
 }
 
 //整形用関数
@@ -123,13 +144,17 @@ function construct(json, name, item, type){
 
     if(!(name in json)) return '{}';
     const data = json[name];
+    const keys = Object.keys(data);
     let dic = {};
-
-    for(var i in data){
-        var obj = addZero(data[i], item, item, type)
+   
+    for (var i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const tmp = data[key];
+        var obj = addZero(tmp, item, item, type)
         if(!obj) continue;
-        dic[parseInt(i) + 1] = obj;
+        dic[i+1] = obj;
     }
+
     return JSON.stringify(dic);
 }
 
@@ -140,13 +165,16 @@ function memberJson(json) {
 
     const item = ['ni', 'nj', 'e'];
     const data = json.members;
+    const keys = Object.keys(data);
     let dic = {};
 
-    for (var i = 0; i < data.length; i++) {
-        var x = addZero(data[i], item, item, 'int');
+    for (var i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const tmp = data[key];
+        var x = addZero(tmp, item, item, 'int');
         if(!x) continue;
-        dic[i] = x;
-        dic[i] = addZero(dic[i], item, item, 'string');
+        dic[i+1] = x;
+        dic[i+1] = addZero(dic[i+1], item, item, 'string');
     }
     return JSON.stringify(dic);
 }
@@ -157,16 +185,22 @@ function fixNodeJson(json){
 
     const item = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
     const data = json['fix_nodes'];
-    let dic = {'1':[], '2':[], '3':[]};
+    const keys = Object.keys(data);
+    let dic = {};
 
-    for(var i in data){
-        if(!('n' in data[i])) continue;
-        for(var j = 0; j < 3; j++){
-            var x;
-            if(x = addZero(data[i], addStr(item, j + 1), item, 'float')){
-                x['n'] = data[i]['n'];
-                dic[j + 1].push(x);
-            }
+    for (var i = 1; i <= 3; i++) {
+        var obj = [];
+        for (var j = 0; j < keys.length; j++) {
+            const key = keys[j];
+            const tmp = data[key];
+            if (!('n' in tmp)) continue;
+            var x = addZero(tmp, addStr(item, i), item, 'float');
+            if (!x) continue;
+            x['n'] = tmp['n'];
+            obj.push(x);
+        }
+        if (obj.length) {
+            dic[i] = obj;
         }
     }
     return JSON.stringify(dic);
@@ -180,14 +214,36 @@ function elementJson(json){
     const item1 = ['E', 'G', 'Xp'];
     const item2 = ['A', 'J', 'Iy', 'Iz'];
     const data = json['elements'];
-    let dic = {'1':[], '2':[], '3':[]};
+// <<<<<<< HEAD
+//     let dic = {'1':[], '2':[], '3':[]};
 
-    for(var i in data){
-        var obj = [];
-        for(var j = 0; j < 3; j++){
-            const x = addZero(data[i], item1.concat(addStr(item2, j + 1)), item1.concat(item2), 'float');
-            if(!x) continue;
-            dic[j + 1].push(x);
+//     for(var i in data){
+//         var obj = [];
+//         for(var j = 0; j < 3; j++){
+//             const x = addZero(data[i], item1.concat(addStr(item2, j + 1)), item1.concat(item2), 'float');
+//             if(!x) continue;
+//             dic[j + 1].push(x);
+// =======
+    const keys = Object.keys(data);
+    let dic = {};
+
+    for (var i = 1; i <= 3; i++) {
+        var items1 = item1.concat(item2);
+        var items2 = item1.concat(addStr(item2, i));
+        var obj = {};
+        for (var j = 0; j < keys.length; j++) {
+            const key = keys[j];
+            const x = addZero(data[key], items2, items1, 'float');
+            if (!x) continue;
+            for (var k in item2) {
+                if (item2[k] in x) {
+                    obj[j + 1] = x;
+                    break;
+                }
+            }
+        }
+        if (Object.keys(obj).length) { 
+            dic[i] = obj;
         }
     }
     return JSON.stringify(dic);
@@ -198,19 +254,25 @@ function jointJson(json){
 
     if(!('joints' in json))　return '{}';
 
-    const item = ['x1', 'y1', 'z1', 'x2', 'y2', 'z2'];
+    const item = ['xi', 'yi', 'zi', 'xj', 'yj', 'zj'];
     const data = json['joints'];
-    let dic = {'1':[], '2':[], '3':[]};
+    const keys = Object.keys(data);
+    let dic = {};
 
-    for(var i in data){
-        if(!('no' in data[i])) continue;
-
-        for(var j = 1; j <= 3; j++){
-            var x = addZero(data[i], addStr(item, j), item, 'int');
+    for (var i = 1; i <= 3; i++) {
+        var obj = [];
+        for (var j = 0; j < keys.length; j++) {
+            const key = keys[j];
+            const tmp = data[key];
+            if (!('no' in tmp)) continue;
+            var x = addZero(tmp, addStr(item, i), item, 'int');
             if(!x) continue;
-            x['m'] = data[i]['no'];
-            dic[j].push(x);
+            x['m'] = tmp['no'];
+            obj.push(x);
         }
+        if (obj.length) {
+            dic[i] = obj;
+        }      
     }
     return JSON.stringify(dic);
 }
@@ -245,15 +307,22 @@ function fixMemberJson(json){
 
     const data = json['fix_members'];
     const item = ['x', 'y', 'z', 'r'];
-    let dic = {'1':[], '2':[], '3':[]};
+    const keys = Object.keys(data);
+    let dic = {};
 
-    for(var i in data){
-        if(!('no' in data[i])) continue;
-        for(var j = 1; j <= 3; j++){
-            var obj = addZero(data[i], addStr(item, j), item, 'float');
-            if(!obj) continue;
-            obj['m'] = data[i]['no'];
-            dic[j].push(obj);
+    for (var i = 1; i <= 3; i++) {
+        var obj = [];
+        for (var j = 0; j < keys.length; j++) {
+            const key = keys[j];
+            const tmp = data[key];
+            if (!('no' in tmp)) continue;
+            var x = addZero(tmp, addStr(item, i), item, 'float');
+            if(!x) continue;
+            x['m'] = tmp['no'];
+            obj.push(x);
+        }
+        if (obj.length) {
+            dic[i] = obj;
         }
     }
     return JSON.stringify(dic);
@@ -262,49 +331,77 @@ function fixMemberJson(json){
 //loadデータの整形
 function loadJson(json){
 
-    // return '{}';
-
-    if( !('loads' in json && 'load_names' in json) ) return '{}';
+    if (!('loads' in json) || !('load_names' in json)) return '{}';
 
     const member_str_item = ['m1', 'm2', 'direction'];
     const member_item = ['L1', 'L2', 'P1', 'P2'];
     const node_item = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz'];
-    const name_item = ['fn', 'fm', 'fsec', 'joint'];
+    const name_item = ['fn', 'fm', 'el', 'jo'];
     const name_item_full = ['fix_node', 'fix_member', 'element', 'joint'];
     const data = json['loads'];
     const name_data = json['load_names'];
     let dic = {};
 
-    for(var i in name_data){
-        if(!('no' in name_data[i])) continue;
-        var obj = addZero(name_data[i], name_item, name_item_full, 'int');
-        if(!obj){
-            obj = {};
-            for(var j = 0; j < name_item.length; j++){
-                obj[name_item_full[j]] = 1;
+    if ('load_names' in json) {
+        for (var i in name_data) {
+            
+            if (!('no' in name_data[i])) continue;
+            var no = name_data[i]['no']
+            if (no==null) continue;
+            
+            var obj = addZero(name_data[i], name_item, name_item_full, 'int');
+            if(!obj){
+                obj = {};
+                for(var j = 0; j < name_item.length; j++){
+                    obj[name_item_full[j]] = 1;
+                }
             }
+            obj['load_node'] = [];
+            obj['load_member'] = [];
+            dic[no] = obj;
         }
-        obj['load_node'] = [];
-        obj['load_member'] = [];
-        dic[name_data[i]['no']] = obj;
     }
 
-    for(var i in data){
-        if(!('no' in data[i] && 
-            'direction' in data[i] &&
-            'mark' in data[i] &&
-            'n' in data[i]) ||
-            !('m1' in data[i] || 'm2' in data[i])) continue;
+    if ('loads' in json) {
 
-        var obj = addZero(data[i], node_item, node_item, 'float');
-        obj['n'] = data[i]['n']
-        dic[data[i]['no']]['load_node'].push(obj);
+        for (var i in data) {
+            
+            if(!('no' in data[i])) continue;
+            var no = data[i]['no'];
 
-        obj = addZero(data[i], member_item, member_item, 'float');
-        obj['m'] = String(data[i]['m1']);
-        obj['direction'] = String(data[i]['direction']);
-        obj['mark'] = parseInt(data[i]['mark']);        
-        dic[data[i]['no']]['load_member'].push(obj);        
+            var obj = addZero(data[i], node_item, node_item, 'float');
+            if(obj){
+                obj['n'] = data[i]['n']
+                dic[no]['load_node'].push(obj);
+            }
+
+            if ('direction' in data[i] &&
+                'mark' in data[i] &&
+                ('m1' in data[i] || 'm2' in data[i])) {
+
+                obj = addZero(data[i], member_item, member_item, 'float');
+                if (obj) {
+                    let i1 = parseInt(String(data[i]['m1']));
+                    let i2 = parseInt(String(data[i]['m2']));
+                    if (isNaN(i1) && isNaN(i2)) continue;
+                    if (isNaN(i1)) i1 = i2;
+                    if (isNaN(i2)) i2 = i1;
+                    if (i1 > i2) {
+                        const i3 = i1;
+                        i1 = i2;
+                        i2 = i3;
+                    }
+                    for (var j = i1; j < i2 + 1; j++) {
+                        var tmp = {};
+                        Object.assign(tmp, obj);
+                        tmp['m'] = j.toString();
+                        tmp['direction'] = String(data[i]['direction']);
+                        tmp['mark'] = parseInt(data[i]['mark']);
+                        dic[no]['load_member'].push(tmp);
+                    }
+                }
+            }    
+        }
     }
     return JSON.stringify(dic);
 }

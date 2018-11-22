@@ -181,6 +181,92 @@ public class CameraController : MonoBehaviour
 		_chacheTransform.LookAt(_focusTransform.position);
 	}
 
+    public void RotCamX()
+    {
+        var pos = Camera.main.transform.position;
+        var distance = Mathf.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
+        var y = _focusTransform.position.y;
+        var z = _focusTransform.position.z;
+        if (pos.y > 0)
+        {
+            if (pos.z > 0)
+            {
+                pos.y = 0;
+                pos.z = z + distance;
+            }
+            else
+            {
+                pos.y = y + distance;
+                pos.z = 0;
+            }
+        }
+        else
+        {
+            if(pos.z > 0)
+            {
+                pos.y = y - distance;
+                pos.z = 0;
+            }
+            else
+            {
+                pos.y = 0;
+                pos.z = z - distance;
+            }
+        }
+        pos.x = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
+    public void RotCamY()
+    {
+        var pos = Camera.main.transform.position;
+        var distance = Mathf.Sqrt(pos.x * pos.x + pos.z * pos.z + pos.x * pos.x);
+        var z = _focusTransform.position.z;
+        var x = _focusTransform.position.x;
+        if (pos.z > 0)
+        {
+            if (pos.x > 0)
+            {
+                pos.z = 0;
+                pos.x = x + distance;
+            }
+            else
+            {
+                pos.z = z + distance;
+                pos.x = 0;
+            }
+        }
+        else
+        {
+            if (pos.x > 0)
+            {
+                pos.z = z - distance;
+                pos.x = 0;
+            }
+            else
+            {
+                pos.z = 0;
+                pos.x = x - distance;
+            }
+        }
+        pos.y = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
+    public void RotCamZ()
+    {
+        var pos = Camera.main.transform.position;
+        var x = pos.x - _focusTransform.position.x;
+        var y = pos.y - _focusTransform.position.y;
+        pos.x = -y + _focusTransform.position.x;
+        pos.y = x + _focusTransform.position.y;
+        pos.z = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
 
 
 	/// <summary>

@@ -31,42 +31,42 @@ angular.module('webframe')
                             'column': {
                                 data: 'x11',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y1': {
                             'column': {
                                 data: 'y11',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z1': {
                             'column': {
                                 data: 'z11',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'x2': {
                             'column': {
                                 data: 'x21',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y2': {
                             'column': {
                                 data: 'y21',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z2': {
                             'column': {
                                 data: 'z21',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         }
                     }
@@ -79,42 +79,42 @@ angular.module('webframe')
                             'column': {
                                 data: 'x12',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y1': {
                             'column': {
                                 data: 'y12',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z1': {
                             'column': {
                                 data: 'z12',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'x2': {
                             'column': {
                                 data: 'x22',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y2': {
                             'column': {
                                 data: 'y22',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z2': {
                             'column': {
                                 data: 'z22',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         }
                     }
@@ -127,42 +127,42 @@ angular.module('webframe')
                             'column': {
                                 data: 'x13',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y1': {
                             'column': {
                                 data: 'y13',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z1': {
                             'column': {
                                 data: 'z13',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'x2': {
                             'column': {
                                 data: 'x23',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'y2': {
                             'column': {
                                 data: 'y23',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         },
                         'z2': {
                             'column': {
                                 data: 'z23',
                                 type: 'numeric',
-                                'format': '0.0000'
+                                'format': '0'
                             }
                         }
                     }

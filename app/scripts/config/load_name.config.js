@@ -71,14 +71,14 @@ angular.module('webframe')
                         },    
                         '断面': {
                             'column': {
-                                data: 'fsec',
+                                data: 'el',
                                 type: 'numeric',
                                 'format': '0'
                             }
                         },   
                         '結合': {
                             'column': {
-                                data: 'fsec',
+                                data: 'jo',
                                 type: 'numeric',
                                 'format': '0'
                             }
