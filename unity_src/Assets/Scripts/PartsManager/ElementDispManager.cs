@@ -6,7 +6,7 @@ using SystemUtility;
 
 
 
-public class MemberDispManager : PartsDispManager
+public class ElementDispManager : PartsDispManager
 {
 	static readonly Color		s_lineTypeBlockColor = new Color( 0.8f, 0.0f, 0.0f );
 
@@ -59,7 +59,7 @@ public class MemberDispManager : PartsDispManager
     public override void	CreateParts()
 	{
         if ( _webframe == null ) {
-            Debug.Log("MemberDispManager _webframe == null");
+            Debug.Log("ElementDispManager _webframe == null");
             return;
 		}
 
@@ -95,7 +95,7 @@ public class MemberDispManager : PartsDispManager
         }
         catch (Exception e)
         {
-            Debug.Log("MemberDispManager CreateMembers" + e.Message);
+            Debug.Log("ElementDispManager CreateMembers" + e.Message);
         }
     }
 
@@ -107,7 +107,7 @@ public class MemberDispManager : PartsDispManager
     {
         if (_webframe == null)
         {
-            Debug.Log("MemberDispManager _webframe == null");
+            Debug.Log("ElementDispManager _webframe == null");
             return;
         }
 
@@ -155,7 +155,7 @@ public class MemberDispManager : PartsDispManager
         }
         catch (Exception e)
         {
-            Debug.Log("MemberDispManager ChengeParts" + e.Message);
+            Debug.Log("ElementDispManager ChengeParts" + e.Message);
         }
     }
 
