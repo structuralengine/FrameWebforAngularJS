@@ -33,8 +33,7 @@ function SendAllDataToUnity() {
     // JSONの整形
     const data = AllDataConstruct();
     let sendJson = '{' + data + '}';
-    console.log('Unity に送信');
-    console.log(sendJson);
+
     gameInstance.SendMessage('ExternalConnect', 'ReceiveData', sendJson);
 }
 
@@ -43,7 +42,6 @@ function SendDataToUnity(mode_name, jsonObj) {
     // JSONの整形
     const data = DataConstruct(mode_name, jsonObj);
     const sendJson = '{' + data + '}';
-    console.log('Unity に送信');
     console.log(sendJson);
     gameInstance.SendMessage('ExternalConnect', 'ReceiveModeData', sendJson);
 }

@@ -214,16 +214,6 @@ function elementJson(json){
     const item1 = ['E', 'G', 'Xp'];
     const item2 = ['A', 'J', 'Iy', 'Iz'];
     const data = json['elements'];
-// <<<<<<< HEAD
-//     let dic = {'1':[], '2':[], '3':[]};
-
-//     for(var i in data){
-//         var obj = [];
-//         for(var j = 0; j < 3; j++){
-//             const x = addZero(data[i], item1.concat(addStr(item2, j + 1)), item1.concat(item2), 'float');
-//             if(!x) continue;
-//             dic[j + 1].push(x);
-// =======
     const keys = Object.keys(data);
     let dic = {};
 
