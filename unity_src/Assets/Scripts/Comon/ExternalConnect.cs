@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
 
+#pragma warning disable CS0618		//	回避策がないのでとりあえず警告を無効にしておく
+
+
+
+
+
 [DefaultExecutionOrder(100)] //Start を最後に呼び出すため
 public class ExternalConnect : MonoBehaviour {
-
+	
     MainFrameManager mainFrameObject;
 
     void Start()
@@ -71,9 +77,9 @@ public class ExternalConnect : MonoBehaviour {
     }
 
     /// <summary> Htmlから モードの変更通知がくる </summary>
-    public void ChengeMode(string strMode)
+    public void ChengeMode(MainFrameManager.InputModeType inputModeType)
     {
-        mainFrameObject.InputModeChange(strMode);
+        mainFrameObject.InputModeChange(inputModeType);
     }
 
     /// <summary> Htmlから セレクトアイテム変更の通知がくる </summary>
