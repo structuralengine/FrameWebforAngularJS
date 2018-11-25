@@ -11,6 +11,22 @@ using UnityEditor;
 /// </summary>
 public class MainFrameManager : MonoBehaviour
 {
+	public enum InputModeType {
+		nodes,
+        members,
+        panels,
+        fix_nodes,
+        elements,
+        joints,
+        notice_points,
+        fix_members,
+        loads,
+        fsec,
+        comb_fsec,
+        pic_fsec,
+        disg,
+        reac,
+	}
 
     webframe _webframe = null;
 
@@ -156,9 +172,9 @@ public class MainFrameManager : MonoBehaviour
 
     #region  JavaScript から 表示モードの変更通知が来た 
 
-    public void InputModeChange(string message)
+    public void InputModeChange(InputModeType inputModeType)
     {
-        InputPanelLabel ModeId = GetModeId(message);
+        InputPanelLabel ModeId = GetModeId(inputModeType);
         if (this.inputMode != ModeId)
         {
             this.SetActiveDispManager(ModeId);
@@ -166,58 +182,58 @@ public class MainFrameManager : MonoBehaviour
         }
     }
 
-    private InputPanelLabel GetModeId(string message)
+    private InputPanelLabel GetModeId(InputModeType inputModeType)
     {
         InputPanelLabel result = InputPanelLabel.Node;
-        switch (message.Trim())
+        switch (inputModeType)
         {
-            case "nodes":
+			case InputModeType.nodes:
                 result = InputPanelLabel.Node;
                 break;
 
-            case "members":
+            case InputModeType.members:
                 result = InputPanelLabel.Member;
                 break;
 
-            case "panels":
+            case InputModeType.panels:
                 result = InputPanelLabel.Panel;
                 break;
 
-            case "fix_nodes":
+            case InputModeType.fix_nodes:
                 result = InputPanelLabel.FixNode;
                 break;
 
-            case "elements":
+            case InputModeType.elements:
                 result = InputPanelLabel.Element;
                 break;
 
-            case "joints":
+            case InputModeType.joints:
                 result = InputPanelLabel.Joint;
                 break;
 
-            case "notice_points":
+            case InputModeType.notice_points:
                 result = InputPanelLabel.NoticePoints;
                 break;
 
-            case "fix_members":
+            case InputModeType.fix_members:
                 result = InputPanelLabel.FixMember;
                 break;
 
-            case "loads":
+            case InputModeType.loads:
                 result = InputPanelLabel.Load;
                 break;
 
-            case "fsec":
-            case "comb.fsec":
-            case "pic.fsec":
+            case InputModeType.fsec:
+            case InputModeType.comb_fsec:
+            case InputModeType.pic_fsec:
                 result = InputPanelLabel.Fsec;
                 break;
 
-            case "disg":
+            case InputModeType.disg:
                 result = InputPanelLabel.Disg;
                 break;
 
-            case "reac":
+            case InputModeType.reac:
                 result = InputPanelLabel.Reac;
                 break;
 
