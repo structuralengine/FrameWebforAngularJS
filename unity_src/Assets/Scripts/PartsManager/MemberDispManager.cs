@@ -188,7 +188,6 @@ public class MemberDispManager : PartsDispManager
         string id = this.GetBlockID(i);
 
         base.ChengeForcuseBlock(id);
-
         foreach (string j in base._blockWorkData.Keys)
         {
             if (j == id)
@@ -196,6 +195,7 @@ public class MemberDispManager : PartsDispManager
             else
                 this.SetAllowStatus(j, false);
         }
+
     }
 
      /// <summary> ブロックの矢印を設定する </summary>
