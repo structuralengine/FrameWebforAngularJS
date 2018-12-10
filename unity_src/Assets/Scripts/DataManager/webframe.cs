@@ -736,7 +736,9 @@ public class webframe : Singleton<webframe>
 
     #endregion
 
-	DisgDataManager	_disgDataManager = new DisgDataManager();
+	private DisgDataManager	_disgDataManager = new DisgDataManager();
+	public DisgDataManager disgDataManager{ get{ return _disgDataManager;} }
+
 
     #region  反力データ
 

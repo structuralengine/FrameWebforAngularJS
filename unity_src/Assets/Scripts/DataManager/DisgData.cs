@@ -56,10 +56,10 @@ namespace FrameWebforJS
 							{
 								Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
 
-								int id = int.Parse(key);
-
-								if (this.ContainsKey(id))
+								if (disg1.ContainsKey(key))
 								{
+									int id = int.Parse(key);
+
 									double dx = ComonFunctions.ConvertToDouble(disg2["dx"]);
 									double dy = ComonFunctions.ConvertToDouble(disg2["dy"]);
 									double dz = ComonFunctions.ConvertToDouble(disg2["dz"]);
