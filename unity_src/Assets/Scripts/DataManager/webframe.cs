@@ -759,40 +759,45 @@ public class webframe : Singleton<webframe>
     public void SetDisgData(Dictionary<string, object> objJson)
     {
         try { 
+			string key_id = "1";
 
-            if (objJson.ContainsKey("disg"))
-            {
-                this.ListDisgData.Clear();
+			if( objJson.ContainsKey(key_id))
+			{
+				Dictionary<string, object> test_data = objJson[key_id] as Dictionary<string, object>;
 
-                Dictionary<string, object> disg1 = objJson["disg"] as Dictionary<string, object>;
-                foreach (string key in disg1.Keys)
-                {
-                    try
-                    {
-                        Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
+				if (test_data.ContainsKey("disg"))
+				{
+					this.ListDisgData.Clear();
 
-                        int id = int.Parse(key);
+					Dictionary<string, object> disg1 = test_data["disg"] as Dictionary<string, object>;
+					foreach (string key in disg1.Keys)
+					{
+						try
+						{
+							Dictionary<string, object> disg2 = disg1[key] as Dictionary<string, object>;
 
-                        if (this.listNodePoint.ContainsKey(id))
-                        {
-                            double dx = ComonFunctions.ConvertToDouble(disg2["dx"]);
-                            double dy = ComonFunctions.ConvertToDouble(disg2["dy"]);
-                            double dz = ComonFunctions.ConvertToDouble(disg2["dz"]);
-                            double rx = ComonFunctions.ConvertToDouble(disg2["rx"]);
-                            double ry = ComonFunctions.ConvertToDouble(disg2["ry"]);
-                            double rz = ComonFunctions.ConvertToDouble(disg2["rz"]);
+							int id = int.Parse(key);
 
-                            DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
-                            this.ListDisgData.Add(id, ex);
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
+							if (this.listNodePoint.ContainsKey(id))
+							{
+								double dx = ComonFunctions.ConvertToDouble(disg2["dx"]);
+								double dy = ComonFunctions.ConvertToDouble(disg2["dy"]);
+								double dz = ComonFunctions.ConvertToDouble(disg2["dz"]);
+								double rx = ComonFunctions.ConvertToDouble(disg2["rx"]);
+								double ry = ComonFunctions.ConvertToDouble(disg2["ry"]);
+								double rz = ComonFunctions.ConvertToDouble(disg2["rz"]);
 
+								DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
+								this.ListDisgData.Add(id, ex);
+							}
+						}
+						catch
+						{
+							continue;
+						}
+					}
+				}
+			}
         }
         catch (Exception e)
         {
