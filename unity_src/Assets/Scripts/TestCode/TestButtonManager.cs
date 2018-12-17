@@ -25,7 +25,7 @@ public class TestButtonManager : MonoBehaviour {
         GameObject connecter = GameObject.Find("ExternalConnect");
         this.script = connecter.GetComponent<ExternalConnect>();
 
-		this.script.ChengeMode(_inputModeType);
+		
 
 		string initTextPath = "Test/" + _inputModeType.ToString() + "/InitText";
 		TextAsset textAsset = Resources.Load<TextAsset>(initTextPath);
@@ -54,6 +54,8 @@ public class TestButtonManager : MonoBehaviour {
 		_testText = textAsset.text;
         this.script.ReceiveModeData(_testText);
         
+
+		this.script.ChengeMode(_inputModeType);
 		/*
             case "nodes":
             case "members":

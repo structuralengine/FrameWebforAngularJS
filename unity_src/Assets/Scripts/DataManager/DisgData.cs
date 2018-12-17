@@ -30,8 +30,20 @@ namespace FrameWebforJS
         }
     }
 
-	public class DisgDataManager : Dictionary<int, DisgData>
+	public class DisgDataManager
 	{
+		private Dictionary<int, DisgData> _data = new Dictionary<int, DisgData>();
+		public Dictionary<int, DisgData> data
+		{
+			get{ return _data; }
+		}
+
+		public bool IsExistence
+		{
+			get{ return _data.Count > 0; }
+		}
+
+
 		/// <summary>
 		/// 変位量データを読み込む
 		/// </summary>
@@ -47,9 +59,10 @@ namespace FrameWebforJS
 
 					if (test_data.ContainsKey("disg"))
 					{
-						this.Clear();
+						_data.Clear();
 
 						Dictionary<string, object> disg1 = test_data["disg"] as Dictionary<string, object>;
+						//	データの読み込み
 						foreach (string key in disg1.Keys)
 						{
 							try
@@ -68,7 +81,7 @@ namespace FrameWebforJS
 									double rz = ComonFunctions.ConvertToDouble(disg2["rz"]);
 
 									DisgData ex = new DisgData(dx, dy, dz, rx, ry, rz);
-									this.Add(id, ex);
+									_data.Add(id, ex);
 								}
 							}
 							catch

@@ -41,10 +41,20 @@ public class MainFrameManager : MonoBehaviour
 		public	PartsDispManager	partsDispManager;
 	}
 
-	[SerializeField]
-	GameObject[]			        _dispPrefabs = new GameObject[(int)InputPanelLabel.Max];
+	[Serializable]
+	struct DispPrefabData
+	{
+		[SerializeField]
+		public string name;
 
-    PartsDispWork[]					_partsDispWorks = new PartsDispWork[(int)InputPanelLabel.Max];
+		[SerializeField]
+		public GameObject dispPrefabObject;
+	}
+
+	[SerializeField]
+	DispPrefabData[]		_dispPrefabData = new DispPrefabData[(int)InputPanelLabel.Max];
+
+    PartsDispWork[]			_partsDispWorks = new PartsDispWork[(int)InputPanelLabel.Max];
 
 
     /// <summary>
@@ -74,7 +84,7 @@ public class MainFrameManager : MonoBehaviour
 		int		i;
 
 		for( i=0; i<_partsDispWorks.Length; i++ ){
-			InstantiateDispPrefab( out _partsDispWorks[i], _dispPrefabs[i] );	
+			InstantiateDispPrefab( out _partsDispWorks[i], _dispPrefabData[i].dispPrefabObject );	
 		}
 	}
 

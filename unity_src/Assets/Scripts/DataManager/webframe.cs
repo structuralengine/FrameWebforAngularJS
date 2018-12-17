@@ -951,6 +951,14 @@ public class webframe : Singleton<webframe>
         // 断面力データ
         SetFsecData(objJson);
 
+
+		//	変位量データがったとき
+		if( _disgDataManager.IsExistence )
+		{
+
+		}
+
+
         SetDataFlag = true;
     }
 

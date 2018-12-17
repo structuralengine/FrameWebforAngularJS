@@ -138,8 +138,6 @@ public class PanelDispManager : PartsDispManager
                 // 座標を修正する
                 SetBlockStatus(id);
             }
-
-			//
         }
         catch (Exception e)
         {
