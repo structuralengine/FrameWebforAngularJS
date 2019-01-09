@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -322,8 +322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -187}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 300, y: 300}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &229859085
 MonoBehaviour:
@@ -444,8 +444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -187}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 300, y: 270}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &532102790
 MonoBehaviour:
@@ -599,7 +599,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "YZ\u5E73\u9762"
+  m_Text: "X\u8EF8"
 --- !u!222 &601207363
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -350, y: 300}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628456840
@@ -1030,7 +1030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "ZX\u5E73\u9762"
+  m_Text: "Y\u8EF8"
 --- !u!222 &1262049535
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1113,7 +1113,8 @@ Prefab:
         type: 2}
       propertyPath: _dispPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 1283780019492566, guid: d8ebe7bd8c526474ab8dee29424d801a,
+        type: 2}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[4]
@@ -1123,37 +1124,42 @@ Prefab:
         type: 2}
       propertyPath: _dispPrefabs.Array.data[5]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[6]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[7]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[8]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[9]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[10]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
       propertyPath: _dispPrefabs.Array.data[11]
       value: 
-      objectReference: {fileID: 182138, guid: 896491f6be40f0d4c842d25320a9e71e, type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+        type: 2}
+      propertyPath: _dispPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da367dcef0f5ce941ac0ebc554eeabfd, type: 2}
   m_IsPrefabParent: 0
@@ -1224,7 +1230,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "XY\u5E73\u9762"
+  m_Text: "Z\u8EF8"
 --- !u!222 &1492763685
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1351,8 +1357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -379, y: -187}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 300, y: 240}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1591319884
 MonoBehaviour:
@@ -1583,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e86c0f37041fba4189f01157fa03149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputModeType: 12
+  _inputModeType: 4
 --- !u!1001 &1979239602
 Prefab:
   m_ObjectHideFlags: 0
@@ -1693,7 +1699,7 @@ Prefab:
       objectReference: {fileID: 2122929198}
     - target: {fileID: 0}
       propertyPath: _inputModeType
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_RootOrder
