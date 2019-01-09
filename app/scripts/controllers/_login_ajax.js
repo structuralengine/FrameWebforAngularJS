@@ -5,6 +5,8 @@ function Login() {
     var userid = $('#loginId').val();
     var pass = $('#loginPass').val();
     
+    window.userName = userid;
+    window.password = pass;
     $('#myModal').modal('hide');
 
     var url = 'http://structuralengine.com/my-module/get_points_balance.php?id='+userid+'&ps='+pass;
