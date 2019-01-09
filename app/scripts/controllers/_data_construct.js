@@ -410,16 +410,16 @@ function mkNPList(){
     return npv;
 }
 
+// リクエスト送信用のユーザーID・パス
+var userName = '';
+var password = '';
+
 
 // --------------------------------------------------------------
 // $httpでのリクエスト送信処理
 // --------------------------------------------------------------
 function HttpSendRequest($http) {
     
-    // テスト用アカウントでアクセス
-    var userName = 'test1105';
-    var password = 'test1105';
-
     // JSONの整形
     var data = AllDataConstruct();
     
