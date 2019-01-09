@@ -26,6 +26,11 @@ function ReceiveUnity(str) {
 function ReceiveUnitySelectItemChenge(id) {
     console.log('Called!! - Receive Unity Select Item Chenge');
     console.log(id);
+
+    // Unityで選択されたオブジェクトの行をフォーカス
+    var element = document.getElementById('popupConfigElement');
+    var scope = angular.element(element).scope();
+    scope.setRow(id-1);
 }
 
 function SendAllDataToUnity() {
