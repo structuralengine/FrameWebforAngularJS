@@ -16,6 +16,9 @@ angular.module('webframe')
             var joint =  document.getElementById('popupConfigElement');
             $scope = angular.element(joint).scope();
 
+            // テーブルのIDを設定
+            $scope.$parent.hotId = 'joints';
+
             $scope.$on('reload', function (e) {
                 init();
             });

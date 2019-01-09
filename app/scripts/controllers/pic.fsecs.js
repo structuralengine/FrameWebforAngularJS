@@ -26,6 +26,9 @@ function ($scope, $filter, $q, PicFsec, picFsecDefaults) {
     var element = document.getElementById('popupConfigElement');
     $scope = angular.element(element).scope();
 
+    // テーブルのIDを設定
+    $scope.$parent.hotId = 'pic.fsecs';
+
     $scope.$on('reload', function (e) {
     init();
     });
