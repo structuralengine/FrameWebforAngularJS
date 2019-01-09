@@ -144,9 +144,9 @@ public class MainFrameManager : MonoBehaviour
                 continue;
             }
             _partsDispWorks[i].partsDispManager.CreateParts();
-            if ((InputPanelLabel)i != InputPanelLabel.Member){          // 要素は常に表示             
-                _partsDispWorks[i].partsGameObject.SetActive(false);    // 最初は全部無効にしておく
-            }
+            //if ((InputPanelLabel)i != InputPanelLabel.Member){          // 要素は常に表示             
+            //    _partsDispWorks[i].partsGameObject.SetActive(true);    // 最初は全部無効にしておく
+            //}
         }
     }
 
@@ -257,21 +257,20 @@ public class MainFrameManager : MonoBehaviour
         {
             for (int i = 0; i < _partsDispWorks.Length; i++)
             {
-
                 if (_partsDispWorks[i] == null)
                     continue;
                 if (_partsDispWorks[i].partsGameObject == null)
                     continue;
-
-                if ((InputPanelLabel)i == InputPanelLabel.Member){
-
+                if ((InputPanelLabel)i == InputPanelLabel.Member)
+                {
                     //	要素の時は非表示にせずに表示モードを切り替える
                     MemberDispManager m = _partsDispWorks[i].partsDispManager as MemberDispManager;
 
                     if (label == InputPanelLabel.Member)
                         m.ChangeDispMode(MemberDispManager.DispType.Block);
-                    else
+                    else if (label != InputPanelLabel.Element)
                         m.ChangeDispMode(MemberDispManager.DispType.Line);
+                    else _partsDispWorks[i].partsGameObject.SetActive(false);
                 }
                 else
                 {

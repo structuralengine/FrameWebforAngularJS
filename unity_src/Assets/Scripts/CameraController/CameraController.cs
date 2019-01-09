@@ -159,10 +159,116 @@ public class CameraController : MonoBehaviour
 	}
 
 
-	/// <summary>
-	/// 
-	/// </summary>
-	void Start()
+    //X軸の周りでカメラを90℃ずつ回転させる
+    public void RotCamX()
+    {
+        var pos = Camera.main.transform.position;
+
+        float distance = 0;
+        float y = _focusTransform.position.y;           //注視点を取得
+        float z = _focusTransform.position.z;
+        if (pos.y == y && pos.z == z) distance = pos.x;
+        else distance = Mathf.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);      //原点からの距離を計算
+        if (pos.y - y > 0 && pos.z - z >= 0)             //YZ平面のどの象限に位置するかで場合分け
+        {
+            pos.y = y;
+            pos.z = z + distance;
+        }
+        else if (pos.y - y >= 0 && pos.z - z < 0)
+        {
+            pos.y = y + distance;
+            pos.z = z;
+        }
+        else if (pos.y - y <= 0 && pos.z - z > 0)
+        {
+            pos.y = y - distance;
+            pos.z = z;
+        }
+        else if (pos.y - y < 0 && pos.z - z <= 0)
+        {
+            pos.y = y;
+            pos.z = z - distance;
+        }
+        pos.x = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
+    //Y軸の周りでカメラを90℃ずつ回転させる
+    public void RotCamY()
+    {
+        var pos = Camera.main.transform.position;
+
+        float distance = 0;
+        float z = _focusTransform.position.z;
+        float x = _focusTransform.position.x;
+        if (pos.z == z && pos.x == x) distance = pos.y;
+        else distance = Mathf.Sqrt(pos.y * pos.y + pos.z * pos.z + pos.x * pos.x);
+        if (pos.z - z > 0 && pos.x - x >= 0)
+        {
+            pos.z = z;
+            pos.x = x + distance;
+        }
+        else if (pos.z - z >= 0 && pos.x - x < 0)
+        {
+            pos.z = z + distance;
+            pos.x = x;
+        }
+        else if (pos.z - z <= 0 && pos.x - x > 0)
+        {
+            pos.z = z - distance;
+            pos.x = x;
+        }
+        else if (pos.z - z < 0 && pos.x - x <= 0)
+        {
+            pos.z = z;
+            pos.x = x - distance;
+        }
+        pos.y = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
+    //Z軸の周りでカメラを90℃ずつ回転させる
+    public void RotCamZ()
+    {
+        var pos = Camera.main.transform.position;
+
+        float distance = 0;
+        float x = _focusTransform.position.x;
+        float y = _focusTransform.position.y;
+        if (pos.x == x && pos.y == y) distance = pos.x;
+        else distance = Mathf.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
+        if (pos.x - x > 0 && pos.y - y >= 0)
+        {
+            pos.x = x;
+            pos.y = y + distance;
+        }
+        else if (pos.x - x >= 0 && pos.y - y < 0)
+        {
+            pos.x = x + distance;
+            pos.y = y;
+        }
+        else if (pos.x - x <= 0 && pos.y - y > 0)
+        {
+            pos.x = x - distance;
+            pos.y = y;
+        }
+        else if (pos.x - x < 0 && pos.y - y <= 0)
+        {
+            pos.x = x;
+            pos.y = y - distance;
+        }
+        pos.z = 0;
+        Camera.main.transform.position = pos;
+        _chacheTransform.LookAt(_focusTransform.position);
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void Start()
 	{
 		_chacheTransform = this.transform;
 

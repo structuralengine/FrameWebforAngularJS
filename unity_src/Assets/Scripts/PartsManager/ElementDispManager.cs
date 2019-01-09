@@ -8,18 +8,19 @@ using SystemUtility;
 
 public class ElementDispManager : PartsDispManager
 {
-	static readonly Color		s_lineTypeBlockColor = new Color( 0.8f, 0.0f, 0.0f );
+    static readonly Color s_lineTypeBlockColor = new Color(0.8f, 0.0f, 0.0f);
 
 
-	public	enum DispType {
-		Block,
-		Line,
-	}
+    public enum DispType
+    {
+        Block,
+        Line,
+    }
 
-	private	DispType	_dispType = DispType.Line;
+    private DispType _dispType = DispType.Block;
 
-	[SerializeField]
-	float		_elementScale = 1.0f;
+    [SerializeField]
+    float _elementScale = 1.0f;
 
 
     /// <summary>ブロックの初期値を設定する </summary>
@@ -56,12 +57,13 @@ public class ElementDispManager : PartsDispManager
     /// <summary>
     /// パーツを作成する
     /// </summary>
-    public override void	CreateParts()
-	{
-        if ( _webframe == null ) {
+    public override void CreateParts()
+    {
+        if (_webframe == null)
+        {
             Debug.Log("ElementDispManager _webframe == null");
             return;
-		}
+        }
 
         try
         {
@@ -89,13 +91,15 @@ public class ElementDispManager : PartsDispManager
             // 新しいオブジェクトのプロパティを設定する
             foreach (int i in _webframe.ListMemberData.Keys)
             {
+                var m = _webframe.ListMemberData[i];
+                var e = m.e; // element no
                 blockWorkData = base._blockWorkData[GetBlockID(i)];
-                InitBlock(ref blockWorkData, i, GetBlockID(i));
+                InitBlock(ref blockWorkData, e, GetBlockID(i));
             }
         }
         catch (Exception e)
         {
-            Debug.Log("ElementDispManager CreateMembers" + e.Message);
+            Debug.Log("ElementDispManager CreateElements" + e.Message);
         }
     }
 
@@ -134,7 +138,8 @@ public class ElementDispManager : PartsDispManager
                     }
                 }
             }
-            foreach (string id in DeleteKeys) {
+            foreach (string id in DeleteKeys)
+            {
                 base._blockWorkData.Remove(id);
             }
 
@@ -164,14 +169,14 @@ public class ElementDispManager : PartsDispManager
     /// <param name="i"></param>
     private string GetBlockID(int i)
     {
-        return "Member[" + i + "]";
+        return "Element[" + i + "]";
     }
-    
+
     /// <summary> データのIDを取得 </summary>
     /// <param name="id"></param>
     private int GetDataID(string id)
     {
-        string s1 = id.Replace("Member[", "");
+        string s1 = id.Replace("Element[", "");
         string s2 = s1.Replace("]", "");
         return int.Parse(s2);
     }
@@ -185,20 +190,24 @@ public class ElementDispManager : PartsDispManager
     /// <summary> ブロックの色を変更 </summary>
     public override void ChengeForcuseBlock(int i)
     {
-        string id = this.GetBlockID(i);
-
-        base.ChengeForcuseBlock(id);
-
-        foreach (string j in base._blockWorkData.Keys)
+        foreach (string j in _blockWorkData.Keys)
         {
-            if (j == id)
+            var target = _blockWorkData[j];
+
+            if (target.blockData.id == i)
+            {
+                SetPartsColor(j, s_selectColor);
                 this.SetAllowStatus(j, true);
+            }
             else
+            {
+                SetPartsColor(j, s_noSelectColor);
                 this.SetAllowStatus(j, false);
+            }
         }
     }
 
-     /// <summary> ブロックの矢印を設定する </summary>
+    /// <summary> ブロックの矢印を設定する </summary>
     /// <param name="onoff"></param>
     private void SetAllowStatus(string id, bool onoff)
     {
@@ -213,8 +222,8 @@ public class ElementDispManager : PartsDispManager
     /// <summary>
     /// 
     /// </summary>
-    public	override void	SetBlockStatus( string id )
-	{
+    public override void SetBlockStatus(string id)
+    {
         if (!base._blockWorkData.ContainsKey(id))
             return;
 
@@ -234,9 +243,10 @@ public class ElementDispManager : PartsDispManager
         partsDispStatus.id = id;
         partsDispStatus.enable = _webframe.GetNodeLength(nodeI, nodeJ, out length);
 
-		if( base.SetBlockStatusCommon(partsDispStatus) == false ) {
-			return;
-		}
+        if (base.SetBlockStatusCommon(partsDispStatus) == false)
+        {
+            return;
+        }
 
         //	表示に必要なパラメータを用意する
         Vector3 pos_i = _webframe.listNodePoint[nodeI];
@@ -248,7 +258,11 @@ public class ElementDispManager : PartsDispManager
         scale.y = 0.05f;
         scale.z = length;
 
-        if ( _dispType == DispType.Block ) {
+        scale.x = 0.5f;             //18/11/22追加
+        scale.y = 0.5f;
+
+        if (_dispType == DispType.Block)
+        {
 
             // 材料情報が有効かどうか調べる
             int e = memberData.e;
@@ -256,8 +270,9 @@ public class ElementDispManager : PartsDispManager
             Dictionary<int, webframe.ElementData> ListElementData = null;
 
             // とりあえず タイプ1 を選択
-            foreach ( var key in _webframe.ListElementData.Keys){
-                ListElementData = _webframe.ListElementData[key];    
+            foreach (var key in _webframe.ListElementData.Keys)
+            {
+                ListElementData = _webframe.ListElementData[key];
                 break;
             }
 
@@ -266,23 +281,27 @@ public class ElementDispManager : PartsDispManager
                 scale.x = 0.5f;
                 scale.y = 0.5f;
             }
-            else { 
-                if (ListElementData.ContainsKey(e)){
+            else
+            {
+                if (ListElementData.ContainsKey(e))
+                {
                     webframe.ElementData elementData = ListElementData[e];
 
-                    float	danmenseki = elementData.A;
-			        float	moment_z = elementData.Iz;
-			        float	moment_y = elementData.Iy;
+                    float danmenseki = elementData.A;
+                    float moment_z = elementData.Iz;
+                    float moment_y = elementData.Iy;
 
-			        //	スケール値を計算
-			        if( danmenseki > 0.0f ) { 
-				        scale.x = (float)System.Math.Sqrt( (double)(12.0f * moment_z/danmenseki) ) * _elementScale;
-				        scale.y = (float)System.Math.Sqrt( (double)(12.0f * moment_y/danmenseki) ) * _elementScale;
-			        }
-			        else {
-				        scale.x = 0.5f;
-				        scale.y = 0.5f;
-			        }
+                    //	スケール値を計算
+                    if (danmenseki > 0.0f)
+                    {
+                        scale.x = (float)System.Math.Sqrt((double)(12.0f * moment_z / danmenseki)) * _elementScale;
+                        scale.y = (float)System.Math.Sqrt((double)(12.0f * moment_y / danmenseki)) * _elementScale;
+                    }
+                    else
+                    {
+                        scale.x = 0.5f;
+                        scale.y = 0.5f;
+                    }
                 }
             }
         }
@@ -291,37 +310,45 @@ public class ElementDispManager : PartsDispManager
         blockWorkData = base._blockWorkData[id];
 
         blockWorkData.rootBlockTransform.position = pos_i;
-		blockWorkData.rootBlockTransform.LookAt( pos_j );
-		blockWorkData.rootBlockTransform.localScale = scale;
+        blockWorkData.rootBlockTransform.LookAt(pos_j);
+        blockWorkData.rootBlockTransform.localScale = scale;
 
-		//	方向矢印の表示
-		if( blockWorkData.directionArrow != null ) {
-			if( _dispType == DispType.Block ) {
+        //	方向矢印の表示
+        if (blockWorkData.directionArrow != null)
+        {
+            if (_dispType == DispType.Block)
+            {
 
-				Quaternion	rotate = Quaternion.LookRotation( pos_j-pos_i, Vector3.forward );
-				Vector3		arrowCenter = Vector3.Lerp( pos_i, pos_j, 0.5f );
-				Vector3		arrowSize = new Vector3( 1.0f, 1.0f, length * 0.25f );
+                Quaternion rotate = Quaternion.LookRotation(pos_j - pos_i, Vector3.forward);
+                Vector3 arrowCenter = Vector3.Lerp(pos_i, pos_j, 0.5f);
+                Vector3 arrowSize = new Vector3(1.0f, 1.0f, length * 0.25f);
 
-				blockWorkData.directionArrow.SetArrowDirection( arrowCenter, rotate, arrowSize );
-				blockWorkData.directionArrow.EnableRenderer( enabled );
-			}
-			else {
-				blockWorkData.directionArrow.EnableRenderer( false );
-			}
-		}
+                blockWorkData.directionArrow.SetArrowDirection(arrowCenter, rotate, arrowSize);
+                blockWorkData.directionArrow.EnableRenderer(enabled);
+            }
+            else
+            {
+                blockWorkData.directionArrow.EnableRenderer(false);
+            }
+        }
 
 
-		//	色の指定
-		Color	color;
+        //	色の指定
+        Color color;
 
-		if( _dispType == DispType.Block ) {
-			color = s_noSelectColor;
-		}
-		else {
-			color = s_lineTypeBlockColor;
-		}
-        foreach( string j in base._blockWorkData.Keys) {
-            base.SetPartsColor( j, color );
+        if (_dispType == DispType.Block)
+        {
+            color = s_noSelectColor;
+        }
+        else
+        {
+            color = s_lineTypeBlockColor;
+        }
+        color = Color.white;
+
+        foreach (string j in base._blockWorkData.Keys)
+        {
+            base.SetPartsColor(j, color);
             this.SetAllowStatus(j, false);
         }
     }
@@ -331,49 +358,49 @@ public class ElementDispManager : PartsDispManager
     /// 指定された節点と一致するブロックを設定する
     /// </summary>
     /// <param name="search_node"></param>
-    public void CheckNodeAndUpdateStatus( int search_node )
-	{
+    public void CheckNodeAndUpdateStatus(int search_node)
+    {
         Dictionary<int, webframe.MemberData> ListMemberData = _webframe.ListMemberData;
 
-        foreach(int i in ListMemberData.Keys) {
+        foreach (int i in ListMemberData.Keys)
+        {
             int nodeI = ListMemberData[i].ni;
             int nodeJ = ListMemberData[i].nj;
 
             float length = 0.0f;
             if (_webframe.GetNodeLength(nodeI, nodeJ, out length) == false)
                 continue;
-			if( search_node != nodeI && search_node != nodeJ) {
-				continue;		//	関わっていないので無視
-			}
-			this.SetBlockStatus(GetBlockID(i));
-		}
-	}
+            if (search_node != nodeI && search_node != nodeJ)
+            {
+                continue;       //	関わっていないので無視
+            }
+            this.SetBlockStatus(GetBlockID(i));
+        }
+    }
 
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public	override void	InputMouse()
-	{
-		if( _dispType == DispType.Block ) {
-			base.InputMouse();
-		}
-	}
+    /// <summary>
+    /// 
+    /// </summary>
+    public override void InputMouse()
+    {
+        base.InputMouse();
+    }
 
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dispType"></param>
+    public void ChangeDispMode(DispType dispType)
+    {
+        if (_dispType == dispType)
+        {
+            return;
+        }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="dispType"></param>
-	public void ChangeDispMode( DispType dispType )
-	{
-		if( _dispType == dispType ) {
-			return;
-		}
-
-		_dispType = dispType;
-		SetBlockStatusAll();
-	}
+        _dispType = dispType;
+        SetBlockStatusAll();
+    }
 
 }
