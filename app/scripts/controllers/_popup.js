@@ -8,7 +8,7 @@
  * Controller of the webframe
  */
 angular.module('webframe')
-    .controller('PopupCtrl', ['$scope','hotRegisterer', function ($scope, hotRegisterer) {
+    .controller('PopupCtrl', ['$scope', function ($scope) {
         $scope.ngPopupConfig = {
             modelName: 'myNgPopup',
             template: '<main ng-view></main>',
@@ -27,13 +27,5 @@ angular.module('webframe')
             onDragStart: function () { },
             onDragEnd: function () { },
             onResize: function () { }
-        }
-
-        // テーブルのインスタンス名（Node等のクラスから設定する）
-        $scope.hotId = '';
-
-        // Unityで選択されたオブジェクトの行をフォーカス
-        $scope.setRow = function (row){
-            hotRegisterer.getInstance($scope.hotId).selectRows(row);
         }
     }]);

@@ -13,10 +13,7 @@ angular.module('webframe')
             let ctrl = this;
 
             var element = document.getElementById('popupConfigElement');
-            $scope = angular.element(element).scope(); 
-
-            // テーブルのIDを設定
-            $scope.$parent.hotId = 'elements';     
+            $scope = angular.element(element).scope();      
 
             $scope.$on('reload', function (e) {
                 init();

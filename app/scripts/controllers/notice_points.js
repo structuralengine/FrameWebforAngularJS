@@ -19,9 +19,6 @@ angular.module('webframe')
             var element = document.getElementById('popupConfigElement');
             $scope = angular.element(element).scope();
 
-            // テーブルのIDを設定
-            $scope.$parent.hotId = 'notice_points';
-
             $scope.$on('reload', function (e) {
                 init();
             });
