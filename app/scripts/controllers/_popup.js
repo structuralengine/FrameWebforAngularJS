@@ -28,4 +28,11 @@ angular.module('webframe')
             onDragEnd: function () { },
             onResize: function () { }
         }
+
+        // #41 select行を変えたら 対象のUnityオブジェクトをフォーカスする
+        Handsontable.hooks.add('afterOnCellMouseDown', function() {
+            if (arguments[1].col == -1) {   //行選択時のみ動作させる（セル選択時は列ID、行選択時は-1が入る）
+                SendSelectItemToUnity(arguments[1].row+1);
+            }
+        });
     }]);
