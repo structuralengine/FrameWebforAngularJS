@@ -84,3 +84,26 @@ function GetModeName(templateUrl) {
     mode_name = mode_name.replace('.html', '')
     return mode_name.trim();
 }
+
+
+// #10：unity 操作中は ngPopup を 半透明にする
+function popupSemiTransparation () {
+    var canvas = document.getElementById('#canvas');
+    
+    function onSemi() {    //半透明にする
+        SendSelectItemToUnity(1);
+        $('#popupConfigElement').css('opacity','0.5');
+    }
+    function onNormal() {   //通常に戻す
+        $('#popupConfigElement').css('opacity','1');
+    }
+    function onWheel (e) {  //マウスホイール操作（引数が異なるので上記とは別メソッド）
+        onSemi();
+        return false;
+    }
+    
+    canvas.addEventListener('mousedown', onSemi, false);
+    canvas.addEventListener('mouseout', onNormal, false);
+    canvas.addEventListener('wheel', onWheel, false);
+}
+popupSemiTransparation();
