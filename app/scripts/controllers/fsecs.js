@@ -44,6 +44,7 @@ angular.module('webframe')
 
         ctrl.fsecs = fsecs;
         ctrl.settings = Fsec.settings;
+        ctrl.fsec = fsecDefaults;
 
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {

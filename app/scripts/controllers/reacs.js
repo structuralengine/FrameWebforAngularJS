@@ -44,6 +44,7 @@ angular.module('webframe')
 
         ctrl.reacs = reacs;
         ctrl.settings = Reac.settings;
+        ctrl.reac = reacDefaults;
 
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {

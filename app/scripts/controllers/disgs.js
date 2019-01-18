@@ -41,6 +41,7 @@ angular.module('webframe')
 
         ctrl.disgs = disgs;
         ctrl.settings = Disg.settings;
+        ctrl.disg = disgDefaults;
 
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {
