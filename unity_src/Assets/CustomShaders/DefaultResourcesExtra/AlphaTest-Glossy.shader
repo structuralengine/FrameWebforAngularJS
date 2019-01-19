@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Legacy Shaders/Transparent/Cutout/Specular" {
+Shader "Custom/Legacy Shaders/Transparent/Cutout/Specular" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
     _SpecColor ("Specular Color", Color) = (0.5, 0.5, 0.5, 0)

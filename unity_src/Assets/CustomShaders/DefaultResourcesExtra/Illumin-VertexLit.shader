@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Legacy Shaders/Self-Illumin/VertexLit" {
+Shader "Custom/Legacy Shaders/Self-Illumin/VertexLit" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
     _SpecColor ("Spec Color", Color) = (1,1,1,1)

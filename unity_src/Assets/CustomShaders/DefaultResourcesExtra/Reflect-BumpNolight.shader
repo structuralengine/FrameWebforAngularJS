@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Legacy Shaders/Reflective/Bumped Unlit" {
+Shader "Custom/Legacy Shaders/Reflective/Bumped Unlit" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
     _ReflectColor ("Reflection Color", Color) = (1,1,1,0.5)

@@ -1,7 +1,7 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
 // Collects cascaded shadows into screen space buffer
-Shader "Hidden/Internal-ScreenSpaceShadows" {
+Shader "Custom/Hidden/Internal-ScreenSpaceShadows" {
 Properties {
     _ShadowMapTexture ("", any) = "" {}
     _ODSWorldTexture("", 2D) = "" {}

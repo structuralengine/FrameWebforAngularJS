@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/BlitCopyWithDepth" {
+Shader "Custom/Hidden/BlitCopyWithDepth" {
     Properties
     {
         _MainTex ("Texture", any) = "" {}

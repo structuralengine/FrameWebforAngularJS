@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/Internal-CubemapToEquirect" {
+Shader "Custom/Hidden/Internal-CubemapToEquirect" {
     Properties
     {
         _MainTex("Texture", cube) = "" {}

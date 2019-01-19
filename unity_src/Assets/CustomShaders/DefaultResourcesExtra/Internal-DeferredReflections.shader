@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/Internal-DeferredReflections" {
+Shader "Custom/Hidden/Internal-DeferredReflections" {
 Properties {
     _SrcBlend ("", Float) = 1
     _DstBlend ("", Float) = 1

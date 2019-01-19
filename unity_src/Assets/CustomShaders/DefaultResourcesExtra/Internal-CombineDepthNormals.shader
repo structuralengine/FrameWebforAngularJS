@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/Internal-CombineDepthNormals" {
+Shader "Custom/Hidden/Internal-CombineDepthNormals" {
 SubShader {
 
 Pass {

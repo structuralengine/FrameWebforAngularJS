@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/BlitToDepth_MSAA" {
+Shader "Custom/Hidden/BlitToDepth_MSAA" {
     Properties{ _MainTex("DepthTexture", any) = "" {} }
         SubShader{
             Pass {

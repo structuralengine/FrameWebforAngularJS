@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Hidden/Internal-DepthNormalsTexture" {
+Shader "Custom/Hidden/Internal-DepthNormalsTexture" {
 Properties {
     _MainTex ("", 2D) = "white" {}
     _Cutoff ("", Float) = 0.5

@@ -1,6 +1,6 @@
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
-Shader "Legacy Shaders/Parallax Diffuse" {
+Shader "Custom/Legacy Shaders/Parallax Diffuse" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
     _Parallax ("Height", Range (0.005, 0.08)) = 0.02
