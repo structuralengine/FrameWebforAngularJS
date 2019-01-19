@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisgDispManager : PartsDispManager
+public class DisgDispManager : MemberDispManager
 {
 }

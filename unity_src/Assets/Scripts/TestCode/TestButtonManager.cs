@@ -53,8 +53,6 @@ public class TestButtonManager : MonoBehaviour {
 		}
 		_testText = textAsset.text;
         this.script.ReceiveModeData(_testText);
-        
-
 		this.script.ChengeMode(_inputModeType);
 		/*
             case "nodes":

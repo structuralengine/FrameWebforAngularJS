@@ -1113,64 +1113,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
         type: 2}
-      propertyPath: _dispPrefabData.Array.data[0].name
-      value: 00:Node
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
+      propertyPath: _dispPrefabData.Array.data[9].dispPrefabObject
+      value: 
+      objectReference: {fileID: 1949970687240258, guid: 80bf4b28fb5950a419a231f9cb39bf43,
         type: 2}
-      propertyPath: _dispPrefabData.Array.data[1].name
-      value: 01:Member
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[2].name
-      value: 02:NoticePoints
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[3].name
-      value: 03:Element
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[4].name
-      value: 04:Panel
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[5].name
-      value: 05:FixNode
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[6].name
-      value: 06:FixMember
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[7].name
-      value: 07:Joint
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[8].name
-      value: 08:Load
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[9].name
-      value: 09:Disg
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[10].name
-      value: 10:Reac
-      objectReference: {fileID: 0}
-    - target: {fileID: 114356090287337340, guid: da367dcef0f5ce941ac0ebc554eeabfd,
-        type: 2}
-      propertyPath: _dispPrefabData.Array.data[11].name
-      value: 11:Fsec
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da367dcef0f5ce941ac0ebc554eeabfd, type: 2}
   m_IsPrefabAsset: 0
