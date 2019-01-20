@@ -16,7 +16,7 @@ angular.module('webframe')
         'X': {
           'column': {
             readOnly: true,
-            'data': 'x',
+            'data': 'dx',
             'type': 'numeric',
             'format': '0.000'
           }
@@ -24,7 +24,7 @@ angular.module('webframe')
         'Y': {
           'column': {
             readOnly: true,
-            'data': 'y',
+            'data': 'dy',
             'type': 'numeric',
             'format': '0.000'
           }
@@ -32,7 +32,7 @@ angular.module('webframe')
         'Z': {
           'column': {
             readOnly: true,
-            'data': 'z',
+            'data': 'dz',
             'type': 'numeric',
             'format': '0.000'
           }
@@ -40,7 +40,7 @@ angular.module('webframe')
         'argX': {
             'column': {
               readOnly: true,
-              'data': 'x',
+              'data': 'rx',
               'type': 'numeric',
               'format': '0.001'
             }
@@ -48,7 +48,7 @@ angular.module('webframe')
           'argY': {
             'column': {
               readOnly: true,
-              'data': 'y',
+              'data': 'ry',
               'type': 'numeric',
               'format': '0.000'
             }
@@ -56,7 +56,7 @@ angular.module('webframe')
           'argZ': {
             'column': {
               readOnly: true,
-              'data': 'z',
+              'data': 'rz',
               'type': 'numeric',
               'format': '0.000'
             }

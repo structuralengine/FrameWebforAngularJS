@@ -35,16 +35,17 @@ angular.module('webframe')
 
       function init() {
         elementsMode = false;
-        let reacs = Reac.query();
-
-        if (reacs.length == 0) {
-          Reac.createDefaultEntries();
-          reacs = Reac.query();
-        }
-
-        ctrl.reacs = reacs;
+        
+        // データ保存の無いテーブルなので空データを初期値とする
+        ctrl.reacs = reacDefaults;
         ctrl.settings = Reac.settings;
-        ctrl.reac = reacDefaults;
+
+        // 計算結果を表示する
+        angular.forEach($scope.result_reacs, function(value, key) {
+            angular.forEach(value, function(_value, _key) {
+                ctrl.reacs[key-1][_key] = _value;
+            });
+        });
 
         // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
         $scope.ngPopupConfig = {
