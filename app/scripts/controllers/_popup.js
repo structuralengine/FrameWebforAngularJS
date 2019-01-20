@@ -29,11 +29,17 @@ angular.module('webframe')
             onResize: function () { }
         }
 
-        // テーブルのインスタンス名（Node等のクラスから設定する）
-        $scope.hotId = '';
-
         // Unityで選択されたオブジェクトの行をフォーカス
         $scope.setRow = function (row){
-            hotRegisterer.getInstance($scope.hotId).selectRows(row);
+            $scope.getHot().selectRows(row);
+        }
+        
+        // 表のインスタンスを得る
+        $scope.getHot = function () {
+            var mode_name = GetModeName(location.hash);
+            if (mode_name == '') {
+                mode_name = 'nodes'; // デフォルトの設定
+            }
+            return hotRegisterer.getInstance(mode_name);
         }
     }]);

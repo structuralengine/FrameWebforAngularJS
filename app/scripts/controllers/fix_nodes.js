@@ -15,9 +15,6 @@ angular.module('webframe')
             var element = document.getElementById('popupConfigElement');
             $scope = angular.element(element).scope();
 
-            // テーブルのIDを設定
-            $scope.$parent.hotId = 'fix_nodes';
-
             $scope.$on('reload', function (e) {
                 init();
             });
