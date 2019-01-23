@@ -62,6 +62,8 @@ angular.module('webframe')
             // データクリア
             $scope.result_comb_fsecs = {};
 
+            var maxKeyName = '';
+
             // 組み合わせ断面力の計算
             _.each($scope.fsec_combs, function(comb_value, comb_key) {  //COMBINEの各行
                 var nowLineFsec = null;
@@ -71,6 +73,7 @@ angular.module('webframe')
                     // 組合せのDIFINEを参照する
                     var dif = $scope.fsec_difines[comb_cell_key-1] || null;
                     var max = null;
+
                     if (dif) {
                         delete dif.id;
                         dif = _.map(dif, (item)=>{return item});
@@ -81,9 +84,43 @@ angular.module('webframe')
                             var fsec = _.cloneDeep($scope.result_fsecs[item]);
                             if (fsec) fsecs.push(fsec);
                         });
+                        
+                        // 各値の最大値を保持しているキー名を取得する
+                        var fxMax = null;
+                        var fyMax = null;
+                        var fzMax = null;
+                        var mxMax = null;
+                        var myMax = null;
+                        var mzMax = null;
+                        fsecs.forEach(f=>{
+                            if (fxMax == null || f['fx'] > fxMax) {
+                                fxMax = f['fx'];
+                                maxKeyName = 'fx';
+                            }
+                            if (fyMax == null || f['fy'] > fyMax) {
+                                fyMax = f['fy'];
+                                maxKeyName = 'fy';
+                            } 
+                            if (fzMax == null || f['fz'] > fzMax) {
+                                fzMax = f['fz'];
+                                maxKeyName = 'fz';
+                            } 
+                            if (mxMax == null || f['mx'] > mxMax) {
+                                mxMax = f['mx'];
+                                maxKeyName = 'mx';
+                            } 
+                            if (myMax == null || f['my'] > myMax) {
+                                myMax = f['my'];
+                                maxKeyName = 'my';
+                            } 
+                            if (mzMax == null || f['mz'] > mzMax) {
+                                mzMax = f['mz'];
+                                maxKeyName = 'mz';
+                            } 
+                        });
 
-                        // 候補の中から最大の物を取得（現在はn値で判定）
-                        max = _.maxBy(fsecs, 'n');
+                        // 候補の中から最大の物を取得（最大値を保持しているキーで判定）
+                        max = _.maxBy(fsecs, maxKeyName);
                     }
                     // 最大の内容と入力値を掛け算
                     _.each(max, function(max_val, max_key) {
@@ -120,7 +157,7 @@ angular.module('webframe')
 
                     var fsec = _.cloneDeep($scope.result_comb_fsecs[comb_cell]);    //このセルで指定された組み合わせ断面力
 
-                    if (nowLineFsec == null || nowLineFsec['n'] < fsec['n']) {  //大きさ比較（現在はn値で判定）
+                    if (nowLineFsec == null || nowLineFsec[maxKeyName] < fsec[maxKeyName]) {  //大きさ比較（最大値を保持しているキーで判定）
                         nowLineFsec = fsec;
                     }
                 });
