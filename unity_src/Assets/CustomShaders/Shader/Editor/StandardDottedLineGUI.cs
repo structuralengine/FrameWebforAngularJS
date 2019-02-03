@@ -83,6 +83,12 @@ namespace UnityEditor
         MaterialProperty detailNormalMapScale = null;
         MaterialProperty detailNormalMap = null;
         MaterialProperty uvSetSecondary = null;
+		
+		//	点線用
+		MaterialProperty dottedLineEnable = null;
+		MaterialProperty dottedLineSizeU = null;
+		MaterialProperty dottedLineSizeV = null;
+
 
         MaterialEditor m_MaterialEditor;
         WorkflowMode m_WorkflowMode = WorkflowMode.Specular;
@@ -123,6 +129,12 @@ namespace UnityEditor
             detailNormalMapScale = FindProperty("_DetailNormalMapScale", props);
             detailNormalMap = FindProperty("_DetailNormalMap", props);
             uvSetSecondary = FindProperty("_UVSec", props);
+			
+			//	点専用
+			dottedLineEnable = FindProperty("_DottedLineEnable", props);
+			dottedLineSizeU = FindProperty("_DottedLineSizeU", props);
+			dottedLineSizeV = FindProperty("_DottedLineSizeV", props);
+
         }
 
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
@@ -175,6 +187,9 @@ namespace UnityEditor
                 m_MaterialEditor.TexturePropertySingleLine(Styles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
                 m_MaterialEditor.TextureScaleOffsetProperty(detailAlbedoMap);
                 m_MaterialEditor.ShaderProperty(uvSetSecondary, Styles.uvSetLabel.text);
+				m_MaterialEditor.FloatProperty(dottedLineEnable, "Dotted Line Enable");
+				m_MaterialEditor.FloatProperty(dottedLineSizeU, "Dotted Line Size U");
+				m_MaterialEditor.FloatProperty(dottedLineSizeU, "Dotted Line Size V");
 
                 // Third properties
                 GUILayout.Label(Styles.forwardText, EditorStyles.boldLabel);
