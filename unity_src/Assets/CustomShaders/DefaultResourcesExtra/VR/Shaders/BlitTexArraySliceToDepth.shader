@@ -11,7 +11,7 @@ Shader "Hidden/VR/BlitTexArraySliceToDepth" {
             #pragma fragment frag
             #pragma target 3.5
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             UNITY_DECLARE_TEX2DARRAY(_MainTex);
             uniform float4 _MainTex_ST;

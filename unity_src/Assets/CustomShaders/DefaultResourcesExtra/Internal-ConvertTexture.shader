@@ -11,7 +11,7 @@ Shader "Custom/Hidden/ConvertTexture" {
             #pragma fragment frag
             #pragma target 2.0
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             samplerCUBE _MainTex;
             float4 _MainTex_ST;

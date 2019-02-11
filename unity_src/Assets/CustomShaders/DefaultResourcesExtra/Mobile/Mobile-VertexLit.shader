@@ -39,7 +39,7 @@ SubShader {
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 2.0
-        #include "UnityCG.cginc"
+        #include "../../CGIncludes/CustomUnityCG.cginc"
         #pragma multi_compile_fog
         #define USING_FOG (defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2))
 
@@ -120,7 +120,7 @@ SubShader {
         #pragma fragment frag
         #pragma target 2.0
         #pragma multi_compile_shadowcaster
-        #include "UnityCG.cginc"
+        #include "../../CGIncludes/CustomUnityCG.cginc"
 
         struct v2f {
             V2F_SHADOW_CASTER;

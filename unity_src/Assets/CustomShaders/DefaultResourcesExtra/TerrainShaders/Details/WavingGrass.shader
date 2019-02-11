@@ -21,7 +21,7 @@ SubShader {
 
 CGPROGRAM
 #pragma surface surf Lambert vertex:WavingGrassVert addshadow exclude_path:deferred
-#include "TerrainEngine.cginc"
+#include "../../../CGIncludes/CustomTerrainEngine.cginc"
 
 sampler2D _MainTex;
 fixed _Cutoff;
@@ -73,7 +73,7 @@ ENDCG
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 2.0
-            #include "UnityCG.cginc"
+            #include "../../../CGIncludes/CustomUnityCG.cginc"
             #pragma multi_compile_fog
             #define USING_FOG (defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2))
 

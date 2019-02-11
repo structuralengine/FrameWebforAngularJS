@@ -28,7 +28,7 @@ SubShader {
         Name "ForwardBase"
 
     CGPROGRAM
-        #include "UnityBuiltin3xTreeLibrary.cginc"
+        #include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
         #pragma vertex VertexLeaf
         #pragma fragment FragmentLeaf

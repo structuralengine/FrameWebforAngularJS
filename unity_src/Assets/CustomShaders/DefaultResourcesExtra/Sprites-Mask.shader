@@ -36,7 +36,7 @@ Shader "Custom/Sprites/Mask"
             #pragma fragment frag
             #pragma multi_compile _ PIXELSNAP_ON
             #pragma multi_compile _ ETC1_EXTERNAL_ALPHA
-            #include "UnitySprites.cginc"
+            #include "../CGIncludes/CustomUnitySprites.cginc"
 
             // alpha below which a mask should discard a pixel, thereby preventing the stencil buffer from being marked with the Mask's presence
             fixed _Cutoff;

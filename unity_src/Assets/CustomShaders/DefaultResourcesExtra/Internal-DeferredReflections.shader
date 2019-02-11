@@ -17,12 +17,12 @@ CGPROGRAM
 #pragma vertex vert_deferred
 #pragma fragment frag
 
-#include "UnityCG.cginc"
-#include "UnityDeferredLibrary.cginc"
-#include "UnityStandardUtils.cginc"
-#include "UnityGBuffer.cginc"
-#include "UnityStandardBRDF.cginc"
-#include "UnityPBSLighting.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomUnityDeferredLibrary.cginc"
+#include "../CGIncludes/CustomUnityStandardUtils.cginc"
+#include "../CGIncludes/CustomUnityGBuffer.cginc"
+#include "../CGIncludes/CustomUnityStandardBRDF.cginc"
+#include "../CGIncludes/CustomUnityPBSLighting.cginc"
 
 sampler2D _CameraGBufferTexture0;
 sampler2D _CameraGBufferTexture1;
@@ -109,7 +109,7 @@ Pass
         #pragma fragment frag
         #pragma multi_compile ___ UNITY_HDR_ON
 
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         sampler2D _CameraReflectionsTexture;
 

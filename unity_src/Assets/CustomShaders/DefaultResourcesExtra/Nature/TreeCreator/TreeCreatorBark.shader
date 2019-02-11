@@ -21,7 +21,7 @@ SubShader {
 
 CGPROGRAM
 #pragma surface surf BlinnPhong vertex:TreeVertBark addshadow nolightmap
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
 sampler2D _MainTex;
 sampler2D _BumpMap;

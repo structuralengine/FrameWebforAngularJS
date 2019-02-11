@@ -14,7 +14,7 @@ CGINCLUDE
 #pragma vertex vert
 #pragma fragment frag
 
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 
 half4 _TexA_HDR;
 half4 _TexB_HDR;

@@ -5,7 +5,7 @@ Shader "Custom/Hidden/Internal-MotionVectors"
     SubShader
     {
         CGINCLUDE
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         // Object rendering things
 

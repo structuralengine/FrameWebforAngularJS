@@ -9,8 +9,8 @@ Properties {
 SubShader {
 
 CGINCLUDE
-#include "UnityCG.cginc"
-#include "UnityDeferredLibrary.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomUnityDeferredLibrary.cginc"
 
 sampler2D _CameraNormalsTexture;
 float4 _CameraNormalsTexture_ST;

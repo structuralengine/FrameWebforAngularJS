@@ -9,8 +9,8 @@ Shader "Hidden/TerrainEngine/Details/BillboardWavingDoublePass" {
     }
 
 CGINCLUDE
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../../../CGIncludes/CustomUnityCG.cginc"
+#include "../../../CGIncludes/CustomTerrainEngine.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;

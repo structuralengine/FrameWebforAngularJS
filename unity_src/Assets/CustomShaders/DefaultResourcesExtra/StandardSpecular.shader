@@ -89,7 +89,7 @@ Shader "Custom/Standard (Specular setup)"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "UnityStandardCoreForward.cginc"
+            #include "../CGIncludes/CustomUnityStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -124,7 +124,7 @@ Shader "Custom/Standard (Specular setup)"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "UnityStandardCoreForward.cginc"
+            #include "../CGIncludes/CustomUnityStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -154,7 +154,7 @@ Shader "Custom/Standard (Specular setup)"
             #pragma vertex vertShadowCaster
             #pragma fragment fragShadowCaster
 
-            #include "UnityStandardShadow.cginc"
+            #include "../CGIncludes/CustomUnityStandardShadow.cginc"
 
             ENDCG
         }
@@ -189,7 +189,7 @@ Shader "Custom/Standard (Specular setup)"
             #pragma vertex vertDeferred
             #pragma fragment fragDeferred
 
-            #include "UnityStandardCore.cginc"
+            #include "../CGIncludes/CustomUnityStandardCore.cginc"
 
             ENDCG
         }
@@ -214,7 +214,7 @@ Shader "Custom/Standard (Specular setup)"
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature EDITOR_VISUALIZATION
 
-            #include "UnityStandardMeta.cginc"
+            #include "../CGIncludes/CustomUnityStandardMeta.cginc"
             ENDCG
         }
     }
@@ -254,7 +254,7 @@ Shader "Custom/Standard (Specular setup)"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "UnityStandardCoreForward.cginc"
+            #include "../CGIncludes/CustomUnityStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -286,7 +286,7 @@ Shader "Custom/Standard (Specular setup)"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "UnityStandardCoreForward.cginc"
+            #include "../CGIncludes/CustomUnityStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -310,7 +310,7 @@ Shader "Custom/Standard (Specular setup)"
             #pragma vertex vertShadowCaster
             #pragma fragment fragShadowCaster
 
-            #include "UnityStandardShadow.cginc"
+            #include "../CGIncludes/CustomUnityStandardShadow.cginc"
 
             ENDCG
         }
@@ -334,7 +334,7 @@ Shader "Custom/Standard (Specular setup)"
             #pragma shader_feature ___ _DETAIL_MULX2
             #pragma shader_feature EDITOR_VISUALIZATION
 
-            #include "UnityStandardMeta.cginc"
+            #include "../CGIncludes/CustomUnityStandardMeta.cginc"
             ENDCG
         }
     }

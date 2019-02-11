@@ -15,7 +15,7 @@ Shader "Hidden/VR/Internal-VRDistortion" {
                 #pragma vertex vert
                 #pragma fragment frag
 
-                #include "UnityCG.cginc"
+                #include "../CGIncludes/CustomUnityCG.cginc"
 
                 struct appdata {
                     float4 vertex : POSITION;

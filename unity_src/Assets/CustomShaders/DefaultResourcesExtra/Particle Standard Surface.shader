@@ -83,7 +83,7 @@ Shader "Custom/Particles/Standard Surface"
             #pragma vertex vertParticleShadowCaster
             #pragma fragment fragParticleShadowCaster
 
-            #include "UnityStandardParticleShadow.cginc"
+            #include "../CGIncludes/CustomUnityStandardParticleShadow.cginc"
             ENDCG
         }
 
@@ -102,7 +102,7 @@ Shader "Custom/Particles/Standard Surface"
         #pragma shader_feature _REQUIRE_UV2
         #pragma shader_feature EFFECT_BUMP
 
-        #include "UnityStandardParticles.cginc"
+        #include "../CGIncludes/CustomUnityStandardParticles.cginc"
         ENDCG
     }
 

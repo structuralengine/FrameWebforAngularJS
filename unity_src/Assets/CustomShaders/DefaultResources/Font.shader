@@ -22,7 +22,7 @@ Shader "GUI/Text Shader" {
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile _ UNITY_SINGLE_PASS_STEREO STEREO_INSTANCING_ON STEREO_MULTIVIEW_ON
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct appdata_t {
                 float4 vertex : POSITION;

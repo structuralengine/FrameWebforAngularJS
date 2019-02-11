@@ -26,12 +26,12 @@ CGPROGRAM
 
 #pragma exclude_renderers nomrt
 
-#include "UnityCG.cginc"
-#include "UnityDeferredLibrary.cginc"
-#include "UnityPBSLighting.cginc"
-#include "UnityStandardUtils.cginc"
-#include "UnityGBuffer.cginc"
-#include "UnityStandardBRDF.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomUnityDeferredLibrary.cginc"
+#include "../CGIncludes/CustomUnityPBSLighting.cginc"
+#include "../CGIncludes/CustomUnityStandardUtils.cginc"
+#include "../CGIncludes/CustomUnityGBuffer.cginc"
+#include "../CGIncludes/CustomUnityStandardBRDF.cginc"
 
 sampler2D _CameraGBufferTexture0;
 sampler2D _CameraGBufferTexture1;
@@ -104,7 +104,7 @@ CGPROGRAM
 #pragma fragment frag
 #pragma exclude_renderers nomrt
 
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 
 sampler2D _LightBuffer;
 struct v2f {

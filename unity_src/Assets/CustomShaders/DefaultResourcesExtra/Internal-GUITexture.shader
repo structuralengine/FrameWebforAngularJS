@@ -10,7 +10,7 @@ Shader "Custom/Hidden/Internal-GUITexture"
     #pragma fragment frag
     #pragma target 2.0
 
-    #include "UnityCG.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
 
     struct appdata_t {
         float4 vertex : POSITION;

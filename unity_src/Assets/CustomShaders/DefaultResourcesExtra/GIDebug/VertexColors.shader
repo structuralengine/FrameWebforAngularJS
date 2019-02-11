@@ -12,7 +12,7 @@ Shader "Hidden/GIDebug/VertexColors" {
             CGPROGRAM
             #pragma vertex vert_surf
             #pragma fragment frag_surf
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct v2f_surf
             {

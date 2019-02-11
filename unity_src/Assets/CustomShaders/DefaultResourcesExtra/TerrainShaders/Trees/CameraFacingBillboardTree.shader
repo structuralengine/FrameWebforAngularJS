@@ -20,8 +20,8 @@ Shader "Hidden/TerrainEngine/CameraFacingBillboardTree" {
                 #pragma vertex vert
                 #pragma fragment frag
                 #pragma multi_compile_fog
-                #include "UnityCG.cginc"
-                #include "UnityBuiltin3xTreeLibrary.cginc"
+                #include "../CGIncludes/CustomUnityCG.cginc"
+                #include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 #if SHADER_API_D3D11 || SHADER_API_GLCORE
 #define ALBEDO_NORMAL_LIGHTING 1
 #endif

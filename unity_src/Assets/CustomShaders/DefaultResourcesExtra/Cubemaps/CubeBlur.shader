@@ -11,8 +11,8 @@ Shader "Hidden/CubeBlur" {
     CGINCLUDE
     #pragma vertex vert
     #pragma fragment frag
-    #include "UnityCG.cginc"
-    #include "HLSLSupport.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
+    #include "../CGIncludes/CustomHLSLSupport.cginc"
 
     struct v2f {
         half4 pos : SV_POSITION;

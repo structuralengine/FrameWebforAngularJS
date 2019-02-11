@@ -13,7 +13,7 @@ Shader "Custom/Hidden/Internal-GUIRoundedRect"
     #pragma fragment frag
     #pragma target 2.5
 
-    #include "UnityCG.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
 
     struct appdata_t {
         float4 vertex : POSITION;

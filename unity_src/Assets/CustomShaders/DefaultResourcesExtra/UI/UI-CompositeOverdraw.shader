@@ -17,7 +17,7 @@ Shader "Hidden/UI/CompositeOverdraw"
         Pass
         {
             CGPROGRAM
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             #pragma vertex vert
             #pragma fragment frag

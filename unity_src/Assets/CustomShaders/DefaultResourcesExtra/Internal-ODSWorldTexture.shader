@@ -13,7 +13,7 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float4 worldPos : TEXCOORD0;
@@ -43,7 +43,7 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float4 worldPos : TEXCOORD0;
@@ -78,9 +78,9 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "Lighting.cginc"
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomLighting.cginc"
+#include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float4 worldPos : TEXCOORD0;
@@ -108,9 +108,9 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "Lighting.cginc"
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomLighting.cginc"
+#include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float2 uv : TEXCOORD0;
@@ -146,8 +146,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float4 worldPos : TEXCOORD0;
@@ -182,8 +182,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;
@@ -223,8 +223,8 @@ ENDCG
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;
@@ -268,8 +268,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     float2 uv : TEXCOORD0;
@@ -304,8 +304,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;
@@ -345,8 +345,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomTerrainEngine.cginc"
 struct v2f {
     float4 pos : SV_POSITION;
     fixed4 color : COLOR;

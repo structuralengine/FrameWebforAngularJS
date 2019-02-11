@@ -15,7 +15,7 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
+#include "../../../CGIncludes/CustomUnityCG.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;

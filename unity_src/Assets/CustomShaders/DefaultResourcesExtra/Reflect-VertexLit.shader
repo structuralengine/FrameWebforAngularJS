@@ -30,7 +30,7 @@ Shader "Custom/Legacy Shaders/Reflective/VertexLit"
                 #pragma fragment frag
                 #pragma target 2.0
                 #pragma multi_compile_fog
-                #include "UnityCG.cginc"
+                #include "../CGIncludes/CustomUnityCG.cginc"
 
                 struct v2f {
                 float4 pos : SV_POSITION;
@@ -93,7 +93,7 @@ Shader "Custom/Legacy Shaders/Reflective/VertexLit"
             #pragma target 2.0
             #pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct v2f
             {
@@ -152,7 +152,7 @@ Shader "Custom/Legacy Shaders/Reflective/VertexLit"
             #pragma target 2.0
             #pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct a2v
             {

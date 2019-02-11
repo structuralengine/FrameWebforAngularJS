@@ -24,7 +24,7 @@ SubShader {
         #pragma target 2.0
         #pragma multi_compile __ _MAPPING_6_FRAMES_LAYOUT
 
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         sampler2D _MainTex;
         float4 _MainTex_TexelSize;

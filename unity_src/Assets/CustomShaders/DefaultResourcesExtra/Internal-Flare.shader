@@ -17,7 +17,7 @@ Shader "Custom/Hidden/Internal-Flare"
             #pragma fragment frag
             #pragma target 2.0
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             sampler2D _FlareTexture;
 

@@ -17,8 +17,8 @@ Shader "Hidden/TerrainEngine/BillboardTree" {
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fog
-            #include "UnityCG.cginc"
-            #include "TerrainEngine.cginc"
+            #include "../../../CGIncludes/CustomUnityCG.cginc"
+            #include "../../../CGIncludes/CustomTerrainEngine.cginc"
 
             struct v2f {
                 float4 pos : SV_POSITION;

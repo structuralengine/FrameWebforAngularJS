@@ -29,7 +29,7 @@ SubShader {
         Name "ForwardBase"
 
     CGPROGRAM
-        #include "UnityBuiltin3xTreeLibrary.cginc"
+        #include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
         #pragma vertex VertexLeaf
         #pragma fragment FragmentLeaf
@@ -121,14 +121,14 @@ SubShader {
         #pragma vertex vert_surf
         #pragma fragment frag_surf
         #pragma multi_compile_shadowcaster
-        #include "HLSLSupport.cginc"
-        #include "UnityCG.cginc"
-        #include "Lighting.cginc"
+        #include "../../../CGIncludes/CustomHLSLSupport.cginc"
+        #include "../../../CGIncludes/CustomUnityCG.cginc"
+        #include "../../../CGIncludes/CustomLighting.cginc"
 
         #define INTERNAL_DATA
         #define WorldReflectionVector(data,normal) data.worldRefl
 
-        #include "UnityBuiltin3xTreeLibrary.cginc"
+        #include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
         sampler2D _MainTex;
 

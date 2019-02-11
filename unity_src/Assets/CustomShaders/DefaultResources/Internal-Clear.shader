@@ -9,7 +9,7 @@ Shader "Hidden/InternalClear" {
     #pragma fragment frag
     #pragma target 2.0
     #pragma multi_compile _ UNITY_SINGLE_PASS_STEREO STEREO_INSTANCING_ON STEREO_MULTIVIEW_ON
-    #include "UnityCG.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
 
     struct appdata_t {
         float4 vertex : POSITION;

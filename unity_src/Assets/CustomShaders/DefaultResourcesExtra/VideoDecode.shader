@@ -11,7 +11,7 @@ Shader "Custom/Hidden/VideoDecode"
 
     CGINCLUDE
 
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         sampler2D _MainTex;
         sampler2D _SecondTex;

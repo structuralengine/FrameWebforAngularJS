@@ -11,7 +11,7 @@ Shader "Custom/Hidden/BlitCopyDepth" {
             #pragma fragment frag
             #pragma target 2.0
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             UNITY_DECLARE_DEPTH_TEXTURE(_MainTex);
             uniform float4 _MainTex_ST;

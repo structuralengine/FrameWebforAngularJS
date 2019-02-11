@@ -24,10 +24,10 @@ CGPROGRAM
 #pragma target 2.0
 #pragma multi_compile_fwdbase
 #pragma multi_compile_fog
-#include "HLSLSupport.cginc"
-#include "UnityCG.cginc"
-#include "Lighting.cginc"
-#include "AutoLight.cginc"
+#include "../CGIncludes/CustomHLSLSupport.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomLighting.cginc"
+#include "../CGIncludes/CustomAutoLight.cginc"
 
         inline float3 LightingLambertVS (float3 normal, float3 lightDir)
         {

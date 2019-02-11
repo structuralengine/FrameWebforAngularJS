@@ -12,8 +12,8 @@ Shader "Hidden/GIDebug/TextureUV" {
             CGPROGRAM
             #pragma vertex vert_surf
             #pragma fragment frag_surf
-            #include "UnityCG.cginc"
-            #include "UnityShaderVariables.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
+            #include "../CGIncludes/CustomUnityShaderVariables.cginc"
 
             struct v2f_surf
             {

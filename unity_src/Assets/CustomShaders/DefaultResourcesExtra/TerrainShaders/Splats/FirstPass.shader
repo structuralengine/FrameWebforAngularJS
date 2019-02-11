@@ -19,7 +19,7 @@ Shader "Nature/Terrain/Diffuse" {
     CGINCLUDE
         #pragma surface surf Lambert vertex:SplatmapVert finalcolor:SplatmapFinalColor finalprepass:SplatmapFinalPrepass finalgbuffer:SplatmapFinalGBuffer noinstancing
         #pragma multi_compile_fog
-        #include "TerrainSplatmapCommon.cginc"
+        #include "../../../CGIncludes/CustomTerrainSplatmapCommon.cginc"
 
         void surf(Input IN, inout SurfaceOutput o)
         {

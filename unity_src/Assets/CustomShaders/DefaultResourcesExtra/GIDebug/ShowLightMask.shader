@@ -17,9 +17,9 @@ Shader "Hidden/GIDebug/ShowLightMask" {
             CGPROGRAM
             #pragma vertex vert_surf
             #pragma fragment frag_surf
-            #include "UnityCG.cginc"
-            #include "UnityShaderVariables.cginc"
-            #include "UnityShadowLibrary.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
+            #include "../CGIncludes/CustomUnityShaderVariables.cginc"
+            #include "../CGIncludes/CustomUnityShadowLibrary.cginc"
 
             struct v2f_surf
             {

@@ -23,7 +23,7 @@ SubShader {
 
 CGPROGRAM
 #pragma surface surf TreeLeaf alphatest:_Cutoff vertex:TreeVertLeaf addshadow nolightmap noforwardadd
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
 sampler2D _MainTex;
 sampler2D _BumpMap;

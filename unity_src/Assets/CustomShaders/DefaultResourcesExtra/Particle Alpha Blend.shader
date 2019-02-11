@@ -23,7 +23,7 @@ Category {
             #pragma multi_compile_particles
             #pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             sampler2D _MainTex;
             fixed4 _TintColor;

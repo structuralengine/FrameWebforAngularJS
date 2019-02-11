@@ -21,7 +21,7 @@ Shader "Hidden/TerrainEngine/Splatmap/Standard-Base" {
         #pragma target 3.0
         // needs more than 8 texcoords
         #pragma exclude_renderers gles
-        #include "UnityPBSLighting.cginc"
+        #include "../../../CGIncludes/CustomUnityPBSLighting.cginc"
 
         sampler2D _MainTex;
         sampler2D _MetallicTex;

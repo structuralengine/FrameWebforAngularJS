@@ -17,7 +17,7 @@ Shader "Hidden/TerrainEngine/Splatmap/Diffuse-AddPass" {
         #pragma surface surf Lambert decal:add vertex:SplatmapVert finalcolor:SplatmapFinalColor finalprepass:SplatmapFinalPrepass finalgbuffer:SplatmapFinalGBuffer noinstancing
         #pragma multi_compile_fog
         #define TERRAIN_SPLAT_ADDPASS
-        #include "TerrainSplatmapCommon.cginc"
+        #include "../../../CGIncludes/CustomTerrainSplatmapCommon.cginc"
 
         void surf(Input IN, inout SurfaceOutput o)
         {

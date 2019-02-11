@@ -32,7 +32,7 @@ Shader "Nature/Tree Soft Occlusion Leaves" {
             #pragma vertex leaves
             #pragma fragment frag
             #pragma multi_compile_fog
-            #include "UnityBuiltin2xTreeLibrary.cginc"
+            #include "../CGIncludes/CustomUnityBuiltin2xTreeLibrary.cginc"
 
             sampler2D _MainTex;
             fixed _Cutoff;
@@ -57,8 +57,8 @@ Shader "Nature/Tree Soft Occlusion Leaves" {
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_shadowcaster
-            #include "UnityCG.cginc"
-            #include "TerrainEngine.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
+            #include "../CGIncludes/CustomTerrainEngine.cginc"
 
             struct v2f {
                 V2F_SHADOW_CASTER;

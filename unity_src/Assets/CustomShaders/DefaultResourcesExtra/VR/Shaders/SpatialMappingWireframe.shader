@@ -23,7 +23,7 @@ Shader "VR/SpatialMapping/Wireframe"
             #pragma geometry geom
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             float _WireThickness;
 

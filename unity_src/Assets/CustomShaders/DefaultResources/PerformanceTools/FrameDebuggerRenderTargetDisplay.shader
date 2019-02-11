@@ -6,8 +6,8 @@ Shader "Hidden/FrameDebuggerRenderTargetDisplay" {
     }
 
     CGINCLUDE
-    #include "UnityCG.cginc"
-    #include "HLSLSupport.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
+    #include "../CGIncludes/CustomHLSLSupport.cginc"
     struct appdata {
         float4 vertex : POSITION;
         float3 uv : TEXCOORD0;

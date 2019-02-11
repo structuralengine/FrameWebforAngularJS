@@ -34,7 +34,7 @@ Shader "Nature/Terrain/Specular" {
         // needs more than 8 texcoords
         #pragma exclude_renderers gles
 
-        #include "TerrainSplatmapCommon.cginc"
+        #include "../CGIncludes/CustomTerrainSplatmapCommon.cginc"
 
         half _Shininess;
 

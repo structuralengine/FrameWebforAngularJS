@@ -15,7 +15,7 @@ Shader "Custom/Hidden/BlitToDepth" {
             #pragma fragment frag
             #pragma target 5.0
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex);
             uniform float4 _MainTex_ST;

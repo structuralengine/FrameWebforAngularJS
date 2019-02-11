@@ -10,7 +10,7 @@ Shader "Custom/Hidden/Internal-StencilWrite"
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 2.0
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
             struct a2v {
                 float4 pos : POSITION;
                 UNITY_VERTEX_INPUT_INSTANCE_ID

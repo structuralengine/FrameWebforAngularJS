@@ -24,7 +24,7 @@ SubShader {
             #pragma target 2.0
             #pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct appdata_t {
                 float4 vertex : POSITION;

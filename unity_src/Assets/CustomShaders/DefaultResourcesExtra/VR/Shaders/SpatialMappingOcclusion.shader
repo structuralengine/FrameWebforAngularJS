@@ -25,7 +25,7 @@ Shader "VR/SpatialMapping/Occlusion"
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             struct appdata
             {

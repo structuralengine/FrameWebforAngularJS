@@ -11,7 +11,7 @@ Shader "Hidden/VR/BlitTexArraySliceToDepth_MSAA" {
             #pragma fragment frag
             #pragma target 5.0
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             Texture2DMSArray<float> _MainTex;
 

@@ -84,7 +84,7 @@ Shader "Custom/Particles/Standard Unlit"
                 #pragma vertex vertParticleShadowCaster
                 #pragma fragment fragParticleShadowCaster
 
-                #include "UnityStandardParticleShadow.cginc"
+                #include "../CGIncludes/CustomUnityStandardParticleShadow.cginc"
                 ENDCG
             }
 
@@ -110,7 +110,7 @@ Shader "Custom/Particles/Standard Unlit"
                 #pragma multi_compile_instancing
                 #pragma instancing_options procedural:vertInstancingSetup
 
-                #include "UnityStandardParticles.cginc"
+                #include "../CGIncludes/CustomUnityStandardParticles.cginc"
                 ENDCG
             }
         }

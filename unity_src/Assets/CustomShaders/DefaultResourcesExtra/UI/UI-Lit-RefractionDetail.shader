@@ -65,8 +65,8 @@ Shader "UI/Lit/Refraction Detail"
             #pragma target 3.0
             #pragma surface surf PPL alpha noshadow novertexlights nolightmap vertex:vert nofog
 
-            #include "UnityCG.cginc"
-            #include "UnityUI.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
+            #include "../CGIncludes/CustomUnityUI.cginc"
 
             #pragma multi_compile __ UNITY_UI_CLIP_RECT
             #pragma multi_compile __ UNITY_UI_ALPHACLIP

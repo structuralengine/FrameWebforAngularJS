@@ -23,8 +23,8 @@ SubShader {
         #pragma vertex vert
         #pragma fragment frag
 
-        #include "UnityCG.cginc"
-        #include "Lighting.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
+        #include "../CGIncludes/CustomLighting.cginc"
 
         #pragma multi_compile _SUNDISK_NONE _SUNDISK_SIMPLE _SUNDISK_HIGH_QUALITY
 

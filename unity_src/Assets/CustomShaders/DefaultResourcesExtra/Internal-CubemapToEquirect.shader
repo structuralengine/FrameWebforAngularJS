@@ -12,7 +12,7 @@ Shader "Custom/Hidden/Internal-CubemapToEquirect" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             uniform float4 _MainTex_ST;
 

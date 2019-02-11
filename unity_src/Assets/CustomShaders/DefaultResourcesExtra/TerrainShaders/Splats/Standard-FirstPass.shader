@@ -38,13 +38,13 @@ Shader "Nature/Terrain/Standard" {
         #pragma target 3.0
         // needs more than 8 texcoords
         #pragma exclude_renderers gles psp2
-        #include "UnityPBSLighting.cginc"
+        #include "../CGIncludes/CustomUnityPBSLighting.cginc"
 
         #pragma multi_compile __ _TERRAIN_NORMAL_MAP
 
         #define TERRAIN_STANDARD_SHADER
         #define TERRAIN_SURFACE_OUTPUT SurfaceOutputStandard
-        #include "TerrainSplatmapCommon.cginc"
+        #include "../CGIncludes/CustomTerrainSplatmapCommon.cginc"
 
         half _Metallic0;
         half _Metallic1;

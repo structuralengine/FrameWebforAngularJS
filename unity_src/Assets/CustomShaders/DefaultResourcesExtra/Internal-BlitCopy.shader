@@ -13,7 +13,7 @@ Shader "Custom/Hidden/BlitCopy" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             UNITY_DECLARE_SCREENSPACE_TEXTURE(_MainTex);
             uniform float4 _MainTex_ST;

@@ -23,7 +23,7 @@ CGPROGRAM
 #pragma fragment frag
 #pragma multi_compile_fog
 
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;

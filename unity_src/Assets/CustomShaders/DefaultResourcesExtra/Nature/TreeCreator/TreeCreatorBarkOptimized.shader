@@ -22,7 +22,7 @@ SubShader {
 CGPROGRAM
 #pragma surface surf BlinnPhong vertex:TreeVertBark addshadow nolightmap
 #pragma multi_compile __ BILLBOARD_FACE_CAMERA_POS
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
 sampler2D _MainTex;
 sampler2D _BumpSpecMap;

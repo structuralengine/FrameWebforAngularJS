@@ -34,7 +34,7 @@ SubShader {
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 2.0
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
         #pragma multi_compile_fog
         #define USING_FOG (defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2))
 

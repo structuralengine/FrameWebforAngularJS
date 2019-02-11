@@ -33,7 +33,7 @@ Shader "Custom/Sprites/Diffuse"
         #pragma surface surf Lambert vertex:vert nofog nolightmap nodynlightmap keepalpha noinstancing
         #pragma multi_compile _ PIXELSNAP_ON
         #pragma multi_compile _ ETC1_EXTERNAL_ALPHA
-        #include "UnitySprites.cginc"
+        #include "../CGIncludes/CustomUnitySprites.cginc"
 
         struct Input
         {

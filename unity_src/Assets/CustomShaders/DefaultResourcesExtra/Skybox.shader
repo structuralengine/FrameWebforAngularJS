@@ -18,7 +18,7 @@ SubShader {
     Cull Off ZWrite Off
 
     CGINCLUDE
-    #include "UnityCG.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
 
     half4 _Tint;
     half _Exposure;

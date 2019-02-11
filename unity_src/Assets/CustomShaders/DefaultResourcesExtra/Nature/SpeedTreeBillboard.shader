@@ -31,7 +31,7 @@ Shader "Nature/SpeedTree Billboard"
             #pragma shader_feature EFFECT_BUMP
             #pragma shader_feature EFFECT_HUE_VARIATION
             #define ENABLE_WIND
-            #include "SpeedTreeBillboardCommon.cginc"
+            #include "../CGIncludes/CustomSpeedTreeBillboardCommon.cginc"
 
             void surf(Input IN, inout SurfaceOutput OUT)
             {
@@ -54,7 +54,7 @@ Shader "Nature/SpeedTree Billboard"
                 #pragma multi_compile __ BILLBOARD_FACE_CAMERA_POS
                 #pragma shader_feature EFFECT_HUE_VARIATION
                 #define ENABLE_WIND
-                #include "SpeedTreeBillboardCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeBillboardCommon.cginc"
 
                 struct v2f
                 {
@@ -103,7 +103,7 @@ Shader "Nature/SpeedTree Billboard"
         CGPROGRAM
             #pragma surface surf Lambert vertex:SpeedTreeBillboardVert nodirlightmap nodynlightmap noinstancing
             #pragma shader_feature EFFECT_BUMP
-            #include "SpeedTreeBillboardCommon.cginc"
+            #include "../CGIncludes/CustomSpeedTreeBillboardCommon.cginc"
 
             void surf(Input IN, inout SurfaceOutput OUT)
             {
@@ -121,7 +121,7 @@ Shader "Nature/SpeedTree Billboard"
                 #pragma vertex vert
                 #pragma fragment frag
                 #pragma multi_compile_fog
-                #include "SpeedTreeBillboardCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeBillboardCommon.cginc"
 
                 struct v2f
                 {

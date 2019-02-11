@@ -33,7 +33,7 @@ Shader "Hidden/TerrainEngine/Splatmap/Specular-AddPass" {
         #pragma exclude_renderers gles
 
         #define TERRAIN_SPLAT_ADDPASS
-        #include "TerrainSplatmapCommon.cginc"
+        #include "../../../CGIncludes/CustomTerrainSplatmapCommon.cginc"
 
         half _Shininess;
 

@@ -10,7 +10,7 @@ Shader "Custom/Hidden/Compositing"
 
     CGINCLUDE
 
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         sampler2D _MainTex;
         sampler2D _SecondTex;

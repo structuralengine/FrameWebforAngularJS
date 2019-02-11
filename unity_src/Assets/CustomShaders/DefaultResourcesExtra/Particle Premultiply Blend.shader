@@ -21,7 +21,7 @@ Category {
             #pragma target 2.0
             #pragma multi_compile_particles
 
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
 
             sampler2D _MainTex;
             fixed4 _TintColor;

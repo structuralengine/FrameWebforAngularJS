@@ -36,7 +36,7 @@ Shader "Nature/SpeedTree"
             #pragma shader_feature EFFECT_BUMP
             #pragma shader_feature EFFECT_HUE_VARIATION
             #define ENABLE_WIND
-            #include "SpeedTreeCommon.cginc"
+            #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
             void surf(Input IN, inout SurfaceOutput OUT)
             {
@@ -61,7 +61,7 @@ Shader "Nature/SpeedTree"
                 #pragma shader_feature GEOM_TYPE_BRANCH GEOM_TYPE_BRANCH_DETAIL GEOM_TYPE_FROND GEOM_TYPE_LEAF GEOM_TYPE_MESH
                 #pragma multi_compile_shadowcaster
                 #define ENABLE_WIND
-                #include "SpeedTreeCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
                 struct v2f
                 {
@@ -116,7 +116,7 @@ Shader "Nature/SpeedTree"
                 #pragma shader_feature GEOM_TYPE_BRANCH GEOM_TYPE_BRANCH_DETAIL GEOM_TYPE_FROND GEOM_TYPE_LEAF GEOM_TYPE_MESH
                 #pragma shader_feature EFFECT_HUE_VARIATION
                 #define ENABLE_WIND
-                #include "SpeedTreeCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
                 struct v2f
                 {
@@ -171,7 +171,7 @@ Shader "Nature/SpeedTree"
             #pragma surface surf Lambert vertex:SpeedTreeVert nodirlightmap nodynlightmap fullforwardshadows noinstancing
             #pragma multi_compile_vertex LOD_FADE_PERCENTAGE
             #pragma shader_feature GEOM_TYPE_BRANCH GEOM_TYPE_BRANCH_DETAIL GEOM_TYPE_FROND GEOM_TYPE_LEAF GEOM_TYPE_MESH
-            #include "SpeedTreeCommon.cginc"
+            #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
             void surf(Input IN, inout SurfaceOutput OUT)
             {
@@ -191,7 +191,7 @@ Shader "Nature/SpeedTree"
                 #pragma multi_compile_vertex LOD_FADE_PERCENTAGE
                 #pragma shader_feature GEOM_TYPE_BRANCH GEOM_TYPE_BRANCH_DETAIL GEOM_TYPE_FROND GEOM_TYPE_LEAF GEOM_TYPE_MESH
                 #pragma multi_compile_shadowcaster
-                #include "SpeedTreeCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
                 struct v2f
                 {
@@ -232,7 +232,7 @@ Shader "Nature/SpeedTree"
                 #pragma multi_compile_fog
                 #pragma multi_compile_vertex LOD_FADE_PERCENTAGE
                 #pragma shader_feature GEOM_TYPE_BRANCH GEOM_TYPE_BRANCH_DETAIL GEOM_TYPE_FROND GEOM_TYPE_LEAF GEOM_TYPE_MESH
-                #include "SpeedTreeCommon.cginc"
+                #include "../CGIncludes/CustomSpeedTreeCommon.cginc"
 
                 struct v2f
                 {

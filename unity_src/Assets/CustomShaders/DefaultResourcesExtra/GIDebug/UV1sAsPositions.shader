@@ -15,8 +15,8 @@ SubShader {
         CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
-            #include "UnityShaderVariables.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
+            #include "../CGIncludes/CustomUnityShaderVariables.cginc"
 
             struct appdata {
                 float4 vertex : POSITION;

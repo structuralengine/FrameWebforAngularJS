@@ -14,8 +14,8 @@ float4 _ShadowMapTexture_TexelSize;
 #define SHADOWMAPSAMPLER_AND_TEXELSIZE_DEFINED
 sampler2D _ODSWorldTexture;
 
-#include "UnityCG.cginc"
-#include "UnityShadowLibrary.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
+#include "../CGIncludes/CustomUnityShadowLibrary.cginc"
 
 // Configuration
 

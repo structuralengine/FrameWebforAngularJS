@@ -22,7 +22,7 @@ Shader "Hidden/Nature/Tree Soft Occlusion Bark Rendertex" {
             #pragma fragment frag
             #define WRITE_ALPHA_1 1
             #define USE_CUSTOM_LIGHT_DIR 1
-            #include "UnityBuiltin2xTreeLibrary.cginc"
+            #include "../CGIncludes/CustomUnityBuiltin2xTreeLibrary.cginc"
 
             sampler2D _MainTex;
 

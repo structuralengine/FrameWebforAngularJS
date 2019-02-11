@@ -30,7 +30,7 @@ SubShader {
 CGPROGRAM
 #pragma surface surf TreeLeaf alphatest:_Cutoff vertex:TreeVertLeaf nolightmap noforwardadd
 #pragma multi_compile __ BILLBOARD_FACE_CAMERA_POS
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
 sampler2D _MainTex;
 sampler2D _BumpSpecMap;
@@ -75,14 +75,14 @@ ENDCG
         #pragma vertex vert_surf
         #pragma fragment frag_surf
         #pragma multi_compile_shadowcaster
-        #include "HLSLSupport.cginc"
-        #include "UnityCG.cginc"
-        #include "Lighting.cginc"
+        #include "../../../CGIncludes/CustomHLSLSupport.cginc"
+        #include "../../../CGIncludes/CustomUnityCG.cginc"
+        #include "../../../CGIncludes/CustomLighting.cginc"
 
         #define INTERNAL_DATA
         #define WorldReflectionVector(data,normal) data.worldRefl
 
-        #include "UnityBuiltin3xTreeLibrary.cginc"
+        #include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
         sampler2D _MainTex;
 

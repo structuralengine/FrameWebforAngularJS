@@ -27,7 +27,7 @@ CGPROGRAM
 #pragma fragment frag
 #pragma multi_compile_fog
 
-#include "UnityCG.cginc"
+#include "../CGIncludes/CustomUnityCG.cginc"
 
 struct v2f {
     float2 uv : TEXCOORD0;

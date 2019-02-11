@@ -3,7 +3,7 @@
 Shader "Custom/Hidden/VideoDecodeAndroid"
 {
 GLSLINCLUDE
-    #include "UnityCG.glslinc"
+    #include "../CGIncludes/CustomUnityCG.glslinc"
 ENDGLSL
 
     SubShader

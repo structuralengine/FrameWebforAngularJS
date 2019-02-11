@@ -9,7 +9,7 @@ Shader "Hidden/CubeCopy" {
     #pragma vertex vert
     #pragma fragment frag
 
-    #include "UnityCG.cginc"
+    #include "../CGIncludes/CustomUnityCG.cginc"
 
     float _Level;
 

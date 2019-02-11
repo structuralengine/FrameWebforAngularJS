@@ -19,7 +19,7 @@ SubShader {
         #pragma fragment frag
         #pragma target 2.0
 
-        #include "UnityCG.cginc"
+        #include "../CGIncludes/CustomUnityCG.cginc"
 
         samplerCUBE _Tex;
         half4 _Tex_HDR;

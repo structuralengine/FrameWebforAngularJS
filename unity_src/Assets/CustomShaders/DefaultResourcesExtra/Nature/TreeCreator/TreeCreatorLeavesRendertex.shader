@@ -18,8 +18,8 @@ SubShader {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#include "UnityCG.cginc"
-#include "UnityBuiltin3xTreeLibrary.cginc"
+#include "../../../CGIncludes/CustomUnityCG.cginc"
+#include "../../../CGIncludes/CustomUnityBuiltin3xTreeLibrary.cginc"
 
 struct v2f {
     float4 pos : SV_POSITION;

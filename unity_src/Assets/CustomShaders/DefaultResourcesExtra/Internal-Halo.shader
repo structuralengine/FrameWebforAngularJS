@@ -12,7 +12,7 @@ Shader "Custom/Hidden/Internal-Halo" {
             #pragma fragment frag
             #pragma target 2.0
             #pragma multi_compile_fog
-            #include "UnityCG.cginc"
+            #include "../CGIncludes/CustomUnityCG.cginc"
             sampler2D _HaloFalloff;
             struct appdata_t {
                 float4 vertex : POSITION;
