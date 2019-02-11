@@ -39,7 +39,7 @@ Shader "Custom/StandardDottedLine"
 
         [Enum(UV0,0,UV1,1)] _UVSec ("UV Set for secondary textures", Float) = 0
 
-		_DottedLineEnable("Dotted Line Enable", Float) = 1.0
+		[ToggleOff]  _DottedLineEnable("Dotted Line Enable", Float) = 1.0
 		_DottedLineSizeU("Dotted Line Size U", Float) = 1.0
 		_DottedLineSizeV("Dotted Line Size V", Float) = 1.0
 
@@ -89,6 +89,9 @@ Shader "Custom/StandardDottedLine"
             #pragma multi_compile_fwdbase
             #pragma multi_compile_fog
             #pragma multi_compile_instancing
+
+			#define ENABLE_DOTTED_LINE
+
             // Uncomment the following line to enable dithering LOD crossfade. Note: there are more in the file to uncomment for other passes.
             //#pragma multi_compile _ LOD_FADE_CROSSFADE
 

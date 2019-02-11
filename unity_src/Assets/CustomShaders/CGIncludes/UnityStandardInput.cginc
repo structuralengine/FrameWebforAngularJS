@@ -51,6 +51,22 @@ half        _UVSec;
 half4       _EmissionColor;
 sampler2D   _EmissionMap;
 
+
+#ifndef ENABLE_DOTTED_LINE
+#define ENABLE_DOTTED_LINE
+#endif
+
+#ifdef ENABLE_DOTTED_LINE
+float _DottedLineEnable;
+float _DottedLineSizeU;
+float _DottedLineSizeV;
+
+#endif
+
+
+
+
+
 //-------------------------------------------------------------------------------------
 // Input functions
 
@@ -84,6 +100,22 @@ half DetailMask(float2 uv)
 
 half3 Albedo(float4 texcoords)
 {
+	/*
+#ifdef ENABLE_DOTTED_LINE
+    if( _DottedLineEnable > 0.0f )
+    {
+        float2 uv = texcoords.xy;
+
+        uv.x *= _DottedLineSizeU * 100.0f;
+        uv.y *= _DottedLineSizeV * 100.0f;
+
+        clip((((int) uv.x) % 2) == 0);
+        clip(0.0f);
+        discard;
+    }
+#endif
+	*/
+
     half3 albedo = _Color.rgb * tex2D (_MainTex, texcoords.xy).rgb;
 #if _DETAIL
     #if (SHADER_TARGET < 30)

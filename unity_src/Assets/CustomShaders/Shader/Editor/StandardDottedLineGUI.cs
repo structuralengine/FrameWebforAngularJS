@@ -49,6 +49,10 @@ namespace UnityEditor
             public static GUIContent detailAlbedoText = EditorGUIUtility.TrTextContent("Detail Albedo x2", "Albedo (RGB) multiplied by 2");
             public static GUIContent detailNormalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
 
+			public static GUIContent dottedLineEnableText = EditorGUIUtility.TrTextContent("Dotted Line Enable");
+			public static GUIContent dottedLineSizeU = EditorGUIUtility.TrTextContent("Dotted Line Size U");
+			public static GUIContent dottedLineSizeV = EditorGUIUtility.TrTextContent("Dotted Line Size V");
+
             public static string primaryMapsText = "Main Maps";
             public static string secondaryMapsText = "Secondary Maps";
             public static string forwardText = "Forward Rendering Options";
@@ -131,7 +135,7 @@ namespace UnityEditor
             uvSetSecondary = FindProperty("_UVSec", props);
 			
 			//	点専用
-			dottedLineEnable = FindProperty("_DottedLineEnable", props);
+			dottedLineEnable = FindProperty("_DottedLineEnable", props, false);
 			dottedLineSizeU = FindProperty("_DottedLineSizeU", props);
 			dottedLineSizeV = FindProperty("_DottedLineSizeV", props);
 
@@ -187,9 +191,12 @@ namespace UnityEditor
                 m_MaterialEditor.TexturePropertySingleLine(Styles.detailNormalMapText, detailNormalMap, detailNormalMapScale);
                 m_MaterialEditor.TextureScaleOffsetProperty(detailAlbedoMap);
                 m_MaterialEditor.ShaderProperty(uvSetSecondary, Styles.uvSetLabel.text);
-				m_MaterialEditor.FloatProperty(dottedLineEnable, "Dotted Line Enable");
-				m_MaterialEditor.FloatProperty(dottedLineSizeU, "Dotted Line Size U");
-				m_MaterialEditor.FloatProperty(dottedLineSizeU, "Dotted Line Size V");
+
+				//	点線のパラメータ
+				m_MaterialEditor.ShaderProperty(highlights, Styles.highlightsText);
+				m_MaterialEditor.ShaderProperty(dottedLineEnable, Styles.dottedLineEnableText);
+				m_MaterialEditor.ShaderProperty(dottedLineSizeU, Styles.dottedLineSizeU);
+				m_MaterialEditor.ShaderProperty(dottedLineSizeV, Styles.dottedLineSizeV);
 
                 // Third properties
                 GUILayout.Label(Styles.forwardText, EditorStyles.boldLabel);
