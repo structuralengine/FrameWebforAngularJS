@@ -3,7 +3,7 @@
 #ifndef TESSELLATION_CGINC_INCLUDED
 #define TESSELLATION_CGINC_INCLUDED
 
-#include "UnityShaderVariables.cginc"
+#include "CustomUnityShaderVariables.cginc"
 
 // ---- utility functions
 

@@ -3,8 +3,8 @@
 #ifndef UNITY_STANDARD_UTILS_INCLUDED
 #define UNITY_STANDARD_UTILS_INCLUDED
 
-#include "UnityCG.cginc"
-#include "UnityStandardConfig.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityStandardConfig.cginc"
 
 // Helper functions, maybe move into UnityCG.cginc
 

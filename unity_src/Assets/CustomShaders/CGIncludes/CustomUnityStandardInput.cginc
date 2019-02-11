@@ -3,10 +3,10 @@
 #ifndef UNITY_STANDARD_INPUT_INCLUDED
 #define UNITY_STANDARD_INPUT_INCLUDED
 
-#include "UnityCG.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityPBSLighting.cginc" // TBD: remove
-#include "UnityStandardUtils.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityPBSLighting.cginc" // TBD: remove
+#include "CustomUnityStandardUtils.cginc"
 
 //---------------------------------------
 // Directional lightmaps & Parallax require tangent space too
@@ -100,7 +100,7 @@ half DetailMask(float2 uv)
 
 half3 Albedo(float4 texcoords)
 {
-	/*
+    /*
 #ifdef ENABLE_DOTTED_LINE
     if( _DottedLineEnable > 0.0f )
     {
@@ -114,7 +114,7 @@ half3 Albedo(float4 texcoords)
         discard;
     }
 #endif
-	*/
+    */
 
     half3 albedo = _Color.rgb * tex2D (_MainTex, texcoords.xy).rgb;
 #if _DETAIL

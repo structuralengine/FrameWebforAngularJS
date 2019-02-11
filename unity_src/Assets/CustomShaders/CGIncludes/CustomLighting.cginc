@@ -3,9 +3,9 @@
 #ifndef LIGHTING_INCLUDED
 #define LIGHTING_INCLUDED
 
-#include "UnityLightingCommon.cginc"
-#include "UnityGBuffer.cginc"
-#include "UnityGlobalIllumination.cginc"
+#include "CustomUnityLightingCommon.cginc"
+#include "CustomUnityGBuffer.cginc"
+#include "CustomUnityGlobalIllumination.cginc"
 
 struct SurfaceOutput {
     fixed3 Albedo;

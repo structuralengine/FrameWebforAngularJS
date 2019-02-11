@@ -69,7 +69,7 @@ sampler2D _CameraGBufferTexture4;
     #undef UNITY_USE_RECEIVER_PLANE_BIAS
 #endif
 
-#include "UnityShadowLibrary.cginc"
+#include "CustomUnityShadowLibrary.cginc"
 
 
 //Note :

@@ -3,16 +3,16 @@
 #ifndef UNITY_STANDARD_CORE_INCLUDED
 #define UNITY_STANDARD_CORE_INCLUDED
 
-#include "UnityCG.cginc"
-#include "UnityShaderVariables.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityStandardInput.cginc"
-#include "UnityPBSLighting.cginc"
-#include "UnityStandardUtils.cginc"
-#include "UnityGBuffer.cginc"
-#include "UnityStandardBRDF.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityShaderVariables.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityStandardInput.cginc"
+#include "CustomUnityPBSLighting.cginc"
+#include "CustomUnityStandardUtils.cginc"
+#include "CustomUnityGBuffer.cginc"
+#include "CustomUnityStandardBRDF.cginc"
 
-#include "AutoLight.cginc"
+#include "CustomAutoLight.cginc"
 //-------------------------------------------------------------------------------------
 // counterpart for NormalizePerPixelNormal
 // skips normalization per-vertex and expects normalization to happen per-pixel

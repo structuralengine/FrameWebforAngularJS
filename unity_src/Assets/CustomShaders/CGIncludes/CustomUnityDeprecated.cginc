@@ -9,7 +9,7 @@
 // to when including this file, it is expected that the caller define which deprecated function group he want to enable
 // Example, following code will include all deprecated BRDF functions:
 // #define INCLUDE_UNITY_STANDARD_BRDF_DEPRECATED
-// #include "UnityDeprecated.cginc"
+// #include "CustomUnityDeprecated.cginc"
 // #undef INCLUDE_UNITY_STANDARD_BRDF_DEPRECATED
 //-----------------------------------------------------------------------------
 

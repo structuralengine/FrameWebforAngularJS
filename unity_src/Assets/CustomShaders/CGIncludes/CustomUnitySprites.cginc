@@ -3,7 +3,7 @@
 #ifndef UNITY_SPRITES_INCLUDED
 #define UNITY_SPRITES_INCLUDED
 
-#include "UnityCG.cginc"
+#include "CustomUnityCG.cginc"
 
 #ifdef UNITY_INSTANCING_ENABLED
 

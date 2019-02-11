@@ -3,9 +3,9 @@
 #ifndef UNITY_STANDARD_BRDF_INCLUDED
 #define UNITY_STANDARD_BRDF_INCLUDED
 
-#include "UnityCG.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityLightingCommon.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityLightingCommon.cginc"
 
 //-----------------------------------------------------------------------------
 // Helper to convert smoothness to roughness
@@ -457,7 +457,7 @@ half4 BRDF3_Unity_PBS (half3 diffColor, half3 specColor, half oneMinusReflectivi
 
 // Include deprecated function
 #define INCLUDE_UNITY_STANDARD_BRDF_DEPRECATED
-#include "UnityDeprecated.cginc"
+#include "CustomUnityDeprecated.cginc"
 #undef INCLUDE_UNITY_STANDARD_BRDF_DEPRECATED
 
 #endif // UNITY_STANDARD_BRDF_INCLUDED

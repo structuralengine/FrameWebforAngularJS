@@ -5,9 +5,9 @@
 
 // Functions sampling light environment data (lightmaps, light probes, reflection probes), which is then returned as the UnityGI struct.
 
-#include "UnityImageBasedLighting.cginc"
-#include "UnityStandardUtils.cginc"
-#include "UnityShadowLibrary.cginc"
+#include "CustomUnityImageBasedLighting.cginc"
+#include "CustomUnityStandardUtils.cginc"
+#include "CustomUnityShadowLibrary.cginc"
 
 inline half3 DecodeDirectionalSpecularLightmap (half3 color, half4 dirTex, half3 normalWorld, bool isRealtimeLightmap, fixed4 realtimeNormalTex, out UnityLight o_light)
 {

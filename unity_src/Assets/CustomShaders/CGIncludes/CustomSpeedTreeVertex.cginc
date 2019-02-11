@@ -45,7 +45,7 @@ struct SpeedTreeVB
 uniform half _WindQuality;
 uniform half _WindEnabled;
 
-#include "SpeedTreeWind.cginc"
+#include "CustomSpeedTreeWind.cginc"
 
 #endif
 

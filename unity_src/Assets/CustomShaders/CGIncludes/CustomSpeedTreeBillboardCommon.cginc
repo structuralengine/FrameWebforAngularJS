@@ -6,7 +6,7 @@
 #define SPEEDTREE_ALPHATEST
 fixed _Cutoff;
 
-#include "SpeedTreeCommon.cginc"
+#include "CustomSpeedTreeCommon.cginc"
 
 CBUFFER_START(UnityBillboardPerCamera)
     float3 unity_BillboardNormal;

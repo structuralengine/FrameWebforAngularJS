@@ -6,10 +6,10 @@
 // Functionality for Standard shader "meta" pass
 // (extracts albedo/emission for lightmapper etc.)
 
-#include "UnityCG.cginc"
-#include "UnityStandardInput.cginc"
-#include "UnityMetaPass.cginc"
-#include "UnityStandardCore.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityStandardInput.cginc"
+#include "CustomUnityMetaPass.cginc"
+#include "CustomUnityStandardCore.cginc"
 
 struct v2f_meta
 {

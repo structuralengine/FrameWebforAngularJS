@@ -5,7 +5,7 @@
 
 // This file is always included in all unity shaders.
 
-#include "UnityShaderVariables.cginc"
+#include "CustomUnityShaderVariables.cginc"
 
 float3 ODSOffset(float3 worldPos, float ipd)
 {

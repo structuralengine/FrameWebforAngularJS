@@ -3,8 +3,8 @@
 #ifndef UNITY_CUSTOM_TEXTURE_INCLUDED
 #define UNITY_CUSTOM_TEXTURE_INCLUDED
 
-#include "UnityCG.cginc"
-#include "UnityStandardConfig.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityStandardConfig.cginc"
 
 // Keep in sync with CustomRenderTexture.h
 #define kCustomTextureBatchSize 16

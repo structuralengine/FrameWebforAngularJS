@@ -1,3 +1,9 @@
+// Upgrade NOTE: replaced 'samplerRECT' with 'sampler2D'
+// Upgrade NOTE: replaced 'texRECT' with 'tex2D'
+// Upgrade NOTE: replaced 'texRECTbias' with 'tex2Dbias'
+// Upgrade NOTE: replaced 'texRECTlod' with 'tex2Dlod'
+// Upgrade NOTE: replaced 'texRECTproj' with 'tex2Dproj'
+
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
 #ifndef HLSL_SUPPORT_INCLUDED
@@ -584,11 +590,11 @@
 #define SampleCubeReflection(env, dir, lod) UNITY_SAMPLE_TEXCUBE_LOD(env, dir, lod)
 
 
-#define samplerRECT sampler2D
-#define texRECT tex2D
-#define texRECTlod tex2Dlod
-#define texRECTbias tex2Dbias
-#define texRECTproj tex2Dproj
+#define sampler2D sampler2D
+#define tex2D tex2D
+#define tex2Dlod tex2Dlod
+#define tex2Dbias tex2Dbias
+#define tex2Dproj tex2Dproj
 
 #if defined(SHADER_API_PSSL)
 #define VPOS            S_POSITION

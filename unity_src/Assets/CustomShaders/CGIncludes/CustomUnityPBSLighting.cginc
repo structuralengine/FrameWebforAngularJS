@@ -3,11 +3,11 @@
 #ifndef UNITY_PBS_LIGHTING_INCLUDED
 #define UNITY_PBS_LIGHTING_INCLUDED
 
-#include "UnityShaderVariables.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityLightingCommon.cginc"
-#include "UnityGBuffer.cginc"
-#include "UnityGlobalIllumination.cginc"
+#include "CustomUnityShaderVariables.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityLightingCommon.cginc"
+#include "CustomUnityGBuffer.cginc"
+#include "CustomUnityGlobalIllumination.cginc"
 
 //-------------------------------------------------------------------------------------
 // Default BRDF to use:

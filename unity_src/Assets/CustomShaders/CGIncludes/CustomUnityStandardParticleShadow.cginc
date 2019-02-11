@@ -6,11 +6,11 @@
 // NOTE: had to split shadow functions into separate file,
 // otherwise compiler gives trouble with LIGHTING_COORDS macro (in UnityStandardCore.cginc)
 
-#include "UnityCG.cginc"
-#include "UnityShaderVariables.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityStandardUtils.cginc"
-#include "UnityStandardParticleInstancing.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityShaderVariables.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityStandardUtils.cginc"
+#include "CustomUnityStandardParticleInstancing.cginc"
 
 #if _REQUIRE_UV2
     #define _FLIPBOOK_BLENDING 1

@@ -3,8 +3,8 @@
 #ifndef AUTOLIGHT_INCLUDED
 #define AUTOLIGHT_INCLUDED
 
-#include "HLSLSupport.cginc"
-#include "UnityShadowLibrary.cginc"
+#include "CustomHLSLSupport.cginc"
+#include "CustomUnityShadowLibrary.cginc"
 
 // ----------------
 //  Shadow helpers

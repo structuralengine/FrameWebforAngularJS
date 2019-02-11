@@ -7,10 +7,10 @@
 // otherwise compiler gives trouble with LIGHTING_COORDS macro (in UnityStandardCore.cginc)
 
 
-#include "UnityCG.cginc"
-#include "UnityShaderVariables.cginc"
-#include "UnityStandardConfig.cginc"
-#include "UnityStandardUtils.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomUnityShaderVariables.cginc"
+#include "CustomUnityStandardConfig.cginc"
+#include "CustomUnityStandardUtils.cginc"
 
 #if (defined(_ALPHABLEND_ON) || defined(_ALPHAPREMULTIPLY_ON)) && defined(UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS)
     #define UNITY_STANDARD_USE_DITHER_MASK 1

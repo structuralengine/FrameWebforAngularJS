@@ -11,8 +11,8 @@
 #define _DISTORTION_ON 1
 #endif
 
-#include "UnityPBSLighting.cginc"
-#include "UnityStandardParticleInstancing.cginc"
+#include "CustomUnityPBSLighting.cginc"
+#include "CustomUnityStandardParticleInstancing.cginc"
 
 // Particles surface shader has a lot of variants in it, but some of those do not affect
 // code generation (i.e. don't have inpact on which Input/SurfaceOutput things are read or written into).

@@ -1,9 +1,17 @@
+// Upgrade NOTE: commented out 'float3 _WorldSpaceCameraPos', a built-in variable
+// Upgrade NOTE: commented out 'float4 unity_DynamicLightmapST', a built-in variable
+// Upgrade NOTE: commented out 'float4 unity_LightmapST', a built-in variable
+// Upgrade NOTE: commented out 'float4 unity_ShadowFadeCenterAndType', a built-in variable
+// Upgrade NOTE: commented out UNITY_DECLARE_TEX2D unity_DynamicLightmap, a built-in variable
+// Upgrade NOTE: replaced 'glstate_matrix_projection' with 'UNITY_MATRIX_P'
+// Upgrade NOTE: replaced 'glstate_matrix_transpose_modelview0' with 'UNITY_MATRIX_T_MV'
+
 // Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
 
 #ifndef UNITY_SHADER_VARIABLES_INCLUDED
 #define UNITY_SHADER_VARIABLES_INCLUDED
 
-#include "HLSLSupport.cginc"
+#include "CustomHLSLSupport.cginc"
 
 #if defined (DIRECTIONAL_COOKIE) || defined (DIRECTIONAL)
 #define USING_DIRECTIONAL_LIGHT
@@ -14,7 +22,7 @@
 #endif
 
 #if defined(USING_STEREO_MATRICES)
-    #define glstate_matrix_projection unity_StereoMatrixP[unity_StereoEyeIndex]
+    #define UNITY_MATRIX_P unity_StereoMatrixP[unity_StereoEyeIndex]
     #define unity_MatrixV unity_StereoMatrixV[unity_StereoEyeIndex]
     #define unity_MatrixInvV unity_StereoMatrixInvV[unity_StereoEyeIndex]
     #define unity_MatrixVP unity_StereoMatrixVP[unity_StereoEyeIndex]
@@ -26,7 +34,7 @@
     #define _WorldSpaceCameraPos unity_StereoWorldSpaceCameraPos[unity_StereoEyeIndex]
 #endif
 
-#define UNITY_MATRIX_P glstate_matrix_projection
+#define UNITY_MATRIX_P UNITY_MATRIX_P
 #define UNITY_MATRIX_V unity_MatrixV
 #define UNITY_MATRIX_I_V unity_MatrixInvV
 #define UNITY_MATRIX_VP unity_MatrixVP
@@ -45,7 +53,7 @@ CBUFFER_START(UnityPerCamera)
     float4 unity_DeltaTime; // dt, 1/dt, smoothdt, 1/smoothdt
 
 #if !defined(USING_STEREO_MATRICES)
-    float3 _WorldSpaceCameraPos;
+    // float3 _WorldSpaceCameraPos;
 #endif
 
     // x = 1 or -1 (-1 if projection is flipped)
@@ -158,7 +166,7 @@ CBUFFER_START(UnityShadows)
     float4 _LightSplitsFar;
     float4x4 unity_WorldToShadow[4];
     half4 _LightShadowData;
-    float4 unity_ShadowFadeCenterAndType;
+    // float4 unity_ShadowFadeCenterAndType;
 CBUFFER_END
 
 // ----------------------------------------------------------------------------
@@ -205,7 +213,7 @@ GLOBAL_CBUFFER_END
 #endif
 
 CBUFFER_START(UnityPerDrawRare)
-    float4x4 glstate_matrix_transpose_modelview0;
+    float4x4 UNITY_MATRIX_T_MV;
 CBUFFER_END
 
 
@@ -220,7 +228,7 @@ CBUFFER_START(UnityPerFrame)
     fixed4 unity_IndirectSpecColor;
 
 #if !defined(USING_STEREO_MATRICES)
-    float4x4 glstate_matrix_projection;
+    float4x4 UNITY_MATRIX_P;
     float4x4 unity_MatrixV;
     float4x4 unity_MatrixInvV;
     float4x4 unity_MatrixVP;
@@ -254,13 +262,13 @@ UNITY_DECLARE_TEX2D_NOSAMPLER_HALF(unity_LightmapInd);
 UNITY_DECLARE_TEX2D(unity_ShadowMask);
 
 // Dynamic GI lightmap
-UNITY_DECLARE_TEX2D(unity_DynamicLightmap);
+// UNITY_DECLARE_TEX2D(unity_DynamicLightmap);
 UNITY_DECLARE_TEX2D_NOSAMPLER(unity_DynamicDirectionality);
 UNITY_DECLARE_TEX2D_NOSAMPLER(unity_DynamicNormal);
 
 CBUFFER_START(UnityLightmaps)
-    float4 unity_LightmapST;
-    float4 unity_DynamicLightmapST;
+    // float4 unity_LightmapST;
+    // float4 unity_DynamicLightmapST;
 CBUFFER_END
 
 

@@ -19,9 +19,9 @@
 // - Passes that don't do ambient (additive, shadowcaster etc.) should not do SH either.
 #define UNITY_SHOULD_SAMPLE_SH (defined(LIGHTPROBE_SH) && !defined(UNITY_PASS_FORWARDADD) && !defined(UNITY_PASS_PREPASSBASE) && !defined(UNITY_PASS_SHADOWCASTER) && !defined(UNITY_PASS_META))
 
-#include "UnityShaderVariables.cginc"
-#include "UnityShaderUtilities.cginc"
-#include "UnityInstancing.cginc"
+#include "CustomUnityShaderVariables.cginc"
+#include "CustomUnityShaderUtilities.cginc"
+#include "CustomUnityInstancing.cginc"
 
 #ifdef UNITY_COLORSPACE_GAMMA
 #define unity_ColorSpaceGrey fixed4(0.5, 0.5, 0.5, 0.5)

@@ -5,9 +5,9 @@
 
 // Shared tree shader functionality for Unity 2.x tree shaders
 
-#include "HLSLSupport.cginc"
-#include "UnityCG.cginc"
-#include "TerrainEngine.cginc"
+#include "CustomHLSLSupport.cginc"
+#include "CustomUnityCG.cginc"
+#include "CustomTerrainEngine.cginc"
 
 float _Occlusion, _AO, _BaseLight;
 fixed4 _Color;
