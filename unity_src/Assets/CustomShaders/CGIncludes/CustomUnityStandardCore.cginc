@@ -192,13 +192,15 @@ struct FragmentCommonData
 
 inline FragmentCommonData SpecularSetup (float4 i_tex)
 {
+    CheckDotedLine(i_tex);
+
     half4 specGloss = SpecularGloss(i_tex.xy);
     half3 specColor = specGloss.rgb;
     half smoothness = specGloss.a;
 
     half oneMinusReflectivity;
     half3 diffColor = EnergyConservationBetweenDiffuseAndSpecular (Albedo(i_tex), specColor, /*out*/ oneMinusReflectivity);
-
+    
     FragmentCommonData o = (FragmentCommonData)0;
     o.diffColor = diffColor;
     o.specColor = specColor;
@@ -209,6 +211,8 @@ inline FragmentCommonData SpecularSetup (float4 i_tex)
 
 inline FragmentCommonData RoughnessSetup(float4 i_tex)
 {
+    CheckDotedLine(i_tex);
+
     half2 metallicGloss = MetallicRough(i_tex.xy);
     half metallic = metallicGloss.x;
     half smoothness = metallicGloss.y; // this is 1 minus the square root of real roughness m.
@@ -227,6 +231,8 @@ inline FragmentCommonData RoughnessSetup(float4 i_tex)
 
 inline FragmentCommonData MetallicSetup (float4 i_tex)
 {
+    CheckDotedLine(i_tex);
+
     half2 metallicGloss = MetallicGloss(i_tex.xy);
     half metallic = metallicGloss.x;
     half smoothness = metallicGloss.y; // this is 1 minus the square root of real roughness m.

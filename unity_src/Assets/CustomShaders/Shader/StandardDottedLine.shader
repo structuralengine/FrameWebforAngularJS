@@ -40,8 +40,10 @@ Shader "Custom/StandardDottedLine"
         [Enum(UV0,0,UV1,1)] _UVSec ("UV Set for secondary textures", Float) = 0
 
         [ToggleOff]  _DottedLineEnable("Dotted Line Enable", Float) = 1.0
-        _DottedLineSizeU("Dotted Line Size U", Float) = 1.0
-        _DottedLineSizeV("Dotted Line Size V", Float) = 1.0
+        _DottedLineLength("Dotted Line Length", Float) = 1.0
+        _DottedLineVisibleSize("Dotted Line Visible Size", Int) = 1
+        _DottedLineAlphaSize("Dotted Line Alpha Size", Int) = 1
+        
 
 
         // Blending state
@@ -97,7 +99,7 @@ Shader "Custom/StandardDottedLine"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "..\CGIncludes\CustomUnityStandardCoreForward.cginc"
+            #include "../CGIncludes/CustomUnityStandardCoreForward.cginc"
             //#include "UnityStandardCoreForward.cginc"
 
             ENDCG

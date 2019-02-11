@@ -58,9 +58,12 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DottedLineAlphaSize: 3
     - _DottedLineEnable: 1
-    - _DottedLineSizeU: 1
+    - _DottedLineLength: 100
+    - _DottedLineSizeU: 100
     - _DottedLineSizeV: 1
+    - _DottedLineVisibleSize: 10
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5

@@ -50,8 +50,9 @@ namespace UnityEditor
             public static GUIContent detailNormalMapText = EditorGUIUtility.TrTextContent("Normal Map", "Normal Map");
 
 			public static GUIContent dottedLineEnableText = EditorGUIUtility.TrTextContent("Dotted Line Enable");
-			public static GUIContent dottedLineSizeU = EditorGUIUtility.TrTextContent("Dotted Line Size U");
-			public static GUIContent dottedLineSizeV = EditorGUIUtility.TrTextContent("Dotted Line Size V");
+			public static GUIContent dottedLineLengthText = EditorGUIUtility.TrTextContent("Dotted Line Length");
+			public static GUIContent dottedLineVisibleSizeText = EditorGUIUtility.TrTextContent("Dotted Line Visible Size");
+			public static GUIContent dottedLineAlphaSizeText = EditorGUIUtility.TrTextContent("Dotted Line Alpha Size");
 
             public static string primaryMapsText = "Main Maps";
             public static string secondaryMapsText = "Secondary Maps";
@@ -90,8 +91,10 @@ namespace UnityEditor
 		
 		//	点線用
 		MaterialProperty dottedLineEnable = null;
-		MaterialProperty dottedLineSizeU = null;
-		MaterialProperty dottedLineSizeV = null;
+		MaterialProperty dottedLineLength = null;
+		MaterialProperty dottedLineVisibleSize = null;
+		MaterialProperty dottedLineAlphaSize = null;
+		
 
 
         MaterialEditor m_MaterialEditor;
@@ -136,8 +139,10 @@ namespace UnityEditor
 			
 			//	点専用
 			dottedLineEnable = FindProperty("_DottedLineEnable", props, false);
-			dottedLineSizeU = FindProperty("_DottedLineSizeU", props);
-			dottedLineSizeV = FindProperty("_DottedLineSizeV", props);
+			dottedLineLength = FindProperty("_DottedLineLength", props);
+			dottedLineVisibleSize = FindProperty("_DottedLineVisibleSize", props);
+			dottedLineAlphaSize = FindProperty("_DottedLineAlphaSize", props);
+		
 
         }
 
@@ -195,8 +200,9 @@ namespace UnityEditor
 				//	点線のパラメータ
 				m_MaterialEditor.ShaderProperty(highlights, Styles.highlightsText);
 				m_MaterialEditor.ShaderProperty(dottedLineEnable, Styles.dottedLineEnableText);
-				m_MaterialEditor.ShaderProperty(dottedLineSizeU, Styles.dottedLineSizeU);
-				m_MaterialEditor.ShaderProperty(dottedLineSizeV, Styles.dottedLineSizeV);
+				m_MaterialEditor.ShaderProperty(dottedLineLength, Styles.dottedLineLengthText);
+				m_MaterialEditor.ShaderProperty(dottedLineVisibleSize, Styles.dottedLineVisibleSizeText);
+				m_MaterialEditor.ShaderProperty(dottedLineAlphaSize, Styles.dottedLineAlphaSizeText);
 
                 // Third properties
                 GUILayout.Label(Styles.forwardText, EditorStyles.boldLabel);
