@@ -28,7 +28,7 @@ public class PartsDispManager : MonoBehaviour
 		public	Transform		gameObjectTransform;
 		public	Transform		rootBlockTransform;
 		public	Renderer		renderer;
-		public	BlockData		blockData;
+		public	MemberBlock		blockData;
 		public	DirectionArrow	directionArrow;
 		public	MaterialPropertyBlock	materialPropertyBlock;
 		public	Mesh		mesh;
@@ -137,8 +137,8 @@ public class PartsDispManager : MonoBehaviour
 
                 //	ブロックが選択された
                 {
-					BlockData	blockData;
-					blockData = obj.GetComponentInParent<BlockData>();
+					MemberBlock	blockData;
+					blockData = obj.GetComponentInParent<MemberBlock>();
 					if( blockData != null ){
                         ChengeForcuseBlock(blockData.id);
                         SendSelectChengeMessage(blockData.id);

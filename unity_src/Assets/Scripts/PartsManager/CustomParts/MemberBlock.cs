@@ -5,7 +5,7 @@ using System.Collections;
 /// <summary>
 /// ブロックの情報を定義
 /// </summary>
-public class BlockData : MonoBehaviour
+public class MemberBlock : CommonBlock
 {
 	[SerializeField]
 	private	int		_id;

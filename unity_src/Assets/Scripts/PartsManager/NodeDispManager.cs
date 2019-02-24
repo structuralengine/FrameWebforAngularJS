@@ -18,7 +18,7 @@ public class NodeDispManager : PartsDispManager
     {
         blockWorkData.gameObjectTransform = blockWorkData.gameObject.transform;
         blockWorkData.rootBlockTransform = blockWorkData.gameObjectTransform.Find("Root");
-        blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<BlockData>();
+        blockWorkData.blockData = blockWorkData.gameObject.GetComponentInChildren<MemberBlock>();
         blockWorkData.blockData.id = data_id;
         blockWorkData.directionArrow = blockWorkData.gameObject.GetComponentInChildren<DirectionArrow>();
         blockWorkData.renderer = blockWorkData.gameObject.GetComponentInChildren<Renderer>();
