@@ -39,7 +39,7 @@ Shader "Custom/StandardDottedLine"
 
         [Enum(UV0,0,UV1,1)] _UVSec ("UV Set for secondary textures", Float) = 0
 
-        [ToggleOff]  _DottedLineEnable("Dotted Line Enable", Float) = 1.0
+        [ToggleOff]  _DottedLineEnable("Dotted Line Enable", Float) = 0.0
         _DottedLineLength("Dotted Line Length", Float) = 1.0
         _DottedLineVisibleSize("Dotted Line Visible Size", Int) = 1
         _DottedLineAlphaSize("Dotted Line Alpha Size", Int) = 1
