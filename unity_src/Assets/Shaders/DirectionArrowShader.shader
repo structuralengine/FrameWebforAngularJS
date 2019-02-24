@@ -16,7 +16,7 @@ Shader "Sasakou/DirectionArrowShader"
 			#pragma vertex vert
 			#pragma fragment frag
 			
-			#include "../CGIncludes/CustomUnityCG.cginc"
+			#include "UnityCG.cginc"
 
 			struct appdata
 			{
