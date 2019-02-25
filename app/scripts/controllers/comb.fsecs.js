@@ -34,43 +34,44 @@ angular.module('webframe')
         });
 
         function init() {
-        elementsMode = false;
-        let combFsecs = CombFsec.query();
+            elementsMode = false;
+        
+            // データ保存の無いテーブルなので空データを初期値とする
+            ctrl.combFsecs = combFsecDefaults;
+            ctrl.settings = CombFsec.settings;
+    
+            // 計算結果を表示する
+            angular.forEach($scope.result_comb_fsecs, function(value, key) {
+                angular.forEach(value, function(_value, _key) {
+                    ctrl.combFsecs[key][_key] = _value;
+                });
+            });
 
-        if (combFsecs.length == 0) {
-            CombFsec.createDefaultEntries();
-            combFsecs = CombFsec.query();
-        }
-
-        ctrl.combFsecs = combFsecs;
-        ctrl.settings = CombFsec.settings;
-        ctrl.combFsecs = combFsecDefaults;
-
-        // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
-        $scope.ngPopupConfig = {
-            width: 500,
-            height: 630,
-            resizable: false,
-            draggable: true,
-            position: {
-                top: 135,
-                left: 15
-            },
-            title: '組み合わせ断面力',
-            hasTitleBar: true,
-            pinned: false,
-            isShow: true,
-            onOpen: function () { },
-            onClose: function () { },
-            onDragStart: function () { },
-            onDragEnd: function () { },
-            onResize: function () { }
-        }
-        // エクセル表が若干はみ出しているため、それの調整
-        setTimeout(function(){
-            var content = $('.ht_master');
-            content.css('height', '560px');
-        }, 100);
+            // 以下のオプションでポップアップのサイズ、初期位置等、タイトルバーの表示有無等を設定します
+            $scope.ngPopupConfig = {
+                width: 500,
+                height: 630,
+                resizable: false,
+                draggable: true,
+                position: {
+                    top: 135,
+                    left: 15
+                },
+                title: '組み合わせ断面力',
+                hasTitleBar: true,
+                pinned: false,
+                isShow: true,
+                onOpen: function () { },
+                onClose: function () { },
+                onDragStart: function () { },
+                onDragEnd: function () { },
+                onResize: function () { }
+            }
+            // エクセル表が若干はみ出しているため、それの調整
+            setTimeout(function(){
+                var content = $('.ht_master');
+                content.css('height', '560px');
+            }, 100);
         }
 
         init();

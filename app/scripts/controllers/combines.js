@@ -23,6 +23,12 @@ angular.module('webframe')
             init();
         });
 
+        // 表が変化した
+        function afterChange(change) {
+            $scope.$parent.fsec_combs = ctrl.combines;
+            if (GetModeName(location.hash) == 'combines') $scope.$parent.culcFsec();
+        }
+
         function init() {
             elementsMode = false;
             let combines = Combine.query();
@@ -58,6 +64,10 @@ angular.module('webframe')
             setTimeout(function () {
                 var content = $('.ht_master');
                 content.css('height', '490px');
+
+                // init時点だとまだ表インスタンスが出来ていない場合があるのでここでやる
+                Handsontable.hooks.add('afterChange', afterChange, $scope.$parent.getHot());
+                afterChange(null);
             }, 100);
         }
         init();
