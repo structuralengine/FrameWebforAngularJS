@@ -5,44 +5,14 @@ https://www.youtube.com/watch?v=oIlXeybokyc&feature=youtu.be
 
 ```
 > cd working_directory 
-> git clone "https://github.com/structuralengine/FrameWebforJS.git" FrameWebforJS
-> cd FrameWebforJS 
-```
-
-## bower, gulp の準備
-
-```
-> npm install -g gulp-cli
-> npm install -g bower
+> git clone "https://github.com/structuralengine/FrameWeb.git"
+> cd FrameWeb
 ```
 
 ## 開発に必要なライブラリーの準備
 
 ```
 > npm install 
-> bower install
-```
-
-こんなコメントが出てストップした場合は 2 を選択
-
-> bower angular                        resolution Unsuitable resolution declared for angular: 1.6.5
-> 
-> Unable to find a suitable version for angular, please choose one by typing one of the numbers below:
-> 
->     1) angular#~1.5.0 which resolved to 1.5.11 and is required by ngHandsontable#0.13.0
->     2) angular#1.6.10 which resolved to 1.6.10 and i required by angular-animate#1.6.10, angular-aria#1.6.10, angular-cookies#1.6.10, angular-messages#1.6.10, angular-resource#1.6.10, angular-route#1.6.10, angular-sanitize#1.6.10, angular-touch#1.6.10
->     3) angular#^1.3.0 which resolved to 1.6.10 and is required by angularfire#2.3.0, ht-utils#a50c8f7a3d, local-db#e5dc8cb499, webdan
->     4) angular#>=1.4.0 which resolved to 1.6.10 and is required by angular-bootstrap#2.5.0
->     5) angular#>=1.2.0 <1.7.0 which resolved to 1.6.10 and is required by angular-moment#1.2.0
-> 
-> Prefix the choice with ! to persist it to bower.json
-
-```
-? Answer 2
-```
-
-```
-> gulp init
 ```
 
 ## テスト
@@ -50,76 +20,6 @@ https://www.youtube.com/watch?v=oIlXeybokyc&feature=youtu.be
 ### web サイトの起動
 
 ```
-> gulp serve
+> npm start
 ```
-
-Nisual studio Core を使う場合は、"**F5**" でも同じです
-
-「 http://localhost:9000 」でアクセス可能です。
-
-
-### 配布用ファイルの作成 (dist/ ディレクトリ）
-
-```
-> gulp 
-> ls dist/
-```
-
-command gulp により、内部で gulp build が実行され、dist ディレクトリが生成されます。
-この dist ディレクトリが公開用のファイル群です。
-
-### 配布用ファイルを使った web サイトの起動
-
-```
-> gulp serve:dist
-```
-公開用ファイル (dist) を使って web サイトの確認ができます。
-
-
-
-# javascript の作り方
-
-## トランスパイラ
-
-**トランスパイラ**とは、ECMAScript6（以下 es6） でコーディングされたjavascriptと現代のブラウザで動くようにダウングレードするツールのことです。
-
-よく利用するトランスパイラとしては
-
-- babel
-    - https://babeljs.io
-- buble
-    - https://buble.surge.sh
-
-今回は、 babel を使います.
-
-
-## タスクランナー
-
-**タスクランナー**とは、上記の **トランスパイル** 処理を定型作業を自動化するツールのことです。
-
-よく利用するタスクランナーとしては
-
-- Grunt
-    - https://gruntjs.com/
-- Gulp
-    - https://gulpjs.com/
-
-今回は、 Gulp を使います.
-
-
-
-## バンドラ
-
-**バンドラ**とは、ブラウザには import や require の仕組みがないので、複数のファイルに分け、import してコーディングしたものを、強引に１つのファイルにまとめるツールのことです。
-呼び出している部分を、別ファイルの内容で書き換える
-
-よく利用するバンドラとしては
-
-- WebPack
-    - https://webpack.github.io
-- Rollup
-    - https://rollupjs.org
-
-今回は、 上記の **タスクランナー** が代替えしているので使いません
-
 
